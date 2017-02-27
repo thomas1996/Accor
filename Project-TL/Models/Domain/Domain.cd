@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="Project_TL.Models.Domain.ContactPerson">
+    <Position X="12.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Domain\ContactPerson.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project_TL.Models.Domain.Hotel">
+    <Position X="9.75" Y="0.5" Width="2.5" />
+    <NestedTypes>
+      <Enum Name="Project_TL.Models.Domain.Hotel.Status" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Models\Domain\Hotel.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAACAACAAAAAgBAAgAAAAACgAAAgAAAAAAABAAAA=</HashCode>
+      <FileName>Models\Domain\Hotel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="ContactPerson" />
+      <Property Name="Owner" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Systems" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Project_TL.Models.Domain.Maintenance">
+    <Position X="6" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAQAAAAAAAAAAAAAgAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>Models\Domain\Maintenance.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project_TL.Models.Domain.Owner">
+    <Position X="3.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAEAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Domain\Owner.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Firm" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Hotels" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Project_TL.Models.Domain.System">
+    <Position X="9.75" Y="5.5" Width="2.25" />
+    <NestedTypes>
+      <Enum Name="Project_TL.Models.Domain.System.Type" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Models\Domain\System.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAACAEAAAQAAAAAAAAAAAAAgAAAAAAAAAAACAEAAAAA=</HashCode>
+      <FileName>Models\Domain\System.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Maintenance" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Hotels" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Project_TL.Models.Domain.User">
+    <Position X="1" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAQIAAQAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Models\Domain\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Project_TL.Models.Domain.Firm">
+    <Position X="2.5" Y="4.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAACAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAACA=</HashCode>
+      <FileName>Models\Domain\Firm.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Contactperson" />
+      <Property Name="Owner" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Project_TL.Models.Domain.Branch">
+    <Position X="5.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAgAEAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <FileName>Models\Domain\Branch.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="PriceCat" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Hotels" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Enum Name="Project_TL.Models.Domain.PriceCategorie">
+    <Position X="8" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAACAAAAAgAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Models\Domain\PriceCategorie.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

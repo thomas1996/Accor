@@ -203,6 +203,13 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Domain\Branch.cs" />
+    <Compile Include="Models\Domain\ContactPerson.cs" />
+    <Compile Include="Models\Domain\Firm.cs" />
+    <Compile Include="Models\Domain\Hotel.cs" />
+    <Compile Include="Models\Domain\Maintenance.cs" />
+    <Compile Include="Models\Domain\Owner.cs" />
+    <Compile Include="Models\Domain\PriceCategorie.cs" />
+    <Compile Include="Models\Domain\System.cs" />
     <Compile Include="Models\Domain\User.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -223,6 +230,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Models\Domain\Domain.cd" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

@@ -12,9 +12,12 @@ namespace Project_TL.Models.Domain
        public string Password { get; set; }
         public string Location { get; set; }
         public bool Admin { get; set; }
-        public string ad;
-    
+        
 
+        public User()
+        {
+
+        }
 
         
     }
