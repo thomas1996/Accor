@@ -8,10 +8,10 @@ namespace Project_TL.Models.Domain
     public class Branch
     {
         public int Int { get; set; }
-        public PriceCategorie PriceCat { get; set; }
+        public virtual PriceCategorie PriceCat { get; set; }
         public string Name { get; set; }
 
-        public List<Hotel> Hotels { get; }
+        public virtual List<Hotel> Hotels { get; }
 
 
         public Branch()

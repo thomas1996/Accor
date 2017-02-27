@@ -10,8 +10,8 @@ namespace Project_TL.Models.Domain
 
         public int Id { get; set; }
         public int VATNumber { get; set; }
-        public ContactPerson Contactperson { get; set; }
-        public Owner Owner { get; set; }
+        public virtual ContactPerson Contactperson { get; set; }
+        public virtual Owner Owner { get; set; }
 
         public Firm()
         {
