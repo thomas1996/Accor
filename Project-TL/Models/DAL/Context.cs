@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 
 namespace Project_TL.Models.DAL
@@ -17,6 +19,14 @@ namespace Project_TL.Models.DAL
         public DbSet<Owner> Owner { get; set; }
         public DbSet<Syst> Systems { get; set; }
         public DbSet<User> Users { get; set; }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Configurations.AddFromAssembly(Assembly.GetExecutingAssembly());
+        }
 
     }
+
+   
 }

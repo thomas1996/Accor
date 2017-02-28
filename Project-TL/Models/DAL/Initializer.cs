@@ -13,7 +13,7 @@ namespace Project_TL.Models.DAL
         {
             base.Seed(context);
 
-            context.Hotels.Add(new Hotel());
+            context.Firms.Add(new Firm());
             context.SaveChanges();
         }
     }
