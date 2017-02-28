@@ -13,14 +13,14 @@ namespace Project_TL.Models.DAL.Mapping
         {
 
             //properties
-            this.Property(t => t.Id).HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
+            this.Property(t => t.FirmId).HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
 
             //associaties
-            HasRequired(t => t.Owner).WithMany();
+            HasRequired(t => t.Owner).WithMany().Map(m => m.MapKey("Owner")).WillCascadeOnDelete(false);
             HasRequired(t => t.Contactperson).WithRequiredDependent();
             
             //key
-            this.HasKey(t => t.Id);
+            this.HasKey(t => t.FirmId);
         }
 
         

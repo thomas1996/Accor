@@ -3,14 +3,17 @@
   <Class Name="Project_TL.Models.Domain.ContactPerson">
     <Position X="12.75" Y="3.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAACAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAEAAACAAAAAAAAAAACAAAAAAAAAAAAAAgAAAAAA=</HashCode>
       <FileName>Models\Domain\ContactPerson.cs</FileName>
     </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Hotels" />
+    </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Project_TL.Models.Domain.Hotel">
     <Position X="9.75" Y="0.5" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAACAAKAAAAAgBAAgAAAAACgAAAgAAAAAAABAAAA=</HashCode>
+      <HashCode>AAAAAACAACAAAAAgBAAAAAAAACgAAAgAAAQAAABAAAA=</HashCode>
       <FileName>Models\Domain\Hotel.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -21,34 +24,32 @@
   <Class Name="Project_TL.Models.Domain.Maintenance">
     <Position X="5.75" Y="6.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAQAAAAAAAAAAAAAgAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAgAAAAAAgAAAAAAEAAAAA=</HashCode>
       <FileName>Models\Domain\Maintenance.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Project_TL.Models.Domain.Owner">
     <Position X="3.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAEAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAEAIAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\Owner.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Property Name="Firm" />
-    </ShowAsAssociation>
     <ShowAsCollectionAssociation>
       <Property Name="Hotels" />
+      <Property Name="Firm" />
     </ShowAsCollectionAssociation>
   </Class>
   <Class Name="Project_TL.Models.Domain.User">
     <Position X="1" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAAAAAAAAAAAQIAAQAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAQIAAQgAAAAAAAACAAAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\User.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Project_TL.Models.Domain.Firm">
     <Position X="1.5" Y="5.75" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAACAACAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAACA=</HashCode>
+      <HashCode>AAAAAACAAAAAAAAAAAAAAAAAAAAAAAAABAAAAgAAACA=</HashCode>
       <FileName>Models\Domain\Firm.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -59,7 +60,7 @@
   <Class Name="Project_TL.Models.Domain.Branch">
     <Position X="5.75" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAgAEAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAACA=</HashCode>
+      <HashCode>AAAgAEAAAAAAAAAAAAABAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\Domain\Branch.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -72,7 +73,7 @@
   <Class Name="Project_TL.Models.Domain.Syst">
     <Position X="10" Y="6.75" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAACAEAAAQAAAAAAAAAAAAAgAAAAAAAAAQACAEAAAAA=</HashCode>
+      <HashCode>AAgAAEAAAQAAAAAAAAAAAAAgAAAAAAAAAQACAEAAAAA=</HashCode>
       <FileName>Models\Domain\Syst.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>

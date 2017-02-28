@@ -7,7 +7,7 @@ namespace Project_TL.Models.Domain
 {
     public class User
     {
-       public int Id  {get;set;}
+       public int UserId  {get;set;}
        public string Username { get; set; }
        public string Password { get; set; }
         public string Location { get; set; }
@@ -18,6 +18,16 @@ namespace Project_TL.Models.Domain
         {
 
         }
+
+
+        public User(String username,string password,bool admin)
+        {
+            this.Username = username;
+            Password = password;
+            Admin = admin;
+        }
+            
+             
 
         
     }

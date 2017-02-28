@@ -7,8 +7,8 @@ namespace Project_TL.Models.Domain
 {
     public class Syst
     {
-        public virtual Hotel Hotel { get; set; }
-        public int Id { get; set; }
+        
+        public int SystId { get; set; }
         public double Price { get; set; }
         public virtual Type Type {get;set;    }
         public DateTime StartDate { get; set; }

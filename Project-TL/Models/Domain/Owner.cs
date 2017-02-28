@@ -7,7 +7,7 @@ namespace Project_TL.Models.Domain
 {
     public class Owner
     {
-        public int Id { get; set; }
+        public int OwnerId { get; set; }
         public virtual List<Firm> Firm{ get; set; }
         public virtual List<Hotel> Hotels { get;  }
 

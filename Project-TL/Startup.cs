@@ -13,6 +13,10 @@ namespace Project_TL
             ConfigureAuth(app);
             Context x = new Context();
             x.Firms.ToList();
+            //x.Users.Add(new Models.Domain.User("Th", "kk", true));
+            //x.SaveChanges();
+            int xy = x.Users.Count();
+            System.Console.WriteLine(xy);
         }
     }
 }

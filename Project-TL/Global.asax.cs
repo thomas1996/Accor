@@ -17,8 +17,11 @@ namespace Project_TL
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
             Context x = new Context();
-            x.Firms.ToList();
+             //x.Users.Add(new Models.Domain.User("Th", "kk", true));
+            //x.SaveChanges();
+            //System.Console.WriteLine(xy);
         }
     }
 }

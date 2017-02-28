@@ -11,10 +11,20 @@ namespace Project_TL.Models.DAL
     {
         protected override void Seed(Context context)
         {
+            try
+            {
+                context.Users.Add(new User("Thomas", "Ik", true));
+                context.SaveChanges();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
             base.Seed(context);
 
-            context.Firms.Add(new Firm());
-            context.SaveChanges();
+            
+
         }
     }
 }

@@ -7,7 +7,7 @@ namespace Project_TL.Models.Domain
 {
     public class Branch
     {
-        public int Id { get; set; }
+        public int BranchId { get; set; }
         public virtual PriceCategorie PriceCat { get; set; }
         public string Name { get; set; }
 
