@@ -10,18 +10,16 @@
         @if (!Request.IsAuthenticated)
         {
             <h1>HGBox</h1>
-            <p class="lead">HGBox is een online platform van de faculteit Mens &amp; Welzijn om didactisch materiaal te reserveren voor stages. Indien u tot deze faculteit behoort kunt u via onderstaande knop aanmelden.</p>
+            <p class="lead">CostMaker is an online platform to help improve the efficencie of maken cost rapports and search up all kind of information</p>
             <p>
-                <a href="@Url.Action("Login", "Account")" class="btn btn-primary btn-lg">Aanmelden &raquo;</a>
+                <a href="@Url.Action("Login", "Account")" class="btn btn-primary btn-lg">Log In &raquo;</a>
             </p>
         }
         else
         {
-            <h1>Materiaal reserveren</h1>
+            <h1>Search</h1>
             <p>
-                U kan materiaal reserveren door eerst het gewenste materiaal op te zoeken en vervolgens het toe te voegen aan uw verlanglijst. <br />
-                Als al het materiaal dat u nodig heeft in de verlanglijst staat kan u vervolgens de hele verlanglijst reserveren.<br /><br />
-                Druk op onderstaande knop om te beginnen.
+               U can search up all kind of information
             </p>
             <p>
                 <a href="@Url.Action("Index", "Material")" class="btn btn-primary btn-lg">Materiaal opzoeken &raquo;</a>
