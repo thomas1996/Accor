@@ -31,21 +31,21 @@
 
 <div class="row">
     <div class="col-md-4">
-        <h2>Handleiding</h2>
+        <h2>Tutorial</h2>
         <p>
-            Indien u nog niet met dit systeem gewerkt heeft, kan u via onderstaande knop een korte handleiding bekijken.
+            If you're not yet confortable with this platform you can always consult the tutorial
         </p>
         <p>
-            <a class="btn btn-default" href="@Url.Action("Begin", "Tutorial")">Handleiding &raquo;</a>
+            <a class="btn btn-default" href="@Url.Action("Begin", "Tutorial")"> Use the tutorial &raquo;</a>
         </p>
     </div>
     @if (!Request.IsAuthenticated)
     {
         <div class="col-md-4">
-            <h2>Aan de slag!</h2>
-            <p>Via onderstaande knop kan u materiaal opzoeken om uiteindelijk te reserveren.</p>
+            <h2>Get started!<h2>
+            <p>Start searching some hotels </p>
             <p>
-                <a class="btn btn-default" href="@Url.Action("Index", "Material")">Nu materiaal opzoeken! &raquo;</a>
+                <a class="btn btn-default" href="@Url.Action("Index", "Material")">Search! &raquo;</a>
             </p>
         </div>
     }

@@ -21,21 +21,44 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a href='@Url.Action("Index", "Home")' class="pull-left">
-                    <img src="~/Content/images/hgbox_small.png" class="logo" />
+                    
                 </a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>
-                        @Html.ActionLink("Rappoer", "Index", "Material", routeValues: null, htmlAttributes: new { title = "Catalogus" })
-                    </li>
-                    <li>
-                        @Html.ActionLink("Search", "Index", "Wishlist", routeValues: null, htmlAttributes: new { title = "Verlanglijst" })
-                    </li>
-                    <li>@Html.ActionLink("Account", "Index", "Reservation", routeValues: null, htmlAttributes: new { title = "Reservaties" })</li>
+                @if(ViewBag.Admin == true){
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>
+                            @Html.ActionLink("Rapport", "Index", "Material", routeValues: null, htmlAttributes: new { title = "Catalogus" })
+                        </li>
+                        <li>
+                            @Html.ActionLink("Search", "Index", "Wishlist", routeValues: null, htmlAttributes: new { title = "Verlanglijst" })
+                        </li>
+                        <li>@Html.ActionLink("Account", "Index", "Reservation", routeValues: null, htmlAttributes: new { title = "Reservaties" })</li>
 
-                </ul>
+                    </ul>
+                }
+                else
+                {
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>
+                            @Html.ActionLink("Rapport", "Index", "Material", routeValues: null, htmlAttributes: new { title = "Catalogus" })
+                        </li>
+                        <li>
+                            @Html.ActionLink("Search", "Index", "Wishlist", routeValues: null, htmlAttributes: new { title = "Verlanglijst" })
+                        </li>
+                        <li>
+                            @Html.ActionLink("Users", "Index", "Wishlist", routeValues: null, htmlAttributes: new { title = "Verlanglijst" })
+                        </li>
+                        <li>
+                            @Html.ActionLink("Settings", "Index", "Wishlist", routeValues: null, htmlAttributes: new { title = "Verlanglijst" })
+                        </li>
+                        <li>@Html.ActionLink("Account", "Index", "Reservation", routeValues: null, htmlAttributes: new { title = "Reservaties" })</li>
+
+                    </ul>
+                }
+                
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

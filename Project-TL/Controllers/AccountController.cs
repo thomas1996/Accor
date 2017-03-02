@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Project_TL.Models;
+using Project_TL.Models.Domain;
+using Project_TL.Models.Encryption;
 
 namespace Project_TL.Controllers
 {
@@ -17,6 +19,10 @@ namespace Project_TL.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private IUserRepository userRepo;
+        private ILoginService loginService;
+        private DataProtection dp;
+        private string key = "EBKY12434875BNY01PM@";
 
         public AccountController()
         {
@@ -26,6 +32,12 @@ namespace Project_TL.Controllers
         {
             UserManager = userManager;
             SignInManager = signInManager;
+        }
+        public AccountController(IUserRepository userRepo, ILoginService loginService)
+        {
+            this.userRepo = userRepo;
+            this.loginService = loginService;
+            dp = new DataProtection();
         }
 
         public ApplicationSignInManager SignInManager
@@ -52,6 +64,8 @@ namespace Project_TL.Controllers
             }
         }
 
+       
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -68,14 +82,28 @@ namespace Project_TL.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+            
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
-
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            User u = userRepo.FindByEmail(model.Email);
+            if(u == null)
+            {
+                ModelState.AddModelError("", "Username does not excist");
+                return View(model);
+            }
+           
+                string password = dp.Decrypt(u.Password, dp.GenerateAPassKey(key));
+                if(password == model.Password)
+            {
+                result = SignInStatus.Success;
+            }
+            
+            
             switch (result)
             {
                 case SignInStatus.Success:
@@ -134,43 +162,6 @@ namespace Project_TL.Controllers
             }
         }
 
-        //
-        // GET: /Account/Register
-        [AllowAnonymous]
-        public ActionResult Register()
-        {
-            return View();
-        }
-
-        //
-        // POST: /Account/Register
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return RedirectToAction("Index", "Home");
-                }
-                AddErrors(result);
-            }
-
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
 
         //
         // GET: /Account/ConfirmEmail
