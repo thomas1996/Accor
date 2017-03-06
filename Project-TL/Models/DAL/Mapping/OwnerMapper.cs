@@ -13,6 +13,7 @@ namespace Project_TL.Models.DAL.Mapping
         {
          //properties
          Property(t => t.OwnerId).HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
+            Property(t => t.name).IsRequired().HasMaxLength(100);
 
          //associations
         

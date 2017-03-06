@@ -15,6 +15,7 @@ namespace Project_TL.Models.DAL
             {
                 context.Users.Add(new User("Thomas", "Ik", true));
                 context.SaveChanges();
+                context.Database.CreateIfNotExists();
             }
             catch (Exception)
             {

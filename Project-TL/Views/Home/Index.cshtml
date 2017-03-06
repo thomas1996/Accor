@@ -22,7 +22,7 @@
                U can search up all kind of information
             </p>
             <p>
-                <a href="@Url.Action("Index", "Material")" class="btn btn-primary btn-lg">Materiaal opzoeken &raquo;</a>
+                <a href="@Url.Action("Index", "Search")" class="btn btn-primary btn-lg">Materiaal opzoeken &raquo;</a>
             </p>
         }
     </div>
@@ -42,10 +42,10 @@
     @if (!Request.IsAuthenticated)
     {
         <div class="col-md-4">
-            <h2>Get started!<h2>
+            <h2>Get started!</h2>
             <p>Start searching some hotels </p>
             <p>
-                <a class="btn btn-default" href="@Url.Action("Index", "Material")">Search! &raquo;</a>
+                <a class="btn btn-default" href="@Url.Action("Index", "Search")">Search! &raquo;</a>
             </p>
         </div>
     }

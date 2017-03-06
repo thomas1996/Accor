@@ -14,6 +14,7 @@ namespace Project_TL.Models.DAL.Mapping
 
             //properties
             this.Property(t => t.FirmId).HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
+            Property(t => t.name).IsRequired().HasMaxLength(100);
 
             //associaties
             HasRequired(t => t.Owner).WithMany().Map(m => m.MapKey("Owner")).WillCascadeOnDelete(false);
