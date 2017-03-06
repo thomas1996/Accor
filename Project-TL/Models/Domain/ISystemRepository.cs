@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project_TL.Models.Domain
 {
-    interface ISystemRepository
+    public interface ISystemRepository
     {
         Syst FindByName(string name);
         Syst findByStartDate(DateTime startDate);

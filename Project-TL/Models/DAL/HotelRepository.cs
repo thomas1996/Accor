@@ -42,7 +42,7 @@ namespace Project_TL.Models.DAL
             return hotels.Where(t => t.Branch.Name.Equals(branch)).ToList().AsQueryable();
         }
 
-        public Hotel FindByCode(int code)
+        public Hotel FindByCode(string code)
         {
             return hotels.FirstOrDefault(t => t.HotelId.Equals(code));
         }

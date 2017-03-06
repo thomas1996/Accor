@@ -7,7 +7,7 @@ namespace Project_TL.Models.Domain
 {
     public interface IHotelRepository
     {
-        Hotel FindByCode(int code);
+        Hotel FindByCode(string code);
         IQueryable<Hotel> FindByBranchName(string branch);
         IQueryable<Hotel> FindByOwner(string owner);
         IQueryable<Hotel> FindBySystem(string system);

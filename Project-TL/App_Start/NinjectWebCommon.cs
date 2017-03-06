@@ -10,6 +10,8 @@ namespace Project_TL.App_Start
 
     using Ninject;
     using Ninject.Web.Common;
+    using Models.Domain;
+    using Models.DAL;
 
     public static class NinjectWebCommon 
     {
@@ -61,6 +63,8 @@ namespace Project_TL.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            kernel.Bind<IHotelRepository>().To<HotelRepository>().InRequestScope();
+            kernel.Bind<ISystemRepository>().To<SystemRepository>().InRequestScope();
             
         }        
     }
