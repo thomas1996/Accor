@@ -25,18 +25,18 @@ namespace Project_TL.ViewModels
             Email = h.Email;
             TelephoneNumber = h.TelephoneNumber;
             Systems = h.Systems;
-            Status = h.Status;
+           // Status = h.Status;
 
         }
         [Required(ErrorMessage ="{0} is required")]
-        [Display(Name ="City")]
+       
         public Adres Adres { get; set; }
         [Required(ErrorMessage = "{0} is required")]
         [Display(Name ="Branch name")]
         public virtual Branch Branch { get; set; }
         [Required(ErrorMessage = "{0} is required")]
         [Range(0,Int32.MaxValue,ErrorMessage ="Vat-number can't be negative")]
-        public int VatNumber { get; set; }
+        public string VatNumber { get; set; }
         [Required(ErrorMessage = "{0} is required")]
         [Display(Name ="Contact person")]
         public virtual ContactPerson ContactPerson { get; set; }
@@ -54,8 +54,8 @@ namespace Project_TL.ViewModels
         public virtual Owner Owner { get; set; }
         [Required(ErrorMessage = "{0} is required")]
         public List<Syst> Systems { get; }
-        [Required(ErrorMessage ="{0} is required")]
-        public Status Status { get; set; }
+        //[Required(ErrorMessage ="{0} is required")]
+        //public Status Status { get; set; }
 
     }
 }

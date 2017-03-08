@@ -14,7 +14,7 @@ namespace Project_TL.Models.DAL.Mapping
             //properties
             Property(t => t.Email).IsRequired().HasMaxLength(200);
             Property(t => t.SelphoneNr).IsRequired();
-            Property(t => t.Name).IsRequired().HasMaxLength(100);
+            Property(t => t.LastName).IsRequired().HasMaxLength(100);
             Property(t => t.ContactPersonId).HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
 
             //associations

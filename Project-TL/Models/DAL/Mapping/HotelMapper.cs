@@ -29,6 +29,8 @@ namespace Project_TL.Models.DAL.Mapping
                 m.MapRightKey("BranchId");
             });
             HasRequired(t => t.Adres).WithOptional().Map(m => m.MapKey("Adres"));
+         //   HasRequired(t => t.Status).WithOptional().Map(m => m.MapKey("Status"));
+           
 
         }
     }

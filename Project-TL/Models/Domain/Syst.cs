@@ -19,7 +19,24 @@ namespace Project_TL.Models.Domain
 
         public Syst()
         {
+            Hotels = new List<Hotel>();
+        }
 
+        public Syst(double price,string name,Type type,DateTime startDate,DateTime endDate,Maintenance maintenance)
+        {
+            Price = price;
+            Name = name;
+            Type = type;
+            StartDate = startDate;
+            EndDate = endDate;
+            Maintenance = maintenance;
+
+            Hotels = new List<Hotel>();
+        }
+
+        public void addHotel(Hotel h)
+        {
+            Hotels.Add(h);
         }
     }
 }

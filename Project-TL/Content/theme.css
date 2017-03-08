@@ -1449,14 +1449,14 @@ dd {
     width: 160px;
     clear: left;
     text-align: right;
-    line-height: 30px;
+    line-height: 2em;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
   .dl-horizontal dd {
     margin-left: 180px;
-    line-height: 30px;
+    line-height: 2em;
   }
 }
 abbr[title],

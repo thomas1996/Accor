@@ -15,5 +15,11 @@ namespace Project_TL.Models.Domain
         {
 
         }
+        public Maintenance(DateTime startDate,DateTime endDate,double price)
+        {
+            StartDate = startDate;
+            EndDate = endDate;
+            Price = price;
+        }
     }
 }

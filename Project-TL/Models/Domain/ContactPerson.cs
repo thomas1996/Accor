@@ -9,25 +9,28 @@ namespace Project_TL.Models.Domain
     {
         public int ContactPersonId { get; set; }
         public string Email { get; set; }
-        public int SelphoneNr { get; set; }
-        public string Name { get; set; }
+        public long SelphoneNr { get; set; }
+        public string LastName { get; set; }
+        public string FirstName { get; set; }
         public List<Hotel> Hotels { get; set; }
         public ContactPerson()
         {
             Hotels = new List<Hotel>();
         }
 
-        public ContactPerson(string email,string name)
+        public ContactPerson(string email,string name,string firstname)
         {
             Email = email;
-            Name = name;
+            LastName = name;
             SelphoneNr = 0;
+            FirstName = firstname;
             Hotels = new List<Hotel>();
         }
-        public ContactPerson(string email,string name,int telephone)
+        public ContactPerson(string email,string name,string firstname,long telephone)
         {
             Email = email;
-            Name = name;
+            LastName = name;
+            FirstName = firstname;
             SelphoneNr = telephone;
             Hotels = new List<Hotel>();
         }

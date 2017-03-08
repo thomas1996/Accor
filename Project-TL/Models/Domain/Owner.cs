@@ -8,7 +8,8 @@ namespace Project_TL.Models.Domain
     public class Owner
     {
         public int OwnerId { get; set; }
-        public string Name { get; set; }
+        public string LastName { get; set; }
+        public string FistName { get; set; }
         public virtual List<Firm> Firm{ get; set; }
         public virtual List<Hotel> Hotels { get;  }
 
@@ -17,11 +18,17 @@ namespace Project_TL.Models.Domain
             Firm = new List<Firm>();
             Hotels = new List<Hotel>();
         }
-        public Owner(string name)
+        public Owner(string name,string firstname)
         {
-            Name = name;
+            LastName = name;
+            FistName = firstname;
             Firm = new List<Firm>();
             Hotels = new List<Hotel>();
+        }
+
+        public void addHotel(Hotel h)
+        {
+            Hotels.Add(h);
         }
     }
 }
