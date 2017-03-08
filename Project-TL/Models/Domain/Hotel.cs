@@ -16,7 +16,7 @@ namespace Project_TL.Models.Domain
         public string Email { get; set; }
         public string TelephoneNumber { get; set; }
         public virtual Owner Owner { get; set; }
-
+        public virtual Status Status { get; set; }
 
         public List<Syst> Systems { get; }
 
@@ -26,7 +26,7 @@ namespace Project_TL.Models.Domain
 
         }
 
-        public Hotel(Adres adres, Branch branch, int vatNumber, ContactPerson contactPerson, string hotelId, string email, string telephoneNumber, Owner owner, List<Syst> systems)
+        public Hotel(Adres adres, Branch branch, int vatNumber, ContactPerson contactPerson, string hotelId, string email, string telephoneNumber, Owner owner,Status status, List<Syst> systems)
         {
             Adres = adres;
             Branch = branch;
@@ -37,6 +37,7 @@ namespace Project_TL.Models.Domain
             TelephoneNumber = telephoneNumber;
             Owner = owner;
             Systems = systems;
+            Status = status;
         }
 
 

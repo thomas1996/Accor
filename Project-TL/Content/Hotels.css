@@ -22,6 +22,8 @@ html, body{height:100%; margin:0;padding:0}
 }
 
 .popup {
-    position: absolute;
-    display: none; /* keeps the popup hidden if no JS available */
+position: absolute;
+    display: none;
+    background: #bfb7b7;
+    border: 2px solid black;
 }

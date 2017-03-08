@@ -61,15 +61,65 @@
             </dt>
             <dd class="bubbleInfo">
 
-                <a>@Html.DisplayFor(model => model.Owner.Name)</a>
-                <div class="popup">
-                    <dl class="dl-horizontal">
-                        <dd>@Html.DisplayNameFor(model => model.Owner.Firm)
-                        </dd>
-                        <dt>@Html.DisplayFor(model => model.Owner.Firm)
-                        </dt>
-                    </dl>
-                </div>                      
+                <a >@Html.DisplayFor(model => model.Owner.Name)</a>
+              
+                   
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.ContactPerson)
+            </dt>
+            <dd>
+                <a data-tooltip="#contact">@Html.DisplayFor(model => model.ContactPerson.Name)</a> 
+                <div class="popup" id="contact">
+                    @Html.DisplayFor(model => model.ContactPerson.Email)
+                    <br />
+                    @Html.DisplayFor(model => model.ContactPerson.SelphoneNr)
+                </div>
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.VatNumber)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.VatNumber)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Status)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Status)
+            </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.Systems)
+            </dt>
+            <dd>
+                <table class="table-condensed table-responsive table-bordered"  >
+                    <tr>
+                        <th>System</th>
+                        <th>Cost</th>
+                        <th>EndDate</th>
+                        <th> Cost Maintenance</th>
+                    </tr>
+                   @foreach (var item in Model.Systems)
+                   {
+                       <td>
+                           @Html.DisplayFor(model => item.Name)
+                       </td>
+                       <td>
+                           @Html.DisplayFor(model => item.Price)
+                       </td>
+                       <td>
+                           @Html.DisplayFor(model => item.EndDate)
+                       </td>
+                       <td>
+                           @Html.DisplayFor(model => item.Maintenance.Price)
+                       </td>
+
+                   }
+                </table>
+            </dd>
+            <dt>Total cost</dt>
+            <dd>
+                @ViewBag.totalCost
             </dd>
    
                   

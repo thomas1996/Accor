@@ -21,6 +21,14 @@ namespace Project_TL.Models.Domain
         {
             Email = email;
             Name = name;
+            SelphoneNr = 0;
+            Hotels = new List<Hotel>();
+        }
+        public ContactPerson(string email,string name,int telephone)
+        {
+            Email = email;
+            Name = name;
+            SelphoneNr = telephone;
             Hotels = new List<Hotel>();
         }
         public void addHotel(Hotel h)

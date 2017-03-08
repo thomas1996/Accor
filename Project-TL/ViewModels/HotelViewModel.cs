@@ -25,6 +25,7 @@ namespace Project_TL.ViewModels
             Email = h.Email;
             TelephoneNumber = h.TelephoneNumber;
             Systems = h.Systems;
+            Status = h.Status;
 
         }
         [Required(ErrorMessage ="{0} is required")]
@@ -53,6 +54,8 @@ namespace Project_TL.ViewModels
         public virtual Owner Owner { get; set; }
         [Required(ErrorMessage = "{0} is required")]
         public List<Syst> Systems { get; }
+        [Required(ErrorMessage ="{0} is required")]
+        public Status Status { get; set; }
 
     }
 }
