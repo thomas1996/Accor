@@ -16,7 +16,18 @@ namespace Project_TL.Models.Domain
 
         public Branch()
         {
+            Hotels = new List<Hotel>();
+        }
 
+        public Branch(string name)
+        {
+            Name = name;
+            Hotels = new List<Hotel>();
+        }
+
+       public void addHotel(Hotel h)
+        {
+            Hotels.Add(h);
         }
 
 

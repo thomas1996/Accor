@@ -13,7 +13,7 @@ namespace Project_TL.Models.DAL.Mapping
         public HotelMapper()
         {
             //propertie
-            Property(t => t.Adres).IsRequired().HasMaxLength(400);
+           
             Property(t => t.Email).IsOptional().HasMaxLength(100);
             Property(t => t.TelephoneNumber).IsRequired();
             Property(t => t.VatNumber).IsRequired();
@@ -28,7 +28,7 @@ namespace Project_TL.Models.DAL.Mapping
                 m.MapLeftKey("HotelId");
                 m.MapRightKey("BranchId");
             });
-
+            HasRequired(t => t.Adres).WithOptional().Map(m => m.MapKey("Adres"));
 
         }
     }

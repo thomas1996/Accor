@@ -1,76 +1,82 @@
-﻿@model IEnumerable<Project_TL.Models.Domain.Hotel>
+﻿@model IEnumerable<Project_TL.ViewModels.HotelViewModel>
 
 @{
     ViewBag.Title = "Index";
 }
 <link href="~/Content/Hotels.css" rel="stylesheet" type="text/css" />
-<h2>Index</h2>
-<br/>
-@if (ViewBag.admin == true)
-{
-    <p class="right">
-        @Html.ActionLink("Create New", "Create")
-    </p>
-}
-
-<div class="centering text-center">
+<html>
+<body>
 
 
-<table class="table table-hover table-bordered table-responsive" >
-    <tr class="alert-info">
-        <th>
-            @Html.DisplayNameFor(model => model.Branch.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HotelId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Adres)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ContactPerson.name)
-        </th>
-        <th>
-            Total Cost
-        </th>
-        <th></th>
-    </tr>
+    <h2>Index</h2>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Branch.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HotelId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Adres)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ContactPerson.name)
-        </td>
-        <td>
+    <br />
+    <div class="centering ">
+        <table class="table table-hover table-bordered table-responsive">
+            <tr class="alert-info">
+                <th>
+                    @Html.DisplayNameFor(model => model.Branch)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Adres)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.HotelId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ContactPerson)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model =>model.Owner)
+                </th>
+                <th>
+                    Total Cost
+                </th>
+                <th></th>
+            </tr>
 
-        </td>
-    @if (ViewBag.Admin == true)
-    {
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.HotelId }) |
-            @Html.ActionLink("Details", "Search", new { id = item.HotelId }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.HotelId })
-        </td>
-    }
-    else
-    {
-        <td>
-        @Html.ActionLink("Details", "Details", new { id = item.HotelId }) 
-         </td>
-    }
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Branch.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Adres.City)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.HotelId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ContactPerson.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Owner.Name)
+                    </td>
+                    <td>
 
+                    </td>
+                    @if (ViewBag.admin == true)
+                    {
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
 
-    </tr>
-}
+                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) 
 
-</table>
+                        </td>
+                    }
+
+                </tr>
+            }
+
+        </table>
     </div>
+</body>
+</html>

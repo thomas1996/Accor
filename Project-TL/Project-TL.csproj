@@ -237,6 +237,7 @@
     <Compile Include="Models\DAL\Context.cs" />
     <Compile Include="Models\DAL\HotelRepository.cs" />
     <Compile Include="Models\DAL\Initializer.cs" />
+    <Compile Include="Models\DAL\Mapping\AdresMapper.cs" />
     <Compile Include="Models\DAL\Mapping\BranchMapper.cs" />
     <Compile Include="Models\DAL\Mapping\ContactPersonMapper.cs" />
     <Compile Include="Models\DAL\Mapping\FirmMapper.cs" />
@@ -246,6 +247,7 @@
     <Compile Include="Models\DAL\Mapping\SystemMapper.cs" />
     <Compile Include="Models\DAL\Mapping\UserMapper.cs" />
     <Compile Include="Models\DAL\SystemRepository.cs" />
+    <Compile Include="Models\Domain\Adres.cs" />
     <Compile Include="Models\Domain\Branch.cs" />
     <Compile Include="Models\Domain\ContactPerson.cs" />
     <Compile Include="Models\Domain\Firm.cs" />
@@ -407,6 +409,7 @@
     <Content Include="obj\Debug\build.force" />
     <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <Content Include="obj\Debug\Project-TL.csprojResolveAssemblyReference.cache" />
+    <Content Include="Scripts\Own Scripts\Popup.js" />
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Search\Details.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />

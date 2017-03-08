@@ -49,7 +49,7 @@ namespace Project_TL.Models.DAL
 
         public IQueryable<Hotel> FindByOwner(string owner)
         {
-            return hotels.Where(t => t.Owner.name.Equals(owner)).ToList().AsQueryable();
+            return hotels.Where(t => t.Owner.Name.Equals(owner)).ToList().AsQueryable();
         }
 
         public IQueryable<Hotel> FindBySystem(string system)

@@ -19,6 +19,7 @@ namespace Project_TL.Models.DAL.Mapping
             //associaties
             HasRequired(t => t.Owner).WithMany().Map(m => m.MapKey("Owner")).WillCascadeOnDelete(false);
             HasRequired(t => t.Contactperson).WithRequiredDependent();
+            HasOptional(t => t.Adres).WithOptionalDependent();
             
             //key
             this.HasKey(t => t.FirmId);

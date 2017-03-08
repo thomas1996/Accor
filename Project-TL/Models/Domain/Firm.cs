@@ -13,6 +13,7 @@ namespace Project_TL.Models.Domain
         public string name { get; set; }
         public virtual ContactPerson Contactperson { get; set; }
         public virtual Owner Owner { get; set; }
+        public virtual Adres Adres { get; set; }
 
         public Firm()
         {

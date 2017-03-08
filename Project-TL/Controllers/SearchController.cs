@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+
 namespace Project_TL.Controllers
 {
     public class SearchController : Controller
@@ -21,19 +22,45 @@ namespace Project_TL.Controllers
         public ActionResult Index()
         {
             List<Syst> sy = new List<Syst>();
-            Hotel h = new Hotel("Brussel", new Branch(), 10, new ContactPerson()," 5", "thhtht", "5585", new Owner(), sy);
+            Branch b = new Branch("Mercure");
+           
+            ContactPerson p = new ContactPerson("ik@gmail.com", "thomas");
+
+            Owner o = new Owner("Jan");
+            Adres a = new Adres("Rue Jean Rey", 75015, "Paris", 20, "France");
+            Hotel h = new Hotel(a, b, 10, p," 5", "thhtht", "5585", o, sy);
+
+            b.addHotel(h);
+            p.addHotel(h);
+
             List<Hotel> hh = new List<Hotel>();
             hh.Add(h);
-            return View(hh);
+
+           IEnumerable<HotelViewModel> hvm =  hh.Select(t => new HotelViewModel(t));
+            return View(hvm);
         }
 
         public  ActionResult Details(string hotelId)
         {
-            Hotel h = hotelRepo.FindByCode(hotelId);
-            if(h == null)
-            {
-                return HttpNotFound();
-            }
+            /* Hotel h = hotelRepo.FindByCode(hotelId);
+             if(h == null)
+             {
+                 return HttpNotFound();
+             }
+             HotelViewModel hvm = new HotelViewModel(h);
+
+     */
+            List<Syst> sy = new List<Syst>();
+            Branch b = new Branch("Mercure");
+
+            ContactPerson p = new ContactPerson("ik@gmail.com", "thomas");
+
+            Owner o = new Owner("Jan");
+            Adres a = new Adres("Rue Jean Rey", 75015, "Paris", 20, "France");
+            Hotel h = new Hotel(a, b, 10, p, " 5", "thhtht", "5585", o, sy);
+
+            b.addHotel(h);
+            p.addHotel(h);
             HotelViewModel hvm = new HotelViewModel(h);
 
             return View(hvm);
