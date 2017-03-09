@@ -88,15 +88,19 @@
             <dd>
                 @Html.DisplayFor(model => model.VatNumber)
             </dd>
-            <dt>
+            @*<dt>
                 @Html.DisplayNameFor(model => model.Status)
             </dt>
             <dd>
                 @Html.DisplayFor(model => model.Status)
-            </dd>
+            </dd>*@
             <dt>
                 @Html.DisplayNameFor(model => model.Systems)
             </dt>
+            @if(Model.Systems.Count == 0)
+            {
+                <dd>There are currently no Systems </dd>
+            }
             <dd>
                 <table class="table-condensed table-responsive table-bordered"  >
                     <tr>
@@ -107,25 +111,26 @@
                     </tr>
                    @foreach (var item in Model.Systems)
                    {
+                       <tr>
                        <td>
                            @Html.DisplayFor(model => item.Name)
                        </td>
                        <td>
-                           @Html.DisplayFor(model => item.Price)
+                          @String.Format("€{0:N}",item.Price)
                        </td>
                        <td>
-                           @Html.DisplayFor(model => item.EndDate)
+                           @String.Format(item.EndDate.ToShortDateString())
                        </td>
                        <td>
-                           @Html.DisplayFor(model => item.Maintenance.Price)
+                         @String.Format("€{0:N}",item.Maintenance.Price)
                        </td>
-
+                       </tr>
                    }
                 </table>
             </dd>
             <dt>Total cost</dt>
             <dd>
-                @ViewBag.totalCost
+                @String.Format("€{0:N}", @ViewBag.totalCost)
             </dd>
    
                   

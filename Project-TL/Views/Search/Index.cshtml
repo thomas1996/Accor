@@ -50,27 +50,27 @@
                         @Html.DisplayFor(modelItem => item.HotelId)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.ContactPerson.LastName)
+                        @Html.DisplayFor(modelItem => item.ContactPerson.LastName) @Html.DisplayFor(modelItem => item.ContactPerson.FirstName)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Owner.LastName)
+                        @Html.DisplayFor(modelItem => item.Owner.LastName) @Html.DisplayFor(modelItel => item.Owner.FistName)
                     </td>
                     <td>
-
+                        @Html.DisplayFor(modelItem => item.TotalCost)
                     </td>
                     @if (ViewBag.admin == true)
                     {
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                            <a href="@Url.Action("Edit", "Search", new {  id=item.HotelId  })" |
+                            <a href="@Url.Action("Details", "Search", new {  id=item.HotelId  })" |
+                            <a href="@Url.Action("Delete", "Search", new {  id=item.HotelId  })"
                         </td>
                     }
                     else
                     {
                         <td>
 
-                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) 
+                            <a href="@Url.Action("Details", "Search", new {  hotelId=@item.HotelId  })">Details</a>
 
                         </td>
                     }

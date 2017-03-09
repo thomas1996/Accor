@@ -15,16 +15,14 @@ namespace Project_TL.Controllers
         private IHotelRepository hotelRepo;
         private ISystemRepository sysRepo;
         private Context context;
+        private List<Hotel> hh;
         // GET: Search
 
             public SearchController(IHotelRepository hotelRepo,ISystemRepository sysRepo){
             this.hotelRepo = hotelRepo;
             this.sysRepo = sysRepo;
             context = new Context();
-            
-        }
-        public ActionResult Index()
-        {
+
             Adres a1 = new Adres("Rue de l'industrie", "1000", "Brussels", 12, "Belgium");
             Adres a2 = new Adres("Schipholweg", "1171", "Badhoevedorp", 181, "The nederlands");
             Adres a3 = new Adres("Prof K J bavicklaan", "1183", "At", 1, "The nederlands");
@@ -77,16 +75,16 @@ namespace Project_TL.Controllers
             o2.addHotel(h3);
             o3.addHotel(h2);
 
-            context.Hotels.Add(h1);
-            context.Hotels.Add(h2);
-            context.Hotels.Add(h3);
+            //context.Hotels.Add(h1);
+            //context.Hotels.Add(h2);
+            //context.Hotels.Add(h3);
 
-            context.Branches.Add(b1);
-            context.Branches.Add(b2);
-            context.Owner.Add(o1);
-            context.Owner.Add(o2);
-            context.Owner.Add(o3);
-            context.Systems.AddRange(sys2);
+            //context.Branches.Add(b1);
+            //context.Branches.Add(b2);
+            //context.Owner.Add(o1);
+            //context.Owner.Add(o2);
+            //context.Owner.Add(o3);
+            //context.Systems.AddRange(sys2);
 
 
 
@@ -106,23 +104,40 @@ namespace Project_TL.Controllers
              p.addHotel(h);
              */
 
-            List<Hotel> hh = hotelRepo.FindAll().ToList();
+            hh = new List<Hotel>();
+            hh.Add(h1);
+            hh.Add(h2);
+            hh.Add(h3);
+            //hotelRepo.FindAll().ToList();
+
+        }
+        public ActionResult Index()
+        {
+           
             
 
            IEnumerable<HotelViewModel> hvm =  hh.Select(t => new HotelViewModel(t));
+         
             return View(hvm);
         }
 
         public  ActionResult Details(string hotelId)
         {
-             Hotel h = hotelRepo.FindByCode(hotelId);
+            //find the hotel in the repository
+            // Hotel h = hotelRepo.FindByCode(hotelId);
+            Hotel h = hh.FirstOrDefault(t => t.HotelId.Equals(hotelId));
+
+            //check if the hotel exist (normally this can never give null unless DB failure)
              if(h == null)
              {
                  return HttpNotFound();
              }
-             HotelViewModel hvm = new HotelViewModel(h);
 
-     
+             //Use a viewmodel to display al the details of the hotel
+             HotelViewModel hvm = new HotelViewModel(h);
+             ViewBag.totalCost = h.calculateTotalCost();
+
+
            /* List<Syst> sy = new List<Syst>();
             Branch b = new Branch("Mercure");
 

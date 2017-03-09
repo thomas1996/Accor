@@ -16,14 +16,16 @@ namespace Project_TL.Models.Domain
         public string Email { get; set; }
         public string TelephoneNumber { get; set; }
         public virtual Owner Owner { get; set; }
-       // public virtual Status Status { get; set; }
+        // public virtual Status Status { get; set; }
+        public double TotalCost { get; set; }
 
         public List<Syst> Systems { get; }
 
 
         public Hotel()
         {
-
+            Systems = new List<Syst>();
+            TotalCost = calculateTotalCost();
         }
 
         public Hotel(Adres adres, Branch branch, string vatNumber, ContactPerson contactPerson, string hotelId, string email, string telephoneNumber, Owner owner, List<Syst> systems)
@@ -37,8 +39,25 @@ namespace Project_TL.Models.Domain
             TelephoneNumber = telephoneNumber;
             Owner = owner;
             Systems = systems;
-          //  Status = status;
+            //  Status = status;
+            
+            TotalCost = calculateTotalCost();
         }
+
+        public double calculateTotalCost()
+        {
+            double kosts = 0;
+           foreach (Syst s in Systems)
+            {
+                kosts += s.Price;
+                if(s.Maintenance != null)
+                {
+                    kosts += s.Maintenance.Price;
+                }
+            }
+            return kosts;
+        }
+
 
 
     }

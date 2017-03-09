@@ -22,8 +22,8 @@ html, body{height:100%; margin:0;padding:0}
 }
 
 .popup {
-position: absolute;
+position: fixed;
     display: none;
-    background: #bfb7b7;
+    background: #ffffff;
     border: 2px solid black;
 }

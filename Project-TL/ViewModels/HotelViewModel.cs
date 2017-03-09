@@ -25,11 +25,13 @@ namespace Project_TL.ViewModels
             Email = h.Email;
             TelephoneNumber = h.TelephoneNumber;
             Systems = h.Systems;
+            TotalCost = h.TotalCost;
+            
            // Status = h.Status;
 
         }
         [Required(ErrorMessage ="{0} is required")]
-       
+        [Display(Name ="City")]
         public Adres Adres { get; set; }
         [Required(ErrorMessage = "{0} is required")]
         [Display(Name ="Branch name")]
@@ -50,10 +52,14 @@ namespace Project_TL.ViewModels
         [MinLength(0,ErrorMessage ="Phone number can'ts be empty")]
         public string TelephoneNumber { get; set; }
         [Required(ErrorMessage = "{0} is required")]
-        [Display(Name ="Owner")]
+        [Display(Name ="Owner"),DisplayFormat(DataFormatString ="{0:####.####.####}")]
         public virtual Owner Owner { get; set; }
         [Required(ErrorMessage = "{0} is required")]
         public List<Syst> Systems { get; }
+        [Display(Name ="Total cost")]
+        [Range(0,Int32.MaxValue,ErrorMessage ="Cost can't be negative")]
+        [DisplayFormat(DataFormatString ="€{0:N}")]
+        public double TotalCost { get; set; }
         //[Required(ErrorMessage ="{0} is required")]
         //public Status Status { get; set; }
 

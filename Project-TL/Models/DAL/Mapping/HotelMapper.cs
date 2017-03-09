@@ -17,6 +17,7 @@ namespace Project_TL.Models.DAL.Mapping
             Property(t => t.Email).IsOptional().HasMaxLength(100);
             Property(t => t.TelephoneNumber).IsRequired();
             Property(t => t.VatNumber).IsRequired();
+            Ignore(t => t.TotalCost);
 
             //associations
             HasRequired(t => t.Owner).WithMany().Map(m => m.MapKey("Owner")).WillCascadeOnDelete(false);
