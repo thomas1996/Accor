@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project_TL.Models.Domain
 {
-    interface IContactPersonRepository
+   public interface IContactPersonRepository
     {
         ContactPerson FindByEmail(string email);
         ContactPerson FindByName(string lastname);

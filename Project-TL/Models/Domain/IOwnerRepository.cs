@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Project_TL.Models.Domain
 {
-    interface IOwnerRepository
+    public interface IOwnerRepository
     {
         Owner FindByName(string name);
         Owner FindByFirm(string firm);

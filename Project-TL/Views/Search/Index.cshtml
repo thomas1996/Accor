@@ -6,6 +6,9 @@
 <link href="~/Content/Hotels.css" rel="stylesheet" type="text/css" />
 <link href="~/Content/theme.css" rel="stylesheet" type="text/css" />
 <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/Other.css" rel="stylesheet" type="text/css"/>
+<script src="~/Scripts/Own Scripts/DataTable.js"></script>
+<script src="~/Scripts/Own Scripts/Search.js"> </script>
 <html>
 <body>
 
@@ -14,70 +17,94 @@
 
     <br />
     <div class="centering ">
-        <table class="table table-hover table-bordered table-responsive">
-            <tr class="alert-info">
-                <th>
-                    @Html.DisplayNameFor(model => model.Branch)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Adres)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.HotelId)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.ContactPerson)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model =>model.Owner)
-                </th>
-                <th>
-                    Total Cost
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
+        <table class="table table-hover table-bordered table-responsive" id="example">
+            <thead>
+                <tr class="alert-info">
+                    <th>
+                        @Html.DisplayNameFor(model => model.Branch)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Adres)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.HotelId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ContactPerson)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Owner)
+                    </th>
+                    <th>
+                        Total Cost
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tfoot>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Branch.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Adres.City)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.HotelId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ContactPerson.LastName) @Html.DisplayFor(modelItem => item.ContactPerson.FirstName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Owner.LastName) @Html.DisplayFor(modelItel => item.Owner.FistName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TotalCost)
-                    </td>
-                    @if (ViewBag.admin == true)
-                    {
+                    <th>
+                        @Html.DisplayNameFor(model => model.Branch)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Adres)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.HotelId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ContactPerson)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Owner)
+                    </th>
+                    <th>
+                        Total Cost
+                    </th>
+                </tr>
+            </tfoot>
+            <tbody>
+                @foreach (var item in Model)
+            {
+                    <tr>
                         <td>
-                            <a href="@Url.Action("Edit", "Search", new {  id=item.HotelId  })" |
+                            @Html.DisplayFor(modelItem => item.Branch.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Adres.City)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.HotelId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ContactPerson.LastName) @Html.DisplayFor(modelItem => item.ContactPerson.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Owner.LastName) @Html.DisplayFor(modelItel => item.Owner.FistName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TotalCost)
+                        </td>
+                        @if (ViewBag.admin == true)
+                        {
+                            <td>
+                                <a href="@Url.Action("Edit", "Search", new {  id=item.HotelId  })" |
                             <a href="@Url.Action("Details", "Search", new {  id=item.HotelId  })" |
                             <a href="@Url.Action("Delete", "Search", new {  id=item.HotelId  })"
-                        </td>
-                    }
-                    else
-                    {
-                        <td>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
 
-                            <a href="@Url.Action("Details", "Search", new {  hotelId=@item.HotelId  })">Details</a>
+                                <a href="@Url.Action("Details", "Search", new {  hotelId=@item.HotelId  })">Details</a>
 
-                        </td>
-                    }
+                            </td>
+                        }
 
-                </tr>
-            }
-
+                    </tr>
+                }
+            </tbody>
         </table>
     </div>
 </body>

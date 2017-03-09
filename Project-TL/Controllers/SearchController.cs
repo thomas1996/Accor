@@ -14,13 +14,19 @@ namespace Project_TL.Controllers
     {
         private IHotelRepository hotelRepo;
         private ISystemRepository sysRepo;
+        private IOwnerRepository ownerRepo;
+        private IContactPersonRepository contactRepo;
+        private IBranchRepository branchRepo;
         private Context context;
         private List<Hotel> hh;
         // GET: Search
 
-            public SearchController(IHotelRepository hotelRepo,ISystemRepository sysRepo){
+        public SearchController(IHotelRepository hotelRepo, ISystemRepository sysRepo,IOwnerRepository ownerRepo,IContactPersonRepository contactRepo,IBranchRepository branchRepo) {
             this.hotelRepo = hotelRepo;
             this.sysRepo = sysRepo;
+            this.ownerRepo = ownerRepo;
+            this.contactRepo = contactRepo;
+            this.branchRepo = branchRepo;
             context = new Context();
 
             Adres a1 = new Adres("Rue de l'industrie", "1000", "Brussels", 12, "Belgium");
@@ -55,7 +61,7 @@ namespace Project_TL.Controllers
 
             Hotel h1 = new Hotel(a1, b1, "BE 0817.220.446 ", p1, "8602", "H8602@Adagio-city.com", "+32 227 41 780", o1, sys);
             Hotel h2 = new Hotel(a2, b2, "BE 0635.611.207 ", p2, "0649", "h0649-GM@Accor.com", "+31 20 50 25 100", o3, sys);
-            Hotel h3 = new Hotel(a3, b2, "BE 0635.611.207 ", p3, "0649", "HA3P2@accor.com", "+31 20 34 83 533", o2, sys2);
+            Hotel h3 = new Hotel(a3, b2, "BE 0635.611.207 ", p3, "0648", "HA3P2@accor.com", "+31 20 34 83 533", o2, sys2);
 
             p1.addHotel(h1);
             p2.addHotel(h2);
@@ -108,51 +114,71 @@ namespace Project_TL.Controllers
             hh.Add(h1);
             hh.Add(h2);
             hh.Add(h3);
+
+            hh.OrderBy(t => t.Branch);
             //hotelRepo.FindAll().ToList();
 
         }
         public ActionResult Index()
         {
-           
-            
 
-           IEnumerable<HotelViewModel> hvm =  hh.Select(t => new HotelViewModel(t));
-         
+
+
+            IEnumerable<HotelViewModel> hvm = hh.Select(t => new HotelViewModel(t));
+
             return View(hvm);
         }
 
-        public  ActionResult Details(string hotelId)
+        public ActionResult Details(string hotelId)
         {
             //find the hotel in the repository
             // Hotel h = hotelRepo.FindByCode(hotelId);
             Hotel h = hh.FirstOrDefault(t => t.HotelId.Equals(hotelId));
 
             //check if the hotel exist (normally this can never give null unless DB failure)
-             if(h == null)
-             {
-                 return HttpNotFound();
-             }
+            if (h == null)
+            {
+                return HttpNotFound();
+            }
 
-             //Use a viewmodel to display al the details of the hotel
-             HotelViewModel hvm = new HotelViewModel(h);
-             ViewBag.totalCost = h.calculateTotalCost();
-
-
-           /* List<Syst> sy = new List<Syst>();
-            Branch b = new Branch("Mercure");
-
-            ContactPerson p = new ContactPerson("ik@gmail.com", "thomas",047514012);
-
-            Owner o = new Owner("Jan");
-            Adres a = new Adres("Rue Jean Rey", 75015, "Paris", 20, "France");
-            Hotel h = new Hotel(a, b, 10, p, " 5", "thhtht", "5585", o,Status.FIL, sy);
-
-            b.addHotel(h);
-            p.addHotel(h);
+            //Use a viewmodel to display al the details of the hotel
             HotelViewModel hvm = new HotelViewModel(h);
-            */
+
+
+
+            /* List<Syst> sy = new List<Syst>();
+             Branch b = new Branch("Mercure");
+
+             ContactPerson p = new ContactPerson("ik@gmail.com", "thomas",047514012);
+
+             Owner o = new Owner("Jan");
+             Adres a = new Adres("Rue Jean Rey", 75015, "Paris", 20, "France");
+             Hotel h = new Hotel(a, b, 10, p, " 5", "thhtht", "5585", o,Status.FIL, sy);
+
+             b.addHotel(h);
+             p.addHotel(h);
+             HotelViewModel hvm = new HotelViewModel(h);
+             */
             return View(hvm);
         }
 
+
+        public ActionResult Edit(string hotelId)
+        {
+            //find the hotel in the repository
+            // Hotel h = hotelRepo.FindByCode(hotelId);
+            Hotel h = hh.FirstOrDefault(t => t.HotelId.Equals(hotelId));
+
+            //check if the hotel exist (normally this can never give null unless DB failure)
+            if (h == null)
+            {
+                return HttpNotFound();
+            }
+           
+
+            //Use a viewmodel to display al the details of the hotel
+            EditHotelViewModel ehvm = new EditHotelViewModel(h, ownerRepo.FindAll().ToList(), contactRepo.FindAll().ToList(), branchRepo.FindAll().ToList());
+            return View(ehvm;
+        }
     }
 }

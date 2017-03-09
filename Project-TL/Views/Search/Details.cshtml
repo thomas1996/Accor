@@ -130,7 +130,7 @@
             </dd>
             <dt>Total cost</dt>
             <dd>
-                @String.Format("€{0:N}", @ViewBag.totalCost)
+                @Html.DisplayFor(item => item.TotalCost)
             </dd>
    
                   
@@ -140,7 +140,8 @@
         </dl>
     </div>
     <p>
-        @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+
+        <a href="@Url.Action("Edit", "Search", new {  hotelId = Model.HotelId  })">Edit</a> |
         @Html.ActionLink("Back to List", "Index")
     </p>
  

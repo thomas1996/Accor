@@ -38,6 +38,7 @@ namespace Project_TL.ViewModels
         public virtual Branch Branch { get; set; }
         [Required(ErrorMessage = "{0} is required")]
         [Range(0,Int32.MaxValue,ErrorMessage ="Vat-number can't be negative")]
+        [DisplayFormat(DataFormatString = "{0:####.####.####}")]
         public string VatNumber { get; set; }
         [Required(ErrorMessage = "{0} is required")]
         [Display(Name ="Contact person")]
@@ -52,7 +53,7 @@ namespace Project_TL.ViewModels
         [MinLength(0,ErrorMessage ="Phone number can'ts be empty")]
         public string TelephoneNumber { get; set; }
         [Required(ErrorMessage = "{0} is required")]
-        [Display(Name ="Owner"),DisplayFormat(DataFormatString ="{0:####.####.####}")]
+        [Display(Name ="Owner")]
         public virtual Owner Owner { get; set; }
         [Required(ErrorMessage = "{0} is required")]
         public List<Syst> Systems { get; }
