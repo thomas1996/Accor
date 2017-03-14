@@ -174,11 +174,12 @@ namespace Project_TL.Controllers
             {
                 return HttpNotFound();
             }
-           
+
 
             //Use a viewmodel to display al the details of the hotel
-            EditHotelViewModel ehvm = new EditHotelViewModel(h, ownerRepo.FindAll().ToList(), contactRepo.FindAll().ToList(), branchRepo.FindAll().ToList());
-            return View(ehvm;
+              EditHotelViewModel ehvm = new EditHotelViewModel(h, ownerRepo.FindAll().ToList(), contactRepo.FindAll().ToList(), branchRepo.FindAll().ToList(),sysRepo.FindAll().ToList());
+           
+            return View(ehvm);
         }
     }
 }

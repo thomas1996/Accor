@@ -8,7 +8,7 @@ namespace Project_TL.Models.Domain
     public interface IUserRepository
     {
 
-        User FindByEmail(string email);
+        User FindByUserName(string userName);
         IQueryable<User> findAll();
         void AddUser(User user);
         void EditUser(User user);

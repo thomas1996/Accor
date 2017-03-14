@@ -1,6 +1,7 @@
 ﻿using Project_TL.Models.Domain;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -8,34 +9,47 @@ namespace Project_TL.Models.DAL
 {
     public class UserRepository : IUserRepository
     {
+        private Context context;
+        private DbSet<User> users;
+
+        public UserRepository(Context context)
+        {
+            this.context = context;
+            users = context.Users;
+        }
         public void AddUser(User user)
         {
-            throw new NotImplementedException();
+            users.Add(user);
         }
 
         public void EditUser(User user)
         {
-            throw new NotImplementedException();
+            User u = FindByUserName(user.Username);
+            if(u != null)
+            {
+                users.Remove(u);
+                users.Add(user);
+            }
         }
 
         public IQueryable<User> findAll()
         {
-            throw new NotImplementedException();
+            return users;
         }
 
-        public User FindByEmail(string email)
+        public User FindByUserName(string userName)
         {
-            throw new NotImplementedException();
+            return users.FirstOrDefault(t => t.Username.Equals(userName));
         }
 
         public void RemoveUser(User user)
         {
-            throw new NotImplementedException();
+            users.Remove(user);
         }
 
         public void SafeChanges()
         {
-            throw new NotImplementedException();
+            context.SaveChanges();
         }
     }
 }
