@@ -12,8 +12,10 @@ namespace Project_TL.Models.DAL.Mapping
 
         public UserMapper()
         {
+            //key
+            HasKey(t => t.Username);
             //properties
-            Property(t => t.UserId).HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
+           
             Property(t => t.Username).IsRequired().HasMaxLength(150);
             Property(t => t.Password).IsRequired().HasMaxLength(20);
             Property(t => t.Location).IsOptional().HasMaxLength(50);

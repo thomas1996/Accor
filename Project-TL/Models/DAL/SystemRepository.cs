@@ -1,6 +1,7 @@
 ﻿using Project_TL.Models.Domain;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -8,49 +9,67 @@ namespace Project_TL.Models.DAL
 {
     public class SystemRepository : ISystemRepository
     {
+        private Context context;
+        private DbSet<Syst> systems;
+
+        public SystemRepository(Context context)
+        {
+            this.context = context;
+            systems = context.Systems;
+        }
         public void AddSyst(Syst syst)
         {
-            throw new NotImplementedException();
+            systems.Add(syst);
         }
 
         public void EditSyst(Syst syst)
         {
-            throw new NotImplementedException();
+            Syst s = FindById(syst.SystId);
+            if(s != null)
+            {
+                systems.Remove(s);
+                systems.Add(syst);
+            }
         }
 
         public IQueryable<Syst> FindAll()
         {
-            throw new NotImplementedException();
-        }
-
-        public Syst findByEndDate(DateTime endDate)
-        {
-            throw new NotImplementedException();
+            return systems;
         }
 
         public IQueryable<Syst> FindByHotel(Hotel hotel)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
-        public Syst FindByName(string name)
+        public Syst FindById(int id)
         {
-            throw new NotImplementedException();
+            return systems.FirstOrDefault(t => t.SystId == id);
         }
 
-        public Syst findByStartDate(DateTime startDate)
+        public IQueryable<Syst> FindByName(string name)
         {
-            throw new NotImplementedException();
+            return systems.Where(t => t.Name.Equals(name));
         }
 
         public void RemoveSyst(Syst syst)
         {
-            throw new NotImplementedException();
+            systems.Remove(syst);
         }
 
         public void SaveChanges(Syst syst)
         {
-            throw new NotImplementedException();
+            context.SaveChanges();
+        }
+
+        public IQueryable<Syst> findByEndDate(DateTime endDate)
+        {
+            return systems.Where(t => t.EndDate.ToShortDateString().Equals(endDate.ToShortDateString()));
+        }
+
+        public IQueryable<Syst> findByStartDate(DateTime startDate)
+        {
+            return systems.Where(t => t.StartDate.ToShortDateString().Equals(startDate.ToShortDateString()));
         }
     }
 }

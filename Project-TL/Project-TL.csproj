@@ -273,7 +273,7 @@
     <Compile Include="Models\Domain\Type.cs" />
     <Compile Include="Models\Domain\User.cs" />
     <Compile Include="Models\Encryption\DataProtection.cs" />
-    <Compile Include="ViewModels\EditHotelViewModels.cs" />
+    <Compile Include="ViewModels\EditHotelViewModel.cs" />
     <Compile Include="ViewModels\IdentityModels.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />

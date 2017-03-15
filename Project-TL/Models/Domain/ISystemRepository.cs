@@ -8,10 +8,11 @@ namespace Project_TL.Models.Domain
 {
     public interface ISystemRepository
     {
-        Syst FindByName(string name);
-        Syst findByStartDate(DateTime startDate);
-        Syst findByEndDate(DateTime endDate);
+        IQueryable<Syst> FindByName(string name);
+        IQueryable<Syst> findByStartDate(DateTime startDate);
+        IQueryable<Syst> findByEndDate(DateTime endDate);
         IQueryable<Syst> FindByHotel(Hotel hotel);
+        Syst FindById(int id);
         IQueryable<Syst> FindAll();
         void AddSyst(Syst syst);
         void EditSyst(Syst syst);
