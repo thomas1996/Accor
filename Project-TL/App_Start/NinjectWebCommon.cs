@@ -66,6 +66,9 @@ namespace Project_TL.App_Start
             kernel.Bind<IHotelRepository>().To<HotelRepository>().InRequestScope();
             kernel.Bind<ISystemRepository>().To<SystemRepository>().InRequestScope();
             kernel.Bind<IUserRepository>().To<UserRepository>().InRequestScope();
+            kernel.Bind<IOwnerRepository>().To<OwnerRepository>().InRequestScope();
+            kernel.Bind<IContactPersonRepository>().To<ContactPersonRepository>().InRequestScope();
+
             
         }        
     }

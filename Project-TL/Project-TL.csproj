@@ -234,6 +234,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DAL\ContactPersonRepository.cs" />
+    <Compile Include="Models\DAL\OwnerRepository.cs" />
     <Compile Include="Models\DAL\UserRepository.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\DAL\Context.cs" />
@@ -418,6 +420,7 @@
     <Content Include="Scripts\Own Scripts\Search.js" />
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Search\Details.cshtml" />
+    <Content Include="Views\Search\Edit.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
