@@ -16,8 +16,8 @@ namespace Project_TL
             //x.Users.Add(new Models.Domain.User("T", "kk", true));
             //x.SaveChanges();
             x.Branches.ToList();
-           // int xy = x.Users.Count();
-           // System.Console.WriteLine(xy);
+            // int xy = x.Users.Count();
+            // System.Console.WriteLine(xy);
         }
     }
 }

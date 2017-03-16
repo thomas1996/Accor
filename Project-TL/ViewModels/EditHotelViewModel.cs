@@ -27,7 +27,7 @@ namespace Project_TL.ViewModels
             HotelId = h.HotelId;
             Email = h.Email;
             TelephoneNumber = h.TelephoneNumber;
-            Systems = h.Systems;
+            
 
         }
         [Display(Name = "Select the branch")]
