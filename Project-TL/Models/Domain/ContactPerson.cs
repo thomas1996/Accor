@@ -12,7 +12,7 @@ namespace Project_TL.Models.Domain
         public long SelphoneNr { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
-        public List<Hotel> Hotels { get; set; }
+        public virtual ICollection<Hotel> Hotels { get; set; }
         public ContactPerson()
         {
             Hotels = new List<Hotel>();

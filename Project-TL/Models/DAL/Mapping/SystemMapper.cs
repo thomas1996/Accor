@@ -20,7 +20,8 @@ namespace Project_TL.Models.DAL.Mapping
             Property(t => t.Name).IsRequired().HasMaxLength(100);
 
             //associatons
-            HasOptional(t => t.Maintenance).WithRequired().Map(m => m.MapKey("Maintenance"));
+            //HasOptional(t => t.Maintenance).WithRequired().Map(m => m.MapKey("Maintenance"));
+            HasOptional(t => t.Maintenance).WithMany();
         }
     }
 }

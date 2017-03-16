@@ -19,7 +19,7 @@ namespace Project_TL.Models.Domain
         // public virtual Status Status { get; set; }
         public double TotalCost { get; set; }
 
-        public List<Syst> Systems { get; }
+        public ICollection<Syst> Systems { get; }
 
 
         public Hotel()

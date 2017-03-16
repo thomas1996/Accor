@@ -24,21 +24,21 @@ namespace Project_TL.Controllers
         private DataProtection dp;
         private string key = "EBKY12434875BNY01PM@";
 
-        public AccountController()
-        {
-        }
-
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
         public AccountController(IUserRepository userRepo, ILoginService loginService)
         {
             this.userRepo = userRepo;
             this.loginService = loginService;
+        }
+
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IUserRepository userRepo, ILoginService loginService)
+        {
+            UserManager = userManager;
+            SignInManager = signInManager;
+            this.userRepo = userRepo;
+            this.loginService = loginService;
             dp = new DataProtection();
         }
+       
 
         public ApplicationSignInManager SignInManager
         {

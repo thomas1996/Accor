@@ -11,7 +11,7 @@ namespace Project_TL.Models.Domain
         public virtual PriceCategorie PriceCat { get; set; }
         public string Name { get; set; }
 
-        public virtual List<Hotel> Hotels { get; }
+        public virtual ICollection<Hotel> Hotels { get; }
 
 
         public Branch()

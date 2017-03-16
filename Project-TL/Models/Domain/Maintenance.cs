@@ -8,8 +8,8 @@ namespace Project_TL.Models.Domain
     public class Maintenance
     {
         public int MaintenanceId { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public virtual DateTime StartDate { get; set; }
+        public virtual DateTime EndDate { get; set; }
         public double Price { get; set; }
         public Maintenance()
         {

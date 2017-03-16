@@ -10,8 +10,8 @@ namespace Project_TL.Models.Domain
         public int OwnerId { get; set; }
         public string LastName { get; set; }
         public string FistName { get; set; }
-        public virtual List<Firm> Firm{ get; set; }
-        public virtual List<Hotel> Hotels { get;  }
+        public virtual ICollection<Firm> Firm{ get; set; }
+        public virtual ICollection<Hotel> Hotels { get;  }
 
         public Owner()
         {

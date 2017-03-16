@@ -24,7 +24,7 @@ namespace Project_TL.ViewModels
             HotelId = h.HotelId;
             Email = h.Email;
             TelephoneNumber = h.TelephoneNumber;
-            Systems = h.Systems;
+            Systems = h.Systems.ToList();
             TotalCost = h.TotalCost;
             
            // Status = h.Status;

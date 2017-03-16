@@ -12,9 +12,9 @@ namespace Project_TL.Models.Domain
         public double Price { get; set; }
         public string Name { get; set; }
         public virtual Type Type {get;set;    }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public virtual List<Hotel> Hotels { get; }
+        public virtual DateTime StartDate { get; set; }
+        public virtual DateTime EndDate { get; set; }
+        public virtual ICollection<Hotel> Hotels { get; }
         public virtual Maintenance Maintenance { get; set; }
 
         public Syst()
