@@ -12,14 +12,15 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>EditHotelViewModel</h4>
+        <br />
+        <h4>Edit</h4>
         <hr />
 
         <div class="form-group">
-            @Html.LabelFor(m => m.SelectedBranchId)
+            @Html.LabelFor(m => m.SelectedBranchId,htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(m => m.SelectedBranchId, Model.Branch)
-                @Html.ValidationMessageFor(m => m.SelectedBranchId)
+                @Html.DropDownListFor(m => m.SelectedBranchId, Model.Branch, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.SelectedBranchId,"",new { @class = "text-danger" })
             </div>
         </div>
 
@@ -57,19 +58,20 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(m => m.SelectedContactPersonId)
+            @Html.LabelFor(m => m.SelectedContactPersonId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(m => m.SelectedContactPersonId, Model.ContactPerson)
-                @Html.ValidationMessageFor(m => m.SelectedContactPersonId)
+                @Html.DropDownListFor(m => m.SelectedContactPersonId, Model.ContactPerson, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.SelectedContactPersonId, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
-            @Html.LabelFor(m => m.SelectedOwnerId)
+            @Html.LabelFor(m => m.SelectedOwnerId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(m => m.SelectedOwnerId, Model.Owner)
-                @Html.ValidationMessageFor(m => m.SelectedOwnerId)
+                @Html.DropDownListFor(m => m.SelectedOwnerId, Model.Owner, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(m => m.SelectedOwnerId, "", new { @class = "text-danger" })
             </div>
         </div>
+        
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">

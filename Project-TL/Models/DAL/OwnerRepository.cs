@@ -1,6 +1,7 @@
 ﻿using Project_TL.Models.Domain;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -8,34 +9,79 @@ namespace Project_TL.Models.DAL
 {
     public class OwnerRepository : IOwnerRepository
     {
+        private DbSet<Owner> owners;
+        private Context context;
+
+        public OwnerRepository(Context context)
+        {
+            this.context = context;
+            owners = context.Owner;
+        }
         public void AddOwner(Owner owner)
         {
-            throw new NotImplementedException();
+            owners.Add(owner);
         }
 
         public void EditOwner(Owner owner)
         {
-            throw new NotImplementedException();
+            Owner o = FindById(owner.OwnerId);
+            if(o != null)
+            {
+                owners.Remove(o);
+                owners.Add(owner);
+            }
         }
 
         public IQueryable<Owner> FindAll()
         {
-            throw new NotImplementedException();
+            return owners;
         }
 
-        public Owner FindByFirm(string firm)
+        public Owner FindByFirm(int firmId)
         {
-            throw new NotImplementedException();
+            //owners.Select(t =>
+            //{
+            //    t.Firm.Select(f =>
+            //    {
+            //        if (f.FirmId == firmId)
+            //        {
+
+            //        }
+            //    });
+            //});
+
+            Owner ow = null;
+            foreach (Owner o in owners)
+            {
+                foreach(Firm f in o.Firm)
+                {
+                    if (f.FirmId == firmId) 
+                    {
+                       ow = o; 
+                    }
+                }
+            }
+            return ow;
         }
 
         public Owner FindByName(string name)
         {
-            throw new NotImplementedException();
+            return owners.FirstOrDefault(t => t.FistName.Equals(name));
         }
 
         public void RemoveOwner(Owner owner)
         {
-            throw new NotImplementedException();
+            owners.Remove(owner);
+        }
+
+        public Owner FindById(int id)
+        {
+            return owners.FirstOrDefault(t => t.OwnerId == id);
+        }
+
+        public void SaveChanges()
+        {
+            context.SaveChanges();
         }
     }
 }

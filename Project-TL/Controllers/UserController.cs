@@ -12,12 +12,20 @@ namespace Project_TL.Controllers
     {
         private IUserRepository userRepo;
         private Context context;
-
-        // GET: User
-        public ActionResult Index(IUserRepository userRepo)
+        public UserController(IUserRepository userRepo)
         {
             this.userRepo = userRepo;
+        }
+        // GET: User
+        public ActionResult Index()
+        {
+            
 
+            return View(userRepo.findAll());
+        }
+
+        public ActionResult Add()
+        {
             return View();
         }
     }

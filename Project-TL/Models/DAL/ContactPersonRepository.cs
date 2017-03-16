@@ -1,6 +1,7 @@
 ﻿using Project_TL.Models.Domain;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
@@ -8,39 +9,52 @@ namespace Project_TL.Models.DAL
 {
     public class ContactPersonRepository : IContactPersonRepository
     {
+        private Context context;
+        private DbSet<ContactPerson> contactpersons;
+
+        public ContactPersonRepository(Context context)
+        {
+            this.context = context;
+            contactpersons = context.ContactPersons;
+        }
         public void AddContactPerson(ContactPerson contact)
         {
-            throw new NotImplementedException();
+            contactpersons.Add(contact);
         }
 
         public void EditContactPerson(ContactPerson contact)
         {
-            throw new NotImplementedException();
+            ContactPerson cp = FindByEmail(contact.Email);
+            if(cp != null)
+            {
+                contactpersons.Remove(cp);
+                contactpersons.Add(contact);
+            }
         }
 
         public IQueryable<ContactPerson> FindAll()
         {
-            throw new NotImplementedException();
+            return contactpersons;
         }
 
         public ContactPerson FindByEmail(string email)
         {
-            throw new NotImplementedException();
+            return contactpersons.FirstOrDefault(t => t.Email.Equals(email));
         }
 
         public ContactPerson FindByName(string lastname)
         {
-            throw new NotImplementedException();
+            return contactpersons.FirstOrDefault(t => t.LastName.Equals(lastname));
         }
 
         public void RemoveContactPerson(ContactPerson contact)
         {
-            throw new NotImplementedException();
+            contactpersons.Remove(contact);
         }
 
         public void SaveChanges()
         {
-            throw new NotImplementedException();
+            context.SaveChanges();
         }
     }
 }
