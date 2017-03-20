@@ -111,9 +111,7 @@ namespace Project_TL.Controllers
              */
 
             hh = new List<Hotel>();
-            //hh.Add(h1);
-            //hh.Add(h2);
-            //hh.Add(h3);
+            
             hh = hotelRepo.FindAll().ToList();
 
             hh.OrderBy(t => t.Branch);
@@ -178,9 +176,42 @@ namespace Project_TL.Controllers
 
 
             //Use a viewmodel to display al the details of the hotel
+            
             EditHotelViewModel ehvm = new EditHotelViewModel(h, ownerRepo.FindAll().ToList(), contactRepo.FindAll().ToList(), branchRepo.FindAll().ToList(),sysRepo.FindAll().ToList());
 
             return View(ehvm);
+        }
+        [HttpPost]
+        public ActionResult Edit(string hotelId,EditHotelViewModel ehvm)
+        {
+            if(ModelState.IsValid)
+            {
+                try
+                {
+                    Hotel hotel = hotelRepo.FindByCode(hotelId);
+                    MapToHotel(ehvm, hotel);
+                    hotelRepo.SaveChanges();
+                    TempData["message"] = String.Format("Hotel {0} werd aangepast", hotel.Branch + hotel.Adres.City);
+                    return RedirectToAction("Index");
+                }
+                catch(Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+            }
+            return View(ehvm);
+        }
+
+        private void MapToHotel(EditHotelViewModel ehvm, Hotel hotel)
+        {
+            hotel.Branch = branchRepo.FindByName(ehvm.Branch.Where(x => x.Selected).FirstOrDefault().Text);
+            hotel.ContactPerson = contactRepo.FindByName(ehvm.ContactPerson.Where(x => x.Selected).FirstOrDefault().Text);
+            hotel.Email = ehvm.Email;
+            hotel.Owner = ownerRepo.FindByName(ehvm.Owner.Where(x => x.Selected).FirstOrDefault().Text);
+            hotel.TelephoneNumber = ehvm.TelephoneNumber;
+            hotel.VatNumber = ehvm.VatNumber;
+           
+
         }
     }
 }
