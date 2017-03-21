@@ -13,7 +13,7 @@ namespace Project_TL.Models.DAL.Mapping
         {
             //key
             HasKey(t => t.Street);
-            HasKey(t => t.PostalCode);
+            
             //prop
             Property(t => t.City).IsRequired().HasMaxLength(100);
             Property(t => t.Country).IsRequired().HasMaxLength(100);

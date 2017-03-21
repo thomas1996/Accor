@@ -101,33 +101,37 @@
             {
                 <dd>There are currently no Systems </dd>
             }
-            <dd>
-                <table class="table-condensed table-responsive table-bordered"  >
-                    <tr>
-                        <th>System</th>
-                        <th>Cost</th>
-                        <th>EndDate</th>
-                        <th> Cost Maintenance</th>
-                    </tr>
-                   @foreach (var item in Model.Systems)
-                   {
-                       <tr>
-                       <td>
-                           @Html.DisplayFor(model => item.Name)
-                       </td>
-                       <td>
-                          @String.Format("€{0:N}",item.Price)
-                       </td>
-                       <td>
-                           @String.Format(item.EndDate.ToShortDateString())
-                       </td>
-                       <td>
-                         @String.Format("€{0:N}",item.Maintenance.Price)
-                       </td>
-                       </tr>
-                   }
-                </table>
-            </dd>
+            else
+            {
+                <dd>
+                    <table class="table-condensed table-responsive table-bordered">
+                        <tr>
+                            <th>System</th>
+                            <th>Cost</th>
+                            <th>EndDate</th>
+                            <th> Cost Maintenance</th>
+                        </tr>
+                        @foreach (var item in Model.Systems)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(model => item.Name)
+                                </td>
+                                <td>
+                                    @String.Format("€{0:N}", item.Price)
+                                </td>
+                                <td>
+                                    @String.Format(item.EndDate.ToShortDateString())
+                                </td>
+                                <td>
+                                    @String.Format("€{0:N}", item.Maintenance.Price)
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </dd>
+            }
+            
             <dt>Total cost</dt>
             <dd>
                 @Html.DisplayFor(item => item.TotalCost)

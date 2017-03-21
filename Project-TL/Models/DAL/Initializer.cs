@@ -13,6 +13,7 @@ namespace Project_TL.Models.DAL
         {
             try
             {
+
                 context.Users.Add(new User("Thomas", "Ik", true));
                 context.Users.Add(new User("Jan", "P@ssword1", false));
 
@@ -46,9 +47,9 @@ namespace Project_TL.Models.DAL
                 sys2.Add(s2);
                 sys2.Add(s3);
 
-                Hotel h1 = new Hotel(a1, b1, "BE 0817.220.446 ", p1, "8602", "H8602@Adagio-city.com", "+32 227 41 780", o1, sys);
-                Hotel h2 = new Hotel(a2, b2, "BE 0635.611.207 ", p2, "0649", "h0649-GM@Accor.com", "+31 20 50 25 100", o3,  sys);
-                Hotel h3 = new Hotel(a3, b2, "BE 0635.611.207 ", p3, "0650", "HA3P2@accor.com", "+31 20 34 83 533", o2,  sys2);
+                Hotel h1 = new Hotel(a1, b1, "BE 0817.220.446 ", p1, "8602", "H8602@Adagio-city.com", "+32 227 41 780", o1, sys,Status.FR);
+                Hotel h2 = new Hotel(a2, b2, "BE 0635.611.207 ", p2, "0649", "h0649-GM@Accor.com", "+31 20 50 25 100", o3,  sys,Status.MAN);
+                Hotel h3 = new Hotel(a3, b2, "BE 0635.611.207 ", p3, "0650", "HA3P2@accor.com", "+31 20 34 83 533", o2,  sys2,Status.FR);
 
                 p1.addHotel(h1);
                 p2.addHotel(h2);
@@ -56,7 +57,7 @@ namespace Project_TL.Models.DAL
 
                 s1.addHotel(h1);
                 s1.addHotel(h2);
-               // s1.addHotel(h1);
+              
                 s2.addHotel(h2);
                 s3.addHotel(h3);
 

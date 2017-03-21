@@ -53,7 +53,7 @@ namespace Project_TL.Models.DAL
             Owner ow = null;
             foreach (Owner o in owners)
             {
-                foreach(Firm f in o.Firm)
+                foreach(Firm f in o.Firms)
                 {
                     if (f.FirmId == firmId) 
                     {

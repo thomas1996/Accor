@@ -14,7 +14,10 @@
 
 
     <h2>SearchPage</h2>
+   <button>@Html.ActionLink("Create new hotel", "Create", "Search", routeValues: null, htmlAttributes: new { title = "Create" })
+       </button>
 
+    <br />
     <br />
     <div class="centering ">
         <table class="table table-hover table-bordered table-responsive" id="example">
@@ -47,7 +50,8 @@
                         @Html.DisplayNameFor(model => model.Branch)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Adres)
+                        @Html.DisplayNameFor(model => model.Adres.City)
+                        
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.HotelId)
@@ -88,7 +92,7 @@
                         @if (ViewBag.admin == true)
                         {
                             <td>
-                                <a href="@Url.Action("Edit", "Search", new {  id=item.HotelId  })" |
+                            <a href="@Url.Action("Edit", "Search", new {  id=item.HotelId  })" |
                             <a href="@Url.Action("Details", "Search", new {  id=item.HotelId  })" |
                             <a href="@Url.Action("Delete", "Search", new {  id=item.HotelId  })"
                             </td>

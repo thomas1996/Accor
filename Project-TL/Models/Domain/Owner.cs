@@ -10,19 +10,19 @@ namespace Project_TL.Models.Domain
         public int OwnerId { get; set; }
         public string LastName { get; set; }
         public string FistName { get; set; }
-        public virtual ICollection<Firm> Firm{ get; set; }
+        public virtual ICollection<Firm> Firms{ get; set; }
         public virtual ICollection<Hotel> Hotels { get;  }
 
         public Owner()
         {
-            Firm = new List<Firm>();
+            Firms = new List<Firm>();
             Hotels = new List<Hotel>();
         }
         public Owner(string name,string firstname)
         {
             LastName = name;
             FistName = firstname;
-            Firm = new List<Firm>();
+            Firms = new List<Firm>();
             Hotels = new List<Hotel>();
         }
 

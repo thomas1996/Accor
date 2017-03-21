@@ -11,7 +11,7 @@ namespace Project_TL.Models.DAL
 {
     public class Context : DbContext
     {
-        public Context() : base("Project") { }
+        public Context() : base("Context") { }
 
         public DbSet<Branch> Branches { get; set; }
         public DbSet<Firm> Firms { get; set; }
@@ -23,7 +23,7 @@ namespace Project_TL.Models.DAL
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            Database.SetInitializer<Context>(null);
+            //Database.SetInitializer<Context>(null);
            // modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
            modelBuilder.Configurations.AddFromAssembly(Assembly.GetExecutingAssembly());
         }

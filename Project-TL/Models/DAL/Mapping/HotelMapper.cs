@@ -18,16 +18,18 @@ namespace Project_TL.Models.DAL.Mapping
             Property(t => t.TelephoneNumber).IsRequired();
             Property(t => t.VatNumber).IsRequired();
             Ignore(t => t.TotalCost);
+            Property(t => t.Status).IsRequired();
 
             //associations
-            HasRequired(t => t.Owner).WithMany().Map(m => m.MapKey("Owner")).WillCascadeOnDelete(false);
-            HasRequired(t => t.Branch).WithMany().Map(m => m.MapKey("branch")).WillCascadeOnDelete(false);
-            HasRequired(t => t.ContactPerson).WithMany().Map(m => m.MapKey("ContactPerson")).WillCascadeOnDelete(false);
+            //HasRequired(t => t.Owner).WithMany().Map(m => m.MapKey("Owner")).WillCascadeOnDelete(false);
+            HasRequired(t => t.Owner).WithMany(t => t.Hotels).Map(m => m.MapKey("Owner")).WillCascadeOnDelete(false);
+            HasRequired(t => t.Branch).WithMany(t => t.Hotels).Map(m => m.MapKey("branch")).WillCascadeOnDelete(false);
+            HasRequired(t => t.ContactPerson).WithMany(t => t.Hotels).Map(m => m.MapKey("ContactPerson")).WillCascadeOnDelete(false);
             HasMany(t => t.Systems).WithMany(s => s.Hotels).Map(m =>
             {
                 m.ToTable("HotelSystem");
                 m.MapLeftKey("HotelId");
-                m.MapRightKey("BranchId");
+                m.MapRightKey("SystId");
             });
             HasRequired(t => t.Adres).WithOptional().Map(m => m.MapKey("Adres"));
          //   HasRequired(t => t.Status).WithOptional().Map(m => m.MapKey("Status"));

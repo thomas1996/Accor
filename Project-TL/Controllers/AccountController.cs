@@ -24,6 +24,10 @@ namespace Project_TL.Controllers
         private DataProtection dp;
         private string key = "EBKY12434875BNY01PM@";
 
+        public AccountController()
+        {
+
+        }
         public AccountController(IUserRepository userRepo, ILoginService loginService)
         {
             this.userRepo = userRepo;

@@ -27,6 +27,7 @@ namespace Project_TL.ViewModels
             HotelId = h.HotelId;
             Email = h.Email;
             TelephoneNumber = h.TelephoneNumber;
+            Adres = h.Adres;
             
 
         }
@@ -93,6 +94,8 @@ namespace Project_TL.ViewModels
             }
 
         }
+        [Required(ErrorMessage ="{0} is required")]
+        public Adres Adres { get; set; }
 
     } 
 }
