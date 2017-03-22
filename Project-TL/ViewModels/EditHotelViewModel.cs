@@ -15,6 +15,7 @@ namespace Project_TL.ViewModels
         private readonly List<ContactPerson> contacts;
         private readonly List<Owner> owners;
         private readonly List<Syst> syst;
+        private  List<Status> status;
 
         public EditHotelViewModel(Hotel h, List<Owner> owners, List<ContactPerson> contacts, List<Branch> branches, List<Syst> systems)
         {
@@ -22,15 +23,28 @@ namespace Project_TL.ViewModels
             this.owners = owners;
             this.contacts = contacts;
             syst = systems;
+            status = new List<Status>();
+            makeStatusList();
 
             VatNumber = h.VatNumber;
             HotelId = h.HotelId;
             Email = h.Email;
             TelephoneNumber = h.TelephoneNumber;
             Adres = h.Adres;
+           
             
 
         }
+
+        private void makeStatusList()
+        {
+            
+            foreach (Status s in Enum.GetValues(typeof(Status)))
+            {             
+                this.status.Add(s);
+            }
+        }
+
         [Display(Name = "Select the branch")]
         public int SelectedBranchId { get; set; }
 
@@ -96,6 +110,17 @@ namespace Project_TL.ViewModels
         }
         [Required(ErrorMessage ="{0} is required")]
         public Adres Adres { get; set; }
+
+        [Display(Name ="Select the status")]
+        [Required(ErrorMessage ="{0} is required")]
+        public int SelectedStatusId { get; set; }
+
+        public IEnumerable<SelectListItem> Status { get
+            {
+                return new SelectList(status, "status");
+            }
+        }
+
 
     } 
 }

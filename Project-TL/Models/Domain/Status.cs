@@ -15,4 +15,6 @@ namespace Project_TL.Models.Domain
             MAN,
 
     }
+
+    
 }

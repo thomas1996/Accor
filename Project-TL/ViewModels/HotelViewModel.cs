@@ -26,8 +26,7 @@ namespace Project_TL.ViewModels
             TelephoneNumber = h.TelephoneNumber;
             Systems = h.Systems.ToList();
             TotalCost = h.TotalCost;
-            
-           // Status = h.Status;
+            Status = h.Status;
 
         }
         [Required(ErrorMessage ="{0} is required")]
@@ -61,8 +60,8 @@ namespace Project_TL.ViewModels
         [Range(0,Int32.MaxValue,ErrorMessage ="Cost can't be negative")]
         [DisplayFormat(DataFormatString ="€{0:N}")]
         public double TotalCost { get; set; }
-        //[Required(ErrorMessage ="{0} is required")]
-        //public Status Status { get; set; }
+        [Required(ErrorMessage = "{0} is required")]
+        public Status Status { get; set; }
 
     }
 }

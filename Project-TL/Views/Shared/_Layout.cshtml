@@ -34,14 +34,7 @@
                         </li>
                         <li class="dropdown active">
                             @Html.ActionLink("Search", "Index", "Wishlist", routeValues: null, htmlAttributes: new { title = "Verlanglijst" })
-                            <ul class="dropdown-menu">
-                                <li>
-                                    @Html.ActionLink("Owner", "Index", "Search", routeValues: null, htmlAttributes: new { title = "Search" })
-                                </li>
-                                <li>
-                                    @Html.ActionLink("Hotel", "Index", "Search", routeValues: null, htmlAttributes: new { title = "Search" })
-                                </li>
-                            </ul>
+                            
                         </li>
                         <li>@Html.ActionLink("Account", "Index", "Reservation", routeValues: null, htmlAttributes: new { title = "Reservaties" })</li>
 
@@ -56,14 +49,7 @@
                         </li>
                         <li class="dropdown active">
                             @Html.ActionLink("Search", "Index", "Search", routeValues: null, htmlAttributes: new { title = "Verlanglijst" })
-                            <ul class="dropdown-menu">
-                                <li>
-                                    @Html.ActionLink("Owner", "Index", "Search", routeValues: null, htmlAttributes: new { title = "Search" })
-                                </li>
-                                <li>
-                                    @Html.ActionLink("Hotel", "Index", "Search", routeValues: null, htmlAttributes: new { title = "Search" })
-                                </li>
-                            </ul>
+                            
                         </li>
                         <li>
                             @Html.ActionLink("Users", "Index", "User", routeValues: null, htmlAttributes: new { title = "User" })

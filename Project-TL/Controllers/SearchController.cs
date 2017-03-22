@@ -32,6 +32,7 @@ namespace Project_TL.Controllers
             hh = new List<Hotel>();           
             hh = hotelRepo.FindAll().ToList();
             hh.OrderBy(t => t.Branch);
+           
             
 
         }
@@ -60,21 +61,7 @@ namespace Project_TL.Controllers
             //Use a viewmodel to display al the details of the hotel
             HotelViewModel hvm = new HotelViewModel(h);
 
-
-
-            /* List<Syst> sy = new List<Syst>();
-             Branch b = new Branch("Mercure");
-
-             ContactPerson p = new ContactPerson("ik@gmail.com", "thomas",047514012);
-
-             Owner o = new Owner("Jan");
-             Adres a = new Adres("Rue Jean Rey", 75015, "Paris", 20, "France");
-             Hotel h = new Hotel(a, b, 10, p, " 5", "thhtht", "5585", o,Status.FIL, sy);
-
-             b.addHotel(h);
-             p.addHotel(h);
-             HotelViewModel hvm = new HotelViewModel(h);
-             */
+            
             return View(hvm);
         }
 
