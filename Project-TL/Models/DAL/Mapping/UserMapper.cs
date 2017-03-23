@@ -17,7 +17,7 @@ namespace Project_TL.Models.DAL.Mapping
             //properties
            
             Property(t => t.Username).IsRequired().HasMaxLength(150);
-            Property(t => t.Password).IsRequired().HasMaxLength(20);
+            Property(t => t.Password).IsRequired().HasMaxLength(500);
             Property(t => t.Location).IsOptional().HasMaxLength(50);
             Property(t => t.Admin).IsRequired();
         }

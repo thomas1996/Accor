@@ -17,6 +17,11 @@ namespace Project_TL.ViewModels
         private readonly List<Syst> syst;
         private  List<Status> status;
 
+        public EditHotelViewModel()
+        {
+
+        }
+
         public EditHotelViewModel(Hotel h, List<Owner> owners, List<ContactPerson> contacts, List<Branch> branches, List<Syst> systems)
         {
             this.branches = branches;
@@ -113,11 +118,11 @@ namespace Project_TL.ViewModels
 
         [Display(Name ="Select the status")]
         [Required(ErrorMessage ="{0} is required")]
-        public int SelectedStatusId { get; set; }
+        public Enum SelectedStatusId { get; set; }
 
         public IEnumerable<SelectListItem> Status { get
             {
-                return new SelectList(status, "status");
+                return new SelectList(status);
             }
         }
 

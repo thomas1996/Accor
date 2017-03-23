@@ -101,7 +101,9 @@
                         {
                             <td>
 
-                                <a href="@Url.Action("Details", "Search", new {  hotelId=@item.HotelId  })">Details</a>
+                                <a href="@Url.Action("Details", "Search", new {  hotelId=@item.HotelId  })">Details |</a>
+                                <a href="@Url.Action("Edit", "Search", new {  id=item.HotelId  })">Edit |</a> 
+                            <a href="@Url.Action("Delete", "Search", new {  id=item.HotelId  })">Delete</a>
 
                             </td>
                         }

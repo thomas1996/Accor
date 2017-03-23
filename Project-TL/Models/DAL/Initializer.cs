@@ -1,4 +1,5 @@
 ﻿using Project_TL.Models.Domain;
+using Project_TL.Models.Encryption;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -11,11 +12,12 @@ namespace Project_TL.Models.DAL
     {
         protected override void Seed(Context context)
         {
+            DataProtection dp = new DataProtection();
             try
             {
-
+                string pass = dp.Encrypt("P@ssword123", "34875BNYM==");
                 context.Users.Add(new User("Thomas", "Ik", true));
-                context.Users.Add(new User("Jan", "P@ssword1", false));
+                context.Users.Add(new User("Jan@accor.com",pass , false));
 
                 Adres a1 = new Adres("Rue de l'industrie", "1000", "Brussels", 12, "Belgium");
                 Adres a2 = new Adres("Schipholweg", "1171", "Badhoevedorp", 181, "The nederlands");

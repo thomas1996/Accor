@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace Project_TL.Controllers
 {
+    
     public class SearchController : Controller
     {
         private IHotelRepository hotelRepo;
@@ -42,6 +43,7 @@ namespace Project_TL.Controllers
 
 
             IEnumerable<HotelViewModel> hvm = hh.Select(t => new HotelViewModel(t));
+            //ViewBag.admin = true;
 
             return View(hvm);
         }
@@ -132,6 +134,15 @@ namespace Project_TL.Controllers
                 }
             }
             return View("Create", ehvm);
+        }
+
+        public ActionResult Delete(string id)
+        {
+            Hotel h = hotelRepo.FindByCode(id);
+            if (h == null)
+                return HttpNotFound();
+            return View(h);
+
         }
 
 

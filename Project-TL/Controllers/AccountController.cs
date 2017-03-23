@@ -20,26 +20,25 @@ namespace Project_TL.Controllers
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
         private IUserRepository userRepo;
-        private ILoginService loginService;
+      
         private DataProtection dp;
-        private string key = "EBKY12434875BNY01PM@";
+        private string key = "34875BNYM==";
 
         public AccountController()
         {
 
         }
-        public AccountController(IUserRepository userRepo, ILoginService loginService)
+        public AccountController(IUserRepository userRepo)
         {
             this.userRepo = userRepo;
-            this.loginService = loginService;
+            dp = new DataProtection();
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IUserRepository userRepo, ILoginService loginService)
+        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IUserRepository userRepo)
         {
             UserManager = userManager;
             SignInManager = signInManager;
-            this.userRepo = userRepo;
-            this.loginService = loginService;
+            this.userRepo = userRepo;           
             dp = new DataProtection();
         }
        
@@ -93,7 +92,8 @@ namespace Project_TL.Controllers
             }
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = SignInStatus.Failure;
+            //= await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             User u = userRepo.FindByUserName(model.Email);
             if(u == null)
             {
@@ -101,8 +101,8 @@ namespace Project_TL.Controllers
                 return View(model);
             }
            
-                string password = dp.Decrypt(u.Password, dp.GenerateAPassKey(key));
-                if(password == model.Password)
+                string passwordDecrypted = dp.Decrypt(u.Password, key);
+                if(passwordDecrypted == model.Password)
             {
                 result = SignInStatus.Success;
             }
