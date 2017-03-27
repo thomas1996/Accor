@@ -1,6 +1,7 @@
 ﻿using Project_TL.Models.DAL;
 using Project_TL.Models.Domain;
 using Project_TL.ViewModels;
+using Project_TL.ViewModels.Settings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,12 +16,18 @@ namespace Project_TL.Controllers
         private ContactPersonRepository contactRepo;
         private OwnerRepository ownerRepo;
         private SystemRepository sysRepo;
+        private HotelRepository hotelRepo;
         private List<Status> status;
         private List<Models.Domain.Type> type;
 
-        public SettingsController(BranchRepository branchRepo, ContactPersonRepository contactRepo, OwnerRepository ownerRepo, SystemRepository systRepo)
+        public SettingsController()
+        {
+
+        }
+        public SettingsController(BranchRepository branchRepo, ContactPersonRepository contactRepo, OwnerRepository ownerRepo, SystemRepository systRepo,HotelRepository hotelRepo)
         {
             this.branchRepo = branchRepo;
+            this.hotelRepo = hotelRepo;
             this.contactRepo = contactRepo;
             this.ownerRepo = ownerRepo;
             this.sysRepo = systRepo;
@@ -61,12 +68,46 @@ namespace Project_TL.Controllers
             return View(svm);
         }
 
-        public ActionResult DetailBranch(int id)
+        //branches
+        public ActionResult DetailBranch(string name)
         {
-
+            Branch b = branchRepo.FindByName(name);
+            BranchViewModel bvm = new BranchViewModel(b,null);
+            return View(bvm);
         }
 
+        public ActionResult CreateBranch()
+        {
+            Branch b = new Branch();
+            BranchViewModel bvm = new BranchViewModel(b,hotelRepo);
+            return View(b);
+        }
 
+        [HttpPost]
+        public ActionResult CreateBranch(Branch bvm)
+        {
+            if(ModelState.IsValid)
+            {
+                try
+                {
+                    Branch b = new Branch();
+                    branchRepo.AddBranch(b);
+                    MapToBranch(bvm,b);
+                    branchRepo.SaveChanges();
+                    TempData["message"] = String.Format("Branch {0} was created", b.Name);
+                    return RedirectToAction("Index");
+                }catch(Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
 
+            }
+            return View("CreateBranch", bvm);
+        }
+
+        private void MapToBranch(Branch bvm, Branch b)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

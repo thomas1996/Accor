@@ -22,9 +22,9 @@
                 @Html.DisplayNameFor(model => model.Branch)
             </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.Branch.Name)
-            </dd>
+            <dd class="bubbleInfo">
+                <a href="@Url.Action("DetailBranch", "Settings", new {name = Model.Branch.Name})"> @Html.DisplayFor(model => model.Branch.Name)</a>
+                        </dd>
 
             <dt>
                 @Html.DisplayNameFor(model => model.Adres)

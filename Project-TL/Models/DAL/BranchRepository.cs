@@ -34,15 +34,8 @@ namespace Project_TL.Models.DAL
 
         public IQueryable<Branch> FindAll()
         {
-            // return branches;
-            List<Branch> br = new List<Branch>();
-            Branch b1 = new Branch("Accor");
-            Branch b2 = new Branch("Mercure");
-            Branch b3 = new Branch("Pitbull");
-            br.Add(b1);
-            br.Add(b2);
-            br.Add(b3);
-            return br.AsQueryable();
+             return branches;
+           
         }
 
         public Branch FindByName(string name)

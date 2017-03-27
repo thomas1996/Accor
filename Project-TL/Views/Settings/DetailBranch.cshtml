@@ -1,0 +1,75 @@
+﻿@model Project_TL.ViewModels.Settings.BranchViewModel
+
+@{
+    ViewBag.Title = "DetailBranch";
+}
+
+<br />
+<br />
+<br />
+<div>
+    <h2>Details @Model.Name</h2>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PriceCat)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PriceCat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hotels)
+        </dt>
+       
+        @if (Model.Hotels.Count == 0)
+        {
+            <dd>There are currently no Hotels in this branch </dd>
+        }
+        else
+        {
+            <dd>
+                <table class="table-condensed table-responsive table-bordered">
+                    <tr>
+                        <th>City</th>
+                        <th>Owner</th>
+                        <th>Contact Person</th>
+
+                    </tr>
+                    @foreach (var item in Model.Hotels)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(model => item.Adres.City)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.Owner.LastName) @Html.DisplayFor(model => item.Owner.FistName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(model => item.ContactPerson.LastName) @Html.DisplayFor(model => item.ContactPerson.FirstName)
+                            </td>
+                        </tr>
+                    }
+
+
+
+                </table>
+            </dd>
+        }
+  
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
