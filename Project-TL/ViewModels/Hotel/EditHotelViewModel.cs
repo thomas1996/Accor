@@ -41,15 +41,6 @@ namespace Project_TL.ViewModels
 
         }
 
-        private void makeStatusList()
-        {
-            
-            foreach (Status s in Enum.GetValues(typeof(Status)))
-            {             
-                this.status.Add(s);
-            }
-        }
-
         [Display(Name = "Select the branch")]
         public int SelectedBranchId { get; set; }
 
@@ -123,6 +114,15 @@ namespace Project_TL.ViewModels
         public IEnumerable<SelectListItem> Status { get
             {
                 return new SelectList(status);
+            }
+        }
+
+        private void makeStatusList()
+        {
+
+            foreach (Status s in Enum.GetValues(typeof(Status)))
+            {
+                this.status.Add(s);
             }
         }
 

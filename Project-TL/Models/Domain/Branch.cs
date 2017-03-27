@@ -10,6 +10,7 @@ namespace Project_TL.Models.Domain
         public int BranchId { get; set; }
         public virtual PriceCategorie PriceCat { get; set; }
         public string Name { get; set; }
+  
 
         public virtual ICollection<Hotel> Hotels { get; }
 
@@ -21,9 +22,10 @@ namespace Project_TL.Models.Domain
 
         public Branch(string name)
         {
-            Name = name;
+            Name = name;         
             Hotels = new List<Hotel>();
         }
+       
 
        public void addHotel(Hotel h)
         {

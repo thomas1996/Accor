@@ -14,10 +14,6 @@
 
 
     <h2>SearchPage</h2>
-   <button>@Html.ActionLink("Create new hotel", "Create", "Search", routeValues: null, htmlAttributes: new { title = "Create" })
-       </button>
-
-    <br />
     <br />
     <div class="centering ">
         <table class="table table-hover table-bordered table-responsive" id="example">
@@ -71,22 +67,22 @@
                 @foreach (var item in Model)
             {
                     <tr>
-                        <td>
+                        <td class="select-filter">
                             @Html.DisplayFor(modelItem => item.Branch.Name)
                         </td>
-                        <td>
+                        <td class="select-filter">
                             @Html.DisplayFor(modelItem => item.Adres.City)
                         </td>
-                        <td>
+                        <td class="select-filter">
                             @Html.DisplayFor(modelItem => item.HotelId)
                         </td>
-                        <td>
+                        <td class="select-filter">
                             @Html.DisplayFor(modelItem => item.ContactPerson.LastName) @Html.DisplayFor(modelItem => item.ContactPerson.FirstName)
                         </td>
-                        <td>
+                        <td class="select-filter">
                             @Html.DisplayFor(modelItem => item.Owner.LastName) @Html.DisplayFor(modelItel => item.Owner.FistName)
                         </td>
-                        <td>
+                        <td class="select-filter">
                             @Html.DisplayFor(modelItem => item.TotalCost)
                         </td>
                         @if (ViewBag.admin == true)
@@ -101,9 +97,9 @@
                         {
                             <td>
 
-                                <a href="@Url.Action("Details", "Search", new {  hotelId=@item.HotelId  })">Details |</a>
-                                <a href="@Url.Action("Edit", "Search", new {  id=item.HotelId  })">Edit |</a> 
-                            <a href="@Url.Action("Delete", "Search", new {  id=item.HotelId  })">Delete</a>
+                                <a href="@Url.Action("Details", "Search", new {hotelId = @item.HotelId  })">Details |</a>
+                                <a href="@Url.Action("Edit", "Search", new {hotelId = item.HotelId  })">Edit |</a> 
+                            <a href="@Url.Action("Delete", "Search", new {id = item.HotelId  })">Delete</a>
 
                             </td>
                         }
@@ -112,6 +108,9 @@
                 }
             </tbody>
         </table>
+        <button>
+            @Html.ActionLink("Create new hotel", "Create", "Search", routeValues: null, htmlAttributes: new { title = "Create" })
+    </button>
     </div>
 </body>
 </html>

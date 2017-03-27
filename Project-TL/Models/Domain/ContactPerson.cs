@@ -9,7 +9,7 @@ namespace Project_TL.Models.Domain
     {
         public int ContactPersonId { get; set; }
         public string Email { get; set; }
-        public long SelphoneNr { get; set; }
+        public string SelphoneNr { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
         public virtual ICollection<Hotel> Hotels { get; set; }
@@ -22,11 +22,11 @@ namespace Project_TL.Models.Domain
         {
             Email = email;
             LastName = name;
-            SelphoneNr = 0;
+            SelphoneNr = "";
             FirstName = firstname;
             Hotels = new List<Hotel>();
         }
-        public ContactPerson(string email,string name,string firstname,long telephone)
+        public ContactPerson(string email,string name,string firstname,string telephone)
         {
             Email = email;
             LastName = name;

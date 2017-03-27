@@ -24,9 +24,9 @@ namespace Project_TL.Controllers
             return View(userRepo.findAll());
         }
 
-        public ActionResult Add()
+        public PartialViewResult Add()
         {
-            return View();
+            return PartialView();
         }
     }
 }

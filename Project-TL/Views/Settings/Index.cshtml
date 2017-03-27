@@ -1,0 +1,165 @@
+﻿@model Project_TL.ViewModels.SettingsViewModel
+<link href="~/Content/Hotels.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/theme.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/Other.css" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/Own Scripts/DataTable.js"></script>
+<script src="~/Scripts/Own Scripts/BasicTable.js"> </script>
+@{
+    ViewBag.Title = "Index";
+}
+
+<html>
+<body>
+<br />
+    <br />
+    <br />
+    <h2>Branches</h2>
+    <p>
+        @Html.ActionLink("Create New Branch", "Create")
+    </p>
+    <table class="table table-hover table-bordered table-responsive display" id="">
+        <thead>
+            <tr class="alert-info">
+                <th>@Html.DisplayNameFor(model => model.Branches.FirstOrDefault().Name)</th>
+                <th>@Html.DisplayNameFor(model => model.Branches.FirstOrDefault().PriceCat)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tfoot>
+
+        </tfoot>
+        <tbody>
+            @foreach (var item in Model.Branches)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.PriceCat)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+    <h2>Owners</h2>
+    <p>
+        @Html.ActionLink("Create New Owner", "Create")
+    </p>
+    <table class="table table-hover table-bordered table-responsive display" id="">
+        <thead>
+            <tr class="alert-info">
+                <th>@Html.DisplayNameFor(model => model.Owners.FirstOrDefault().FistName)</th>
+                <th>@Html.DisplayNameFor(model => model.Owners.FirstOrDefault().LastName)</th>
+                <th>@Html.DisplayNameFor(model => model.Owners.FirstOrDefault().selphoneNumber)</th>
+                <th>@Html.DisplayNameFor(model => model.Owners.FirstOrDefault().Email)</th>
+                <th></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Owners)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => item.FistName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.selphoneNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.Email)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+    <h2>ContactPersons</h2>
+    <p>
+        @Html.ActionLink("Create New Contact Person", "Create")
+    </p>
+    <table class="table table-hover table-bordered table-responsive display" id="">
+        <thead>
+            <tr class="alert-info">
+                <th>@Html.DisplayNameFor(model => model.Owners.FirstOrDefault().FistName)</th>
+                <th>@Html.DisplayNameFor(model => model.Owners.FirstOrDefault().LastName)</th>
+                <th>@Html.DisplayNameFor(model => model.Owners.FirstOrDefault().selphoneNumber)</th>
+                <th>@Html.DisplayNameFor(model => model.Owners.FirstOrDefault().Email)</th>
+                <th></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Contacts)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.SelphoneNr)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(model => item.Email)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <br />
+    <h2>Statusses</h2>
+    <p>
+        @Html.ActionLink("Create New Status", "Create")
+    </p>
+    <table class="table table-hover table-bordered table-responsive display" id="">
+        <thead>
+            <tr class="alert-info">
+                <th>Status</th>               
+                <th></th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Statusses)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(model => item)
+                    
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |                     
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+   
+
+</body>
+</html>
+

@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Project_TL.Models.DAL
 {
-    public class Initializer : DropCreateDatabaseAlways<Context>
+    public class Initializer : DropCreateDatabaseIfModelChanges<Context>
     {
         protected override void Seed(Context context)
         {
@@ -26,12 +26,12 @@ namespace Project_TL.Models.DAL
                 Branch b1 = new Branch("Adagio Acces");
                 Branch b2 = new Branch("Ibis budget");
 
-                ContactPerson p1 = new ContactPerson("H8602@Adagio-city.com", "Laurence","Braem",0032479670122);
-                ContactPerson p2 = new ContactPerson("h0649-GM@Accor.com"," van der Graaf", "Martijn",0031627081233);
-                ContactPerson p3 = new ContactPerson("HA3P2-GM@accor.com", "Rutger","Blom", 0031627081168);
+                ContactPerson p1 = new ContactPerson("H8602@Adagio-city.com", "Laurence","Braem","0032479670122");
+                ContactPerson p2 = new ContactPerson("h0649-GM@Accor.com"," van der Graaf", "Martijn","0031627081233");
+                ContactPerson p3 = new ContactPerson("HA3P2-GM@accor.com", "Rutger","Blom", "0031627081168");
 
                 Owner o1 = new Owner("Georges", "Deom");
-                Owner o2 = new Owner("","");
+                Owner o2 = new Owner("Their","Bommens");
                 Owner o3 = new Owner("Rullems", "Dennis");
 
                 Maintenance m = new Maintenance(new DateTime(2017, 03, 15), new DateTime(2018, 10, 10), 5000);
