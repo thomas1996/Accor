@@ -45,7 +45,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Blowfish">
-      <HintPath>..\..\..\..\Downloads\Blowfish\Blowfish.dll</HintPath>
+      <HintPath>D:\Users\Thomas\Documenten\Blowfish\Blowfish.dll</HintPath>
     </Reference>
     <Reference Include="DropDownCheckBoxes">
       <HintPath>D:\Users\Thomas\downloads\DropDownCheckBoxes.dll</HintPath>
@@ -61,10 +61,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="IKVM.OpenJDK.Core">
-      <HintPath>..\..\..\..\Downloads\Blowfish\IKVM.OpenJDK.Core.dll</HintPath>
+      <HintPath>D:\Users\Thomas\Documenten\Blowfish\IKVM.OpenJDK.Core.dll</HintPath>
     </Reference>
     <Reference Include="IKVM.Runtime">
-      <HintPath>..\..\..\..\Downloads\Blowfish\IKVM.Runtime.dll</HintPath>
+      <HintPath>D:\Users\Thomas\Documenten\Blowfish\IKVM.Runtime.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.1\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
@@ -254,6 +254,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ApplicationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
@@ -302,6 +303,7 @@
     <Compile Include="Models\Domain\Type.cs" />
     <Compile Include="Models\Domain\User.cs" />
     <Compile Include="Models\Encryption\DataProtection.cs" />
+    <Compile Include="ViewModels\Application\ApplicationViewModel.cs" />
     <Compile Include="ViewModels\Hotel\EditHotelViewModel.cs" />
     <Compile Include="ViewModels\IdentityModels.cs" />
     <Compile Include="ViewModels\ManageViewModels.cs" />
@@ -313,6 +315,7 @@
     <Compile Include="ViewModels\Hotel\HotelViewModel.cs" />
     <Compile Include="ViewModels\Settings\BranchViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\amd64\Microsoft.VC90.CRT\msvcr90.dll" />
@@ -508,10 +511,12 @@
     <Content Include="Views\Search\Delete.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />
     <Content Include="Views\Settings\DetailBranch.cshtml" />
+    <Content Include="Views\Application\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="obj\Debug\TempPE\" />
+    <Folder Include="Views\Default\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -32,34 +32,44 @@ namespace Project_TL.ViewModels
         [Required(ErrorMessage ="{0} is required")]
         [Display(Name ="City")]
         public Adres Adres { get; set; }
+
         [Required(ErrorMessage = "{0} is required")]
         [Display(Name ="Branch name")]
         public virtual Branch Branch { get; set; }
+
         [Required(ErrorMessage = "{0} is required")]
         [Range(0,Int32.MaxValue,ErrorMessage ="Vat-number can't be negative")]
         [DisplayFormat(DataFormatString = "{0:####.####.####}")]
         public string VatNumber { get; set; }
+
         [Required(ErrorMessage = "{0} is required")]
         [Display(Name ="Contact person")]
         public virtual ContactPerson ContactPerson { get; set; }
+
         [Required(ErrorMessage = "{0} is required")]
         [StringLength(4,ErrorMessage ="{0} contains out of 4 digits",MinimumLength = 4)]
         [Display(Name ="Hotel code")]
         public string HotelId { get; set; }
+
         [Required(ErrorMessage = "{0} is required")]
         public string Email { get; set; }
+
         [Required(ErrorMessage = "{0} is required")]
         [MinLength(0,ErrorMessage ="Phone number can'ts be empty")]
         public string TelephoneNumber { get; set; }
+
         [Required(ErrorMessage = "{0} is required")]
         [Display(Name ="Owner")]
         public virtual Owner Owner { get; set; }
+
         [Required(ErrorMessage = "{0} is required")]
         public List<Syst> Systems { get; }
+
         [Display(Name ="Total cost")]
         [Range(0,Int32.MaxValue,ErrorMessage ="Cost can't be negative")]
         [DisplayFormat(DataFormatString ="€{0:N}")]
         public double TotalCost { get; set; }
+
         [Required(ErrorMessage = "{0} is required")]
         public Status Status { get; set; }
 
