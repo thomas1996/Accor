@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Project_TL.ViewModels.Application
 {
@@ -11,6 +12,7 @@ namespace Project_TL.ViewModels.Application
     {
         public ApplicationViewModel(Syst syst)
         {
+            Id = syst.SystId;
             Price = syst.Price;
             Name = syst.Name;
             Type = syst.Type;
@@ -21,6 +23,8 @@ namespace Project_TL.ViewModels.Application
 
                       
         }
+        [HiddenInput(DisplayValue = false)]
+        public int Id { get; set; }
 
         [DisplayFormat(DataFormatString = "€{0:N}")]
         public double Price { get; set; }

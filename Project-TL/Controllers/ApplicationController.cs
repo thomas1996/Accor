@@ -1,4 +1,5 @@
 ﻿using Project_TL.Models.DAL;
+using Project_TL.Models.Domain;
 using Project_TL.ViewModels.Application;
 using System;
 using System.Collections.Generic;
@@ -10,12 +11,12 @@ namespace Project_TL.Controllers
 {
     public class ApplicationController : Controller
     {
-        private SystemRepository systRepo;
+        private ISystemRepository systRepo;
         public ApplicationController()
         {
 
         }
-        public ApplicationController(SystemRepository systRepo)
+        public ApplicationController(ISystemRepository systRepo)
         {
             this.systRepo = systRepo;
         }
@@ -25,6 +26,13 @@ namespace Project_TL.Controllers
             IEnumerable<ApplicationViewModel> list = systRepo.FindAll().ToList().Select(t => new ApplicationViewModel(t));
             
             return View(list);
+        }
+
+        public ActionResult Details(int id)
+        {
+           Syst s = systRepo.FindById(id);
+           ApplicationViewModel avw = new ApplicationViewModel(s);
+            return View(avw);
         }
     }
 }

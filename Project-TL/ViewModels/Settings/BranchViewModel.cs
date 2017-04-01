@@ -11,7 +11,7 @@ namespace Project_TL.ViewModels.Settings
     public class BranchViewModel
     {
         
-        public BranchViewModel(Branch branch, HotelRepository hotelRepo)
+        public BranchViewModel(Branch branch, IHotelRepository hotelRepo)
         {
             PriceCat = branch.PriceCat;
             Name = branch.Name;
