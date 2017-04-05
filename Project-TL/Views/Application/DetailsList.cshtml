@@ -1,0 +1,24 @@
+﻿@model Project_TL.ViewModels.Application.ApplicationViewModel
+
+<table class="table-condensed table-responsive table-bordered">
+    <tr>
+        <th>Brand</th>
+        <th>City</th>
+        <th>Owner</th>
+        <th>Contract state</th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model.Hotels)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelitem => item.Name)</td>
+            <td>@Html.DisplayFor(modelitem => item.Adres.City)</td>
+            <td>@Html.DisplayFor(modelitem => item.Owner.LastName) @Html.DisplayFor(modelitem => item.Owner.FirstName)</td>
+            <td>@Html.DisplayFor(modelitem => item.Status)</td>
+            <td>
+                @Html.ActionLink("Delete application from this hotel", "DeleteApplication", new { id = item.HotelId ,systId = Model.Id})
+            </td>
+        </tr>
+    }
+</table>
+

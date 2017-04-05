@@ -19,6 +19,7 @@ namespace Project_TL.Models.DAL.Mapping
             Property(t => t.VatNumber).IsRequired();
             Ignore(t => t.TotalCost);
             Property(t => t.Status).IsRequired();
+            Property(t => t.Name).IsRequired().HasMaxLength(100);
 
             //associations
             //HasRequired(t => t.Owner).WithMany().Map(m => m.MapKey("Owner")).WillCascadeOnDelete(false);

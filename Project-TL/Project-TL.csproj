@@ -303,6 +303,7 @@
     <Compile Include="Models\Domain\Type.cs" />
     <Compile Include="Models\Domain\User.cs" />
     <Compile Include="Models\Encryption\DataProtection.cs" />
+    <Compile Include="ViewModels\Application\AddHotelToApplicationViewModel.cs" />
     <Compile Include="ViewModels\Application\ApplicationViewModel.cs" />
     <Compile Include="ViewModels\Hotel\EditHotelViewModel.cs" />
     <Compile Include="ViewModels\IdentityModels.cs" />
@@ -506,13 +507,16 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\User\Add.cshtml" />
     <Content Include="Views\Search\Create.cshtml" />
     <Content Include="Views\Search\Delete.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />
     <Content Include="Views\Settings\DetailBranch.cshtml" />
     <Content Include="Views\Application\Index.cshtml" />
     <Content Include="Views\Application\Details.cshtml" />
+    <Content Include="Views\Application\DetailsList.cshtml" />
+    <Content Include="Views\User\Create.cshtml" />
+    <Content Include="Views\Application\Delete.cshtml" />
+    <Content Include="Views\Application\AddHotel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

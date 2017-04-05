@@ -16,6 +16,7 @@ namespace Project_TL.ViewModels
 
         public HotelViewModel(Hotel h)
         {
+            Name = h.Name;
             Owner = h.Owner;
             Adres = h.Adres;
             Branch = h.Branch;
@@ -29,6 +30,10 @@ namespace Project_TL.ViewModels
             Status = h.Status;
 
         }
+        [Required(ErrorMessage ="{0} is required")]
+        public string Name { get; set; }
+
+
         [Required(ErrorMessage ="{0} is required")]
         [Display(Name ="City")]
         public Adres Adres { get; set; }

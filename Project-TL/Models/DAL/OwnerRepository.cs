@@ -66,7 +66,7 @@ namespace Project_TL.Models.DAL
 
         public Owner FindByName(string name)
         {
-            return owners.FirstOrDefault(t => t.FistName.Equals(name));
+            return owners.FirstOrDefault(t => t.FirstName.Equals(name));
         }
 
         public void RemoveOwner(Owner owner)

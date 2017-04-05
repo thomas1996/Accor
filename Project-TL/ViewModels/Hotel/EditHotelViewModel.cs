@@ -31,6 +31,7 @@ namespace Project_TL.ViewModels
             status = new List<Status>();
             makeStatusList();
 
+            Name = h.Name;
             VatNumber = h.VatNumber;
             HotelId = h.HotelId;
             Email = h.Email;
@@ -40,6 +41,8 @@ namespace Project_TL.ViewModels
             
 
         }
+        [Required(ErrorMessage ="{0} is required")]
+        public string Name { get; set; }
 
         [Display(Name = "Select the branch")]
         public int SelectedBranchId { get; set; }
@@ -52,6 +55,11 @@ namespace Project_TL.ViewModels
             {
                 return new SelectList(branches, "BranchId", "Name");
             }
+            set {
+                
+            }
+            
+            
         }
 
         [Required(ErrorMessage = "{0} is required")]
@@ -67,7 +75,7 @@ namespace Project_TL.ViewModels
         {
             get
             {
-                return new SelectList(contacts, "ContactPersonId", "LastName", "FistName");
+                return new SelectList(contacts, "ContactPersonId", "LastName", "FirstName");
             }
         }
 

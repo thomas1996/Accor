@@ -38,5 +38,9 @@ namespace Project_TL.Models.Domain
         {
             Hotels.Add(h);
         }
+        public void removeHotel(Hotel h)
+        {
+            Hotels.Remove(h);
+        }
     }
 }

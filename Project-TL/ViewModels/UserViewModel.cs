@@ -21,6 +21,8 @@ namespace Project_TL.ViewModels
         }
 
         [Required(ErrorMessage = "{0} is required")]
+        [Display(Name ="Email")]
+        [DisplayFormat(DataFormatString = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$")]
         [MaxLength(length: 150, ErrorMessage = "{0} has a max lenght of 150 chars")]
         public string Username { get; set; }
 
@@ -28,7 +30,7 @@ namespace Project_TL.ViewModels
         [Required(ErrorMessage = "{0} is required")]
         public string Location { get; set; }
 
-        [Required(ErrorMessage = "{0} is required")]
+        
         public bool Admin { get; set; }
     }
 }

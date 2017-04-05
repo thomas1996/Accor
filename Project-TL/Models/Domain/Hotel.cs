@@ -8,6 +8,7 @@ namespace Project_TL.Models.Domain
 {
     public class Hotel
     {
+        public string Name { get; set; }
         public virtual Adres Adres { get; set; }
         public virtual Branch Branch { get; set; }
         public string VatNumber { get; set; }
@@ -16,21 +17,21 @@ namespace Project_TL.Models.Domain
         public string Email { get; set; }
         public string TelephoneNumber { get; set; }
         public virtual Owner Owner { get; set; }
-        
-        public double TotalCost { get; set; }
-
+     
         public virtual ICollection<Syst> Systems { get; }
+        public double TotalCost { get; set; }
         public virtual Status Status { get; set; }
 
 
         public Hotel()
         {
             Systems = new List<Syst>();
-            TotalCost = calculateTotalCost();
+            //TotalCost = calculateTotalCost();
         }
 
-        public Hotel(Adres adres, Branch branch, string vatNumber, ContactPerson contactPerson, string hotelId, string email, string telephoneNumber, Owner owner, List<Syst> systems,Status status)
+        public Hotel(string name,Adres adres, Branch branch, string vatNumber, ContactPerson contactPerson, string hotelId, string email, string telephoneNumber, Owner owner, List<Syst> systems,Status status)
         {
+            Name = name;
             Adres = adres;
             Branch = branch;
             VatNumber = vatNumber;
@@ -57,6 +58,15 @@ namespace Project_TL.Models.Domain
                 }
             }
             return kosts;
+        }
+
+        public void removeApplication(Syst syst)
+        {
+            Systems.Remove(syst);
+        }
+        public void addApplication(Syst syst)
+        {
+            Systems.Add(syst);
         }
 
 

@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Project_TL.ViewModels.Application.AddHotelToApplicationViewModel>
+
+@{
+    ViewBag.Title = "AddHotel";
+}
+
+<br />
+<br />
+<br />
+<h2>Add hotel to Application</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Checked)
+        </th>
+        <th>
+            Name
+        </th>
+        <th>
+            Owner
+        </th>
+        <th>
+            Contact Person
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.EditorFor(modelItem => item.Checked)
+        </td>
+        <td>
+            @Html.DisplayFor(modelitem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelitem => item.Owner.LastName) @Html.DisplayFor(modelitem => item.Owner.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelitem => item.Contact.LastName) @Html.DisplayFor(modelitem => item.Contact.FirstName)
+        </td>
+      
+    </tr>
+}
+
+</table>
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        <input type="submit" value="Save" class="btn btn-default" />
+    </div>
+</div>

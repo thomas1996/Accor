@@ -37,9 +37,17 @@ namespace Project_TL.Models.DAL
             return systems;
         }
 
-        public IQueryable<Syst> FindByHotel(Hotel hotel)
+        public IQueryable<Syst> FindByHotel(String hotelId)
         {
-            return null;
+            List<Syst> sy = new List<Syst>();
+            foreach(Syst s in systems)
+            {
+                if(s.Hotels.FirstOrDefault(h => h.HotelId.Equals(hotelId)) != null)
+                {
+                    sy.Add(s);
+                }
+            }
+            return sy.AsQueryable();
         }
 
         public Syst FindById(int id)
@@ -57,7 +65,7 @@ namespace Project_TL.Models.DAL
             systems.Remove(syst);
         }
 
-        public void SaveChanges(Syst syst)
+        public void SaveChanges()
         {
             context.SaveChanges();
         }

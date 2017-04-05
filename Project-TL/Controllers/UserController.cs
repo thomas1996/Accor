@@ -20,13 +20,15 @@ namespace Project_TL.Controllers
         // GET: User
         public ActionResult Index()
         {
+            User u = new User();
+            ViewBag.user = u;
             return View(userRepo.findAll());
         }
 
         public ActionResult Create()
         {
             User u = new User();
-            return View("Edit", new UserViewModel(u));
+            return View("Index", new UserViewModel(u));
         }
 
         [HttpPost]
@@ -37,7 +39,7 @@ namespace Project_TL.Controllers
             userRepo.AddUser(u);
             userRepo.SafeChanges();
             TempData["message"] = $"User {u.Username} was created";
-            return RedirectToAction("Index");
+            return View("Index");
 
         }
 

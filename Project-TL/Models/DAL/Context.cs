@@ -24,7 +24,8 @@ namespace Project_TL.Models.DAL
         {
             base.OnModelCreating(modelBuilder);
             //Database.SetInitializer<Context>(null);
-           // modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            // modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+          
            modelBuilder.Configurations.AddFromAssembly(Assembly.GetExecutingAssembly());
         }
 

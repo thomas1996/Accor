@@ -11,13 +11,13 @@ namespace Project_TL.Models.Domain
         IQueryable<Syst> FindByName(string name);
         IQueryable<Syst> findByStartDate(DateTime startDate);
         IQueryable<Syst> findByEndDate(DateTime endDate);
-        IQueryable<Syst> FindByHotel(Hotel hotel);
+        IQueryable<Syst> FindByHotel(string hotelId);
         Syst FindById(int id);
         IQueryable<Syst> FindAll();
         void AddSyst(Syst syst);
         void EditSyst(Syst syst);
         void RemoveSyst(Syst syst);
-        void SaveChanges(Syst syst);
+        void SaveChanges();
 
 
 

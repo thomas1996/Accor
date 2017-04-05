@@ -19,6 +19,12 @@
         <hr />
         <dl class="dl-horizontal">
             <dt>
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt>
                 @Html.DisplayNameFor(model => model.Branch)
             </dt>
 
@@ -63,6 +69,12 @@
                 @Html.DisplayFor(model => model.TelephoneNumber)
             </dd>
             <dt>
+                @Html.DisplayNameFor(model => model.VatNumber)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.VatNumber)
+            </dd>
+            <dt>
                 @Html.DisplayNameFor(model => model.Owner)
             </dt>
             <dd class="bubbleInfo">
@@ -79,15 +91,10 @@
                 <div class="popup" id="contact">
                     @Html.DisplayFor(model => model.ContactPerson.Email)
                     <br />
-                    @Html.DisplayFor(model => model.ContactPerson.SelphoneNr)
+                    @Html.DisplayFor(model => model.ContactPerson.CellphoneNr)
                 </div>
             </dd>
-            <dt>
-                @Html.DisplayNameFor(model => model.VatNumber)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.VatNumber)
-            </dd>
+           
             <dt>
                 @Html.DisplayNameFor(model => model.Status)
             </dt>
@@ -115,7 +122,7 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(model => item.)
+                                    @Html.DisplayFor(model => item.Name)
                                 </td>
                                 <td>
                                     @String.Format("€{0:N}", item.Price)

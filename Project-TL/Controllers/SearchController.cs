@@ -30,9 +30,8 @@ namespace Project_TL.Controllers
             this.branchRepo = branchRepo;
            
 
-            hh = new List<Hotel>();           
             hh = hotelRepo.FindAll().ToList();
-            hh.OrderBy(t => t.Branch);
+            hh.OrderBy(t => t.Name);
            
             
 
@@ -41,7 +40,7 @@ namespace Project_TL.Controllers
         {
 
 
-
+            hh.Select(t => t.calculateTotalCost());
             IEnumerable<HotelViewModel> hvm = hh.Select(t => new HotelViewModel(t));
             //ViewBag.admin = true;
 
@@ -53,7 +52,7 @@ namespace Project_TL.Controllers
             //find the hotel in the repository
             // Hotel h = hotelRepo.FindByCode(hotelId);
             Hotel h = hh.FirstOrDefault(t => t.HotelId.Equals(hotelId));
-
+            
             //check if the hotel exist (normally this can never give null unless DB failure)
             if (h == null)
             {
@@ -61,6 +60,7 @@ namespace Project_TL.Controllers
             }
 
             //Use a viewmodel to display al the details of the hotel
+            h.calculateTotalCost();
             HotelViewModel hvm = new HotelViewModel(h);
 
             
@@ -143,6 +143,26 @@ namespace Project_TL.Controllers
                 return HttpNotFound();
             return View(h);
 
+        }
+
+        [HttpPost,ActionName("Delete")]
+        public ActionResult DeleteConfirmed(string id)
+        {
+            try
+            {
+                Hotel h = hotelRepo.FindByCode(id);
+                if(h == null)
+                {
+                    return HttpNotFound();
+                }
+                hotelRepo.RemoveHotel(h);
+                hotelRepo.SaveChanges();
+                TempData["message"] = String.Format("Hotel {0} has been deleted", h.Branch);
+            }catch(Exception ex)
+            {
+                TempData["error"] = String.Format("There has been a problem. If this keeps happening, please contact your administrator");
+            }
+            return RedirectToAction("Index");
         }
 
 

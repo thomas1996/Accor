@@ -27,7 +27,7 @@ namespace Project_TL.Models.DAL
             Hotel h = FindByCode(hotel.HotelId);
             if(h != null)
             {
-                hotels.Remove(h);
+                hotels.Remove(hotel);
                 hotels.Add(h);
             }
         }
@@ -54,8 +54,17 @@ namespace Project_TL.Models.DAL
 
         public IQueryable<Hotel> FindBySystem(string system)
         {
-               return null;
-        }
+            List<Hotel> ho = new List<Hotel>();
+
+            foreach (Hotel h in hotels.ToList())
+            {
+                if (h.Systems.FirstOrDefault(s => s.Name.Equals(system)) != null)
+                {
+                    ho.Add(h);
+                }
+            }      
+                return ho.AsQueryable();            
+       }
     
         public void RemoveHotel(Hotel hotel)
         {

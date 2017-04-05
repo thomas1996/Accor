@@ -16,7 +16,7 @@
     <br />
     <h2>Branches</h2>
     <p>
-        @Html.ActionLink("Create New Branch", "Create")
+        @Html.ActionLink("Create New Branch", "CreateBranch")
     </p>
     <table class="table table-hover table-bordered table-responsive display" id="">
         <thead>
@@ -56,9 +56,9 @@
     <table class="table table-hover table-bordered table-responsive display" id="">
         <thead>
             <tr class="alert-info">
-                <th>@Html.DisplayNameFor(model => model.Owners.FirstOrDefault().FistName)</th>
+                <th>@Html.DisplayNameFor(model => model.Owners.FirstOrDefault().FirstName)</th>
                 <th>@Html.DisplayNameFor(model => model.Owners.FirstOrDefault().LastName)</th>
-                <th>@Html.DisplayNameFor(model => model.Owners.FirstOrDefault().selphoneNumber)</th>
+                <th>@Html.DisplayNameFor(model => model.Owners.FirstOrDefault().CellphoneNumber)</th>
                 <th>@Html.DisplayNameFor(model => model.Owners.FirstOrDefault().Email)</th>
                 <th></th>
 
@@ -69,13 +69,13 @@
             {
                 <tr>
                     <td>
-                        @Html.DisplayFor(model => item.FistName)
+                        @Html.DisplayFor(model => item.FirstName)
                     </td>
                     <td>
                         @Html.DisplayFor(model => item.LastName)
                     </td>
                     <td>
-                        @Html.DisplayFor(model => item.selphoneNumber)
+                        @Html.DisplayFor(model => item.CellphoneNumber)
                     </td>
                     <td>
                         @Html.DisplayFor(model => item.Email)
@@ -97,9 +97,9 @@
     <table class="table table-hover table-bordered table-responsive display" id="">
         <thead>
             <tr class="alert-info">
-                <th>@Html.DisplayNameFor(model => model.Owners.FirstOrDefault().FistName)</th>
+                <th>@Html.DisplayNameFor(model => model.Owners.FirstOrDefault().FirstName)</th>
                 <th>@Html.DisplayNameFor(model => model.Owners.FirstOrDefault().LastName)</th>
-                <th>@Html.DisplayNameFor(model => model.Owners.FirstOrDefault().selphoneNumber)</th>
+                <th>@Html.DisplayNameFor(model => model.Owners.FirstOrDefault().CellphoneNumber)</th>
                 <th>@Html.DisplayNameFor(model => model.Owners.FirstOrDefault().Email)</th>
                 <th></th>
 
@@ -116,7 +116,7 @@
                         @Html.DisplayFor(model => item.LastName)
                     </td>
                     <td>
-                        @Html.DisplayFor(model => item.SelphoneNr)
+                        @Html.DisplayFor(model => item.CellphoneNr)
                     </td>
                     <td>
                         @Html.DisplayFor(model => item.Email)

@@ -64,27 +64,7 @@
             Hotels
         </dt>
         <dd>
-            <table class="table-condensed table-responsive table-bordered">
-                <tr>
-                    <th>Brand</th>
-                    <th>City</th>
-                    <th>Owner</th>
-                    <th>Contract state</th>
-                    <th></th>
-                </tr>
-                @foreach(var item in Model.Hotels)
-                {
-                    <tr>
-                        <td>@Html.DisplayFor(modelitem => item.Branch.Name)</td>
-                        <td>@Html.DisplayFor(modelitem => item.Adres.City)</td>
-                        <td>@Html.DisplayFor(modelitem => item.Owner.LastName) @Html.DisplayFor(modelitem => item.Owner.FistName)</td>
-                        <td>@Html.DisplayFor(modelitem => item.Status)</td>
-                        <td>
-                            <a> Delete application from this hotel</a>
-                        </td>
-                    </tr>
-                }
-            </table>
+           @Html.Partial("DetailsList", Model)
         </dd>
 
     </dl>
@@ -93,6 +73,6 @@
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    @Html.ActionLink("Add hotel(s)","Add")|
+    @Html.ActionLink("Add hotel(s)", "AddHotel", new { id = Model.Id}) |
     @Html.ActionLink("Back to List", "Index")
 </p>
