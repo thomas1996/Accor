@@ -1,4 +1,4 @@
-﻿@model Project_TL.Models.Domain.User
+﻿@model Project_TL.ViewModels.UserViewModel
 
 @{
     ViewBag.Title = "Add";
@@ -7,8 +7,14 @@
 
 
 
-@using (Html.BeginForm())
-{
+@using (Ajax.BeginForm(
+    "Create","User",new AjaxOptions()
+    {
+        UpdateTargetId = "uvm",
+        HttpMethod = "Post"
+    }
+    ))
+{ 
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
@@ -35,7 +41,8 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default" />
+                @*@Html.ActionLink("save", "Create", new { Model})*@
             </div>
         </div>
     </div>

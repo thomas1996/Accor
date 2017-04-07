@@ -25,23 +25,7 @@
 
         <dd>
             @Html.DisplayFor(model => model.Price)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.StartDate)
-        </dt>
-
-        <dd>
-            @String.Format(Model.StartDate.ToShortDateString())
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </dt>
-
-        <dd>
-            @String.Format(Model.EndDate.ToShortDateString())
-        </dd>
+        </dd>        
         <dt>
             Maintenance price
         </dt>
@@ -52,13 +36,13 @@
             Maintenance start date 
         </dt>
         <dd>
-            @String.Format(Model.StartDate.ToShortDateString())
+            @String.Format(Model.Maintenance.StartDate.ToShortDateString())
         </dd>
         <dt>
             Maintenance end date
         </dt>
         <dd>
-            @String.Format(Model.EndDate.ToShortDateString())
+            @String.Format(Model.Maintenance.EndDate.ToShortDateString())
         </dd>
         <dt>
             Hotels

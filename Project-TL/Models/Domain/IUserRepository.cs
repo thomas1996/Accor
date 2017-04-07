@@ -13,7 +13,7 @@ namespace Project_TL.Models.Domain
         void AddUser(User user);
         void EditUser(User user);
         void RemoveUser(User user);
-        void SafeChanges();
+        void SaveChanges();
         
 
 

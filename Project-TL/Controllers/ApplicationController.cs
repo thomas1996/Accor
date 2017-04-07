@@ -84,11 +84,14 @@ namespace Project_TL.Controllers
                 if (s == null)
                     return HttpNotFound();
                 List<Hotel> hot = hotelRepo.FindBySystem(s.Name).ToList();
+
+                //check all hotels and delete the application if they have it
                 foreach (Hotel h in hot)
                 {
                     h.removeApplication(s);
                 }
 
+                //save everything and popup message if it's all ok
                 systRepo.RemoveSyst(s);
                 systRepo.SaveChanges();
                 hotelRepo.SaveChanges();
@@ -108,6 +111,8 @@ namespace Project_TL.Controllers
             List<int> i = new List<int>();
             List<Hotel> hotels = hotelRepo.FindAll().ToList();
             
+            //deleting the hotels that the application already has
+            //You can't delete a hotel while in the loop so first save the positions and after that loop it and delete the hotels
             foreach(Hotel h in s.Hotels)
             {
                 hotels.ForEach(t =>
@@ -118,6 +123,8 @@ namespace Project_TL.Controllers
                });
             }
 
+            //after deleting a hotel the indexes change? Use 'j' to solve this
+
             for(int j = 0; j<i.Count();j++)
             {
                 
@@ -126,7 +133,7 @@ namespace Project_TL.Controllers
 
             IEnumerable<AddHotelToApplicationViewModel> list = hotels.Select(t => new AddHotelToApplicationViewModel(t));
             return View(list);
-            //return null;
+            
         }
 
     }

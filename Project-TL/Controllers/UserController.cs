@@ -1,5 +1,6 @@
 ﻿using Project_TL.Models.DAL;
 using Project_TL.Models.Domain;
+using Project_TL.Models.Encryption;
 using Project_TL.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -12,24 +13,32 @@ namespace Project_TL.Controllers
     public class UserController : Controller
     {
         private IUserRepository userRepo;
-        private Context context;
+        private DataProtection data;
+        private string key = "34875BNYM==";
+
         public UserController(IUserRepository userRepo)
         {
             this.userRepo = userRepo;
-        }
+            data = new DataProtection();
+        }     
         // GET: User
         public ActionResult Index()
         {
             User u = new User();
             ViewBag.user = u;
+            //IEnumerable<UserViewModel> list = userRepo.findAll().Select(t => new UserViewModel(t));
             return View(userRepo.findAll());
         }
 
-        public ActionResult Create()
+        public UserController()
         {
-            User u = new User();
-            return View("Index", new UserViewModel(u));
+
         }
+        //public ActionResult Create()
+        //{
+        //    User u = new User();
+        //    return PartialView("Index", new UserViewModel(u));
+        //}
 
         [HttpPost]
         public ActionResult Create(UserViewModel uvm)
@@ -37,9 +46,9 @@ namespace Project_TL.Controllers
             User u = new Models.Domain.User();
             MapToUser(u, uvm);
             userRepo.AddUser(u);
-            userRepo.SafeChanges();
+            userRepo.SaveChanges();
             TempData["message"] = $"User {u.Username} was created";
-            return View("Index");
+            return RedirectToAction("Index");
 
         }
 
@@ -50,32 +59,29 @@ namespace Project_TL.Controllers
             {
                 return HttpNotFound();
             }
-            return View(u);
+            DeleteConfirmed(u);
+            return RedirectToAction("Index");
         }
-
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(string username)
+        
+        public void DeleteConfirmed(User user)
         {
             try
-            {
-                User u = userRepo.FindByUserName(username);
-                if (u == null)
-                    return HttpNotFound();
-                userRepo.RemoveUser(u);
-                userRepo.SafeChanges();
-                TempData["message"] = $"User {u.Username} was deleted";
+            {              
+                userRepo.RemoveUser(user);
+                userRepo.SaveChanges();
+                TempData["message"] = String.Format("User {0} was succesfully deleted",user.Username);
             }
             catch (Exception ex)
             {
                 TempData["error"] = "There was a problem when trying to delete the user. If this problem keeps happeningn please contact IT department";
             }
-            return RedirectToAction("Index");
+            
         }
 
         private void MapToUser(User u, UserViewModel uvm)
         {
             u.Username = uvm.Username;
-            u.Password = "Accor@123";
+            u.Password = data.Encrypt("@ccor123",key);
             u.Location = uvm.Location;
             u.Admin = uvm.Admin;
         }

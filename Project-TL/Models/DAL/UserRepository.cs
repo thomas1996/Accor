@@ -47,7 +47,7 @@ namespace Project_TL.Models.DAL
             users.Remove(user);
         }
 
-        public void SafeChanges()
+        public void SaveChanges()
         {
             context.SaveChanges();
         }

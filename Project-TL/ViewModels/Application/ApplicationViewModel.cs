@@ -17,7 +17,7 @@ namespace Project_TL.ViewModels.Application
             Name = syst.Name;
             Type = syst.Type;
             StartDate = syst.StartDate;
-            EndDate = syst.EndDate;
+            NumberOfHotels = syst.Hotels.Count();
             Hotels = syst.Hotels;
             Maintenance = syst.Maintenance;
 
@@ -35,7 +35,7 @@ namespace Project_TL.ViewModels.Application
 
         public  DateTime StartDate { get; set; }
 
-        public  DateTime EndDate { get; set; }
+        public  int NumberOfHotels { get; set; }
 
         public  ICollection<Hotel> Hotels { get; }
 
