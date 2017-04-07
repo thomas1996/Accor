@@ -131,12 +131,50 @@ namespace Project_TL.Controllers
                 hotels.RemoveAt(i.ElementAt(j) - j);
             }
 
-            IEnumerable<AddHotelToApplicationViewModel> list = hotels.Select(t => new AddHotelToApplicationViewModel(t));
+
+            AddHotelToApplicationViewModel list = new AddHotelToApplicationViewModel(hotels);
             return View(list);
             
         }
+        [HttpPost,ActionName("addHotel")]
+        public ActionResult addHotelConfirmed(int id,IEnumerable<AddHotelToApplicationViewModel> model)
+        {
+            Syst s = systRepo.FindById(id);
+            if (s == null)
+                return HttpNotFound();
+            try
+            {
 
+
+                foreach (AddHotelToApplicationViewModel m in model.Where(t => t.Checked == true))
+                {
+                    Hotel h = hotelRepo.FindByCode(m.Code);
+                    s.addHotel(h);
+                    Syst s1 = new Syst();
+                    MapToApplication(s1, m, s);
+                    systRepo.SaveChanges();
+                    hotelRepo.SaveChanges();
+                    TempData["message"] = String.Format("Hotel {0} was added to the list", h.Name);
+                }
+            }catch(Exception ex)
+            {
+                TempData["error"] = "There was a problem when trying to add the hotel. Try again later. If this keeps happening, please contact the IT administrator";
+            }
+            return RedirectToAction("Details", new { id = id });
+
+        }
+
+        private void MapToApplication(Syst s1,AddHotelToApplicationViewModel model,Syst s)
+        {
+            s1.Name = s.Name;
+            s1.Price = model.Cost;
+            s1.Maintenance = s.Maintenance;
+            s1.StartDate = model.StartDate;
+            s1.EndDate = model.EndDate;
+            s1.Type = s.Type;
+        }
     }
+   
 
     
 }

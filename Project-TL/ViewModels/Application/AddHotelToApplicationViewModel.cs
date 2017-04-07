@@ -10,27 +10,32 @@ namespace Project_TL.ViewModels.Application
     public class AddHotelToApplicationViewModel
     {
 
-        public AddHotelToApplicationViewModel(Hotel h)
+        public AddHotelToApplicationViewModel(List<Hotel> h)
         {
-            Checked = false;
-            Name = h.Name;
-            Branch = h.Branch;
-            Owner = h.Owner;
-            Contact = h.ContactPerson;
+            Checked = false;          
+            StartDate = DateTime.Today;
+            EndDate = DateTime.Today;
+            Hotels = h;
+            Cost = 0.0;
         }
 
         public bool Checked { get; set; }
         [Display(Name = "Name")]
         public string Name { get; set; }
-       
-        [Display(Name = "Branch name")]
-        public virtual Branch Branch { get; set; }
 
-        [Display(Name ="Owner")]
-        public Owner Owner { get; set; }
+        public List<Hotel>  Hotels { get; set; }
 
-        [Display(Name ="Contact Person")]
-        public ContactPerson Contact { get; set; }
+        [Required(ErrorMessage ="{0} is required")]
+        public double Cost { get; set; }
 
+        [Required(ErrorMessage = "{0} is required")]
+        [DataType(DataType.Date)]
+        public DateTime StartDate { get; set; }
+
+        [Required(ErrorMessage = "{0} is required")]
+        [DataType(DataType.Date)]
+        public DateTime EndDate { get; set; }
+
+        public string Code { get; set; }
     }
 }
