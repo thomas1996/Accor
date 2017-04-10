@@ -9,33 +9,19 @@ namespace Project_TL.ViewModels.Application
 {
     public class AddHotelToApplicationViewModel
     {
-
-        public AddHotelToApplicationViewModel(List<Hotel> h)
+        public AddHotelToApplicationViewModel()
         {
-            Checked = false;          
-            StartDate = DateTime.Today;
-            EndDate = DateTime.Today;
-            Hotels = h;
-            Cost = 0.0;
+
         }
 
-        public bool Checked { get; set; }
-        [Display(Name = "Name")]
-        public string Name { get; set; }
+        public AddHotelToApplicationViewModel(List<AddHotel> ah)
+        {
 
-        public List<Hotel>  Hotels { get; set; }
+            Hotels = ah;
+        }
 
-        [Required(ErrorMessage ="{0} is required")]
-        public double Cost { get; set; }
-
-        [Required(ErrorMessage = "{0} is required")]
-        [DataType(DataType.Date)]
-        public DateTime StartDate { get; set; }
-
-        [Required(ErrorMessage = "{0} is required")]
-        [DataType(DataType.Date)]
-        public DateTime EndDate { get; set; }
-
-        public string Code { get; set; }
+       
+        public List<AddHotel>  Hotels { get; set; }     
+     
     }
 }

@@ -20,7 +20,7 @@
         </dd>
 
          <dt>
-            @Html.DisplayNameFor(model => model.Price)
+            Total price
         </dt>
 
         <dd>
@@ -31,19 +31,8 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Maintenance.Price)
-        </dd>
-        <dt>
-            Maintenance start date 
-        </dt>
-        <dd>
-            @String.Format(Model.Maintenance.StartDate.ToShortDateString())
-        </dd>
-        <dt>
-            Maintenance end date
-        </dt>
-        <dd>
-            @String.Format(Model.Maintenance.EndDate.ToShortDateString())
-        </dd>
+        </dd>     
+        
         <dt>
             Hotels
         </dt>

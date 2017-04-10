@@ -8,6 +8,7 @@ namespace Project_TL.Models.Domain
 {
     public class Hotel
     {
+        private double totalCost;
         public string Name { get; set; }
         public virtual Adres Adres { get; set; }
         public virtual Branch Branch { get; set; }
@@ -19,7 +20,25 @@ namespace Project_TL.Models.Domain
         public virtual Owner Owner { get; set; }
      
         public virtual ICollection<Syst> Systems { get; }
-        public double TotalCost { get; set; }
+        public double TotalCost {
+            get
+            {
+                totalCost = 0.0;
+                if (Systems.Count > 0)
+                {
+                    Systems.ToList().ForEach(t =>
+                    {
+                        totalCost += t.Price;
+                        if (t.Maintenance.Price > 0)
+                        {
+                            totalCost += t.Maintenance.Price;  
+                        }
+                    });
+                }
+                return totalCost;
+            }
+
+        }
         public virtual Status Status { get; set; }
 
 
@@ -43,7 +62,23 @@ namespace Project_TL.Models.Domain
             Systems = systems;
             Status = status;
             
-            TotalCost = calculateTotalCost();
+            //TotalCost = calculateTotalCost();
+        }
+        public Hotel(string name, Adres adres, Branch branch, string vatNumber, ContactPerson contactPerson, string hotelId, string email, string telephoneNumber, Owner owner, Status status)
+        {
+            Name = name;
+            Adres = adres;
+            Branch = branch;
+            VatNumber = vatNumber;
+            ContactPerson = contactPerson;
+            HotelId = hotelId;
+            Email = email;
+            TelephoneNumber = telephoneNumber;
+            Owner = owner;
+            Systems = new List<Syst>();
+            Status = status;
+
+            //TotalCost = calculateTotalCost();
         }
 
         public double calculateTotalCost()

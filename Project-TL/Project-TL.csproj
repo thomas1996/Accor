@@ -267,6 +267,7 @@
     <Compile Include="Models\DAL\ContactPersonRepository.cs" />
     <Compile Include="Models\DAL\OwnerRepository.cs" />
     <Compile Include="Models\DAL\UserRepository.cs" />
+    <Compile Include="Models\Domain\AddHotel.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\DAL\Context.cs" />
     <Compile Include="Models\DAL\HotelRepository.cs" />
@@ -515,9 +516,9 @@
     <Content Include="Views\Application\DetailsList.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\Application\Delete.cshtml" />
-    <Content Include="Views\Application\AddHotel.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\User\Delete.cshtml" />
+    <Content Include="Views\Application\AddHotel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

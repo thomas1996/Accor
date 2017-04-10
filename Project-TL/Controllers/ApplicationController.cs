@@ -14,6 +14,7 @@ namespace Project_TL.Controllers
     {
         private ISystemRepository systRepo;
         private IHotelRepository hotelRepo;
+        private List<Hotel> hotels;
         public ApplicationController()
         {
 
@@ -22,6 +23,7 @@ namespace Project_TL.Controllers
         {
             this.systRepo = systRepo;
             this.hotelRepo = hotelRepo;
+            hotels = new List<Hotel>();
         }
         // GET: Application
         public ActionResult Index()
@@ -46,11 +48,11 @@ namespace Project_TL.Controllers
             {
                 Hotel h = hotelRepo.FindByCode(id);
                 Syst s = systRepo.FindById(systId);
-                h.removeApplication(s);
+                hotelRepo.RemoveApplication(h, s);
                 s.removeHotel(h);
 
-                //systRepo.EditSyst(s);
-                //hotelRepo.EditHotel(h);
+                systRepo.EditSyst(s);
+                hotelRepo.EditHotel(h);
 
                 systRepo.SaveChanges();
                 hotelRepo.SaveChanges();
@@ -60,8 +62,8 @@ namespace Project_TL.Controllers
             {
                 //return new HttpStatusCodeResult(HttpStatusCode.BadRequest, ex.Message);
             }
-            if (Request.IsAjaxRequest())
-                return Details(systId);
+            //if (Request.IsAjaxRequest())
+            //    return Details(systId);
                 return RedirectToAction("Details", new { id = systId });
         }
 
@@ -109,7 +111,7 @@ namespace Project_TL.Controllers
         {
             Syst s = systRepo.FindById(id);
             List<int> i = new List<int>();
-            List<Hotel> hotels = hotelRepo.FindAll().ToList();
+            hotels = hotelRepo.FindAll().ToList();
             
             //deleting the hotels that the application already has
             //You can't delete a hotel while in the loop so first save the positions and after that loop it and delete the hotels
@@ -131,13 +133,13 @@ namespace Project_TL.Controllers
                 hotels.RemoveAt(i.ElementAt(j) - j);
             }
 
-
-            AddHotelToApplicationViewModel list = new AddHotelToApplicationViewModel(hotels);
-            return View(list);
+            IEnumerable<AddHotel> list = hotels.Select(t => new AddHotel(t));
+            AddHotelToApplicationViewModel model = new AddHotelToApplicationViewModel(list.ToList());
+            return View(model);
             
         }
         [HttpPost,ActionName("addHotel")]
-        public ActionResult addHotelConfirmed(int id,IEnumerable<AddHotelToApplicationViewModel> model)
+        public ActionResult addHotelConfirmed(int id,AddHotelToApplicationViewModel model,List<string> hotelId)
         {
             Syst s = systRepo.FindById(id);
             if (s == null)
@@ -146,15 +148,24 @@ namespace Project_TL.Controllers
             {
 
 
-                foreach (AddHotelToApplicationViewModel m in model.Where(t => t.Checked == true))
+                //foreach (AddHotel m in model.Hotels.Where(t => t.Checked == true))
+                for(int i = 0; i<model.Hotels.Count(); i++)
                 {
-                    Hotel h = hotelRepo.FindByCode(m.Code);
-                    s.addHotel(h);
-                    Syst s1 = new Syst();
-                    MapToApplication(s1, m, s);
-                    systRepo.SaveChanges();
-                    hotelRepo.SaveChanges();
-                    TempData["message"] = String.Format("Hotel {0} was added to the list", h.Name);
+                    if(model.Hotels[i].Checked == true)
+                    {
+                        string str = (string)ViewBag[i.ToString()];
+                        Hotel h = hotelRepo.FindByCode(str);
+                        s.addHotel(h);
+
+                        Syst s1 = new Syst();
+                        MapToApplication(s1, model.Hotels[i], s);
+                        h.addApplication(s1);
+
+                        systRepo.SaveChanges();
+                        hotelRepo.SaveChanges();
+                        TempData["message"] = String.Format("Hotel {0} was added to the list", h.Name);
+                    }
+                   
                 }
             }catch(Exception ex)
             {
@@ -164,7 +175,7 @@ namespace Project_TL.Controllers
 
         }
 
-        private void MapToApplication(Syst s1,AddHotelToApplicationViewModel model,Syst s)
+        private void MapToApplication(Syst s1,AddHotel model,Syst s)
         {
             s1.Name = s.Name;
             s1.Price = model.Cost;

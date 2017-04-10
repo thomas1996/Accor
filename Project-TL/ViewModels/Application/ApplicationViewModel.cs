@@ -13,7 +13,7 @@ namespace Project_TL.ViewModels.Application
         public ApplicationViewModel(Syst syst)
         {
             Id = syst.SystId;
-            Price = syst.Price;
+            Price = syst.TotalPrice;
             Name = syst.Name;
             Type = syst.Type;
             StartDate = syst.StartDate;

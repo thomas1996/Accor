@@ -71,6 +71,11 @@ namespace Project_TL.Models.DAL
             hotels.Remove(hotel);
         }
 
+        public void RemoveApplication(Hotel hotel,Syst syst)
+        {
+            hotel.Systems.Remove(syst);
+        }
+
         public void SaveChanges()
         {
             context.SaveChanges();
