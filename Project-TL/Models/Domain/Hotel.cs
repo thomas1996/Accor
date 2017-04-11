@@ -19,7 +19,7 @@ namespace Project_TL.Models.Domain
         public string TelephoneNumber { get; set; }
         public virtual Owner Owner { get; set; }
      
-        public virtual ICollection<Syst> Systems { get; }
+        public virtual ICollection<Application> Systems { get; }
         public double TotalCost {
             get
             {
@@ -44,11 +44,11 @@ namespace Project_TL.Models.Domain
 
         public Hotel()
         {
-            Systems = new List<Syst>();
+            Systems = new List<Application>();
             //TotalCost = calculateTotalCost();
         }
 
-        public Hotel(string name,Adres adres, Branch branch, string vatNumber, ContactPerson contactPerson, string hotelId, string email, string telephoneNumber, Owner owner, List<Syst> systems,Status status)
+        public Hotel(string name,Adres adres, Branch branch, string vatNumber, ContactPerson contactPerson, string hotelId, string email, string telephoneNumber, Owner owner, List<Application> systems,Status status)
         {
             Name = name;
             Adres = adres;
@@ -75,7 +75,7 @@ namespace Project_TL.Models.Domain
             Email = email;
             TelephoneNumber = telephoneNumber;
             Owner = owner;
-            Systems = new List<Syst>();
+            Systems = new List<Application>();
             Status = status;
 
             //TotalCost = calculateTotalCost();
@@ -84,7 +84,7 @@ namespace Project_TL.Models.Domain
         public double calculateTotalCost()
         {
             double kosts = 0;
-           foreach (Syst s in Systems)
+           foreach (Application s in Systems)
             {
                 kosts += s.Price;
                 if(s.Maintenance != null)
@@ -95,11 +95,11 @@ namespace Project_TL.Models.Domain
             return kosts;
         }
 
-        public void removeApplication(Syst syst)
+        public void removeApplication(Application syst)
         {
             Systems.Remove(syst);
         }
-        public void addApplication(Syst syst)
+        public void addApplication(Application syst)
         {
             Systems.Add(syst);
         }

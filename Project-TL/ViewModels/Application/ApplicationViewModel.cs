@@ -10,9 +10,9 @@ namespace Project_TL.ViewModels.Application
 {
     public class ApplicationViewModel
     {
-        public ApplicationViewModel(Syst syst)
+        public ApplicationViewModel(Models.Domain.Application syst)
         {
-            Id = syst.SystId;
+            Id = syst.ApplicationId;
             Price = syst.TotalPrice;
             Name = syst.Name;
             Type = syst.Type;
@@ -37,7 +37,7 @@ namespace Project_TL.ViewModels.Application
 
         public  int NumberOfHotels { get; set; }
 
-        public  ICollection<Hotel> Hotels { get; }
+        public  ICollection<Project_TL.Models.Domain.Hotel> Hotels { get; }
 
         public  Maintenance Maintenance { get; set; }
 

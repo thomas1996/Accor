@@ -1,6 +1,7 @@
 ﻿using Project_TL.Models.DAL;
 using Project_TL.Models.Domain;
 using Project_TL.ViewModels;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -163,6 +164,38 @@ namespace Project_TL.Controllers
                 TempData["error"] = String.Format("There has been a problem. If this keeps happening, please contact your administrator");
             }
             return RedirectToAction("Index");
+        }
+
+        public ActionResult AddApplication(string id)
+        {
+            Hotel h = hotelRepo.FindByCode(id);
+
+            List<int> i = new List<int>();
+            List<Application> systems = sysRepo.FindAll().ToList();
+
+            //deleting the systems that the application already has
+            //You can't delete a system while in the loop so first save the positions and after that loop it and delete the hotels
+            foreach (Application s in h.Systems)
+            {
+                systems.ForEach(t =>
+                {
+
+                    if (t.ApplicationId == s.ApplicationId)
+                        i.Add(systems.IndexOf(t));
+                });
+            }
+
+            //after deleting a system the indexes change? Use 'j' to solve this
+
+            for (int j = 0; j < i.Count(); j++)
+            {
+                systems.RemoveAt(i.ElementAt(j) - j);
+            }
+
+            IEnumerable<AddApplication> list = systems.Select(t => new AddApplication(t));
+            AddApplicationToHotelViewModel model = new AddApplicationToHotelViewModel(list.ToList());
+            return View(model);
+
         }
 
 

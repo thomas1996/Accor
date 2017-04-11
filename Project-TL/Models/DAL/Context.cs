@@ -17,7 +17,7 @@ namespace Project_TL.Models.DAL
         public DbSet<Firm> Firms { get; set; }
         public DbSet<Hotel> Hotels { get; set; }
         public DbSet<Owner> Owner { get; set; }
-        public DbSet<Syst> Systems { get; set; }
+        public DbSet<Application> Systems { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<ContactPerson> ContactPersons { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -29,6 +29,13 @@ namespace Project_TL.Models.DAL
            modelBuilder.Configurations.AddFromAssembly(Assembly.GetExecutingAssembly());
         }
 
+        public static Context Current
+        {
+            get
+            {
+                return HttpContext.Current.Items["EntityContext"] as Context;
+            }
+        }
     }
 
    

@@ -14,7 +14,7 @@ namespace Project_TL.ViewModels
         private readonly List<Branch> branches;
         private readonly List<ContactPerson> contacts;
         private readonly List<Owner> owners;
-        private readonly List<Syst> syst;
+        private readonly List<Models.Domain.Application> syst;
         private  List<Status> status;
 
         public EditHotelViewModel()
@@ -22,7 +22,7 @@ namespace Project_TL.ViewModels
 
         }
 
-        public EditHotelViewModel(Hotel h, List<Owner> owners, List<ContactPerson> contacts, List<Branch> branches, List<Syst> systems)
+        public EditHotelViewModel(Project_TL.Models.Domain.Hotel h, List<Owner> owners, List<ContactPerson> contacts, List<Branch> branches, List<Models.Domain.Application> systems)
         {
             this.branches = branches;
             this.owners = owners;

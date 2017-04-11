@@ -5,11 +5,11 @@ using System.Web;
 
 namespace Project_TL.Models.Domain
 {
-    public class Syst
+    public class Application
     {
         private double price;
         
-        public int SystId { get; set; }
+        public int ApplicationId { get; set; }
         public double TotalPrice
         {
 
@@ -46,13 +46,13 @@ namespace Project_TL.Models.Domain
         public virtual ICollection<Hotel> Hotels { get;  }
         public virtual Maintenance Maintenance { get; set; }
 
-        public Syst()
+        public Application()
         {
             Hotels = new List<Hotel>();
             
         }
 
-        public Syst(double price,string name,Type type,DateTime startDate,DateTime endDate,Maintenance maintenance)
+        public Application(double price,string name,Type type,DateTime startDate,DateTime endDate,Maintenance maintenance)
         {
             Price = price;
             Name = name;

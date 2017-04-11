@@ -9,22 +9,22 @@ namespace Project_TL.Models.DAL
 {
     public class SystemRepository : ISystemRepository
     {
-        private Context context;
-        private DbSet<Syst> systems;
+        private readonly Context context;
+        private DbSet<Application> systems;
 
         public SystemRepository(Context context)
         {
             this.context = context;
             systems = context.Systems;
         }
-        public void AddSyst(Syst syst)
+        public void AddSyst(Application syst)
         {
             systems.Add(syst);
         }
 
-        public void EditSyst(Syst syst)
+        public void EditSyst(Application syst)
         {
-            Syst s = FindById(syst.SystId);
+            Application s = FindById(syst.ApplicationId);
             if(s != null)
             {
                 systems.Remove(s);
@@ -32,15 +32,15 @@ namespace Project_TL.Models.DAL
             }
         }
 
-        public IQueryable<Syst> FindAll()
+        public IQueryable<Application> FindAll()
         {
             return systems;
         }
 
-        public IQueryable<Syst> FindByHotel(String hotelId)
+        public IQueryable<Application> FindByHotel(String hotelId)
         {
-            List<Syst> sy = new List<Syst>();
-            foreach(Syst s in systems)
+            List<Application> sy = new List<Application>();
+            foreach(Application s in systems)
             {
                 if(s.Hotels.FirstOrDefault(h => h.HotelId.Equals(hotelId)) != null)
                 {
@@ -50,17 +50,17 @@ namespace Project_TL.Models.DAL
             return sy.AsQueryable();
         }
 
-        public Syst FindById(int id)
+        public Application FindById(int id)
         {
-            return systems.FirstOrDefault(t => t.SystId == id);
+            return systems.FirstOrDefault(t => t.ApplicationId == id);
         }
 
-        public IQueryable<Syst> FindByName(string name)
+        public IQueryable<Application> FindByName(string name)
         {
             return systems.Where(t => t.Name.Equals(name));
         }
 
-        public void RemoveSyst(Syst syst)
+        public void RemoveSyst(Application syst)
         {
             systems.Remove(syst);
         }
@@ -70,12 +70,12 @@ namespace Project_TL.Models.DAL
             context.SaveChanges();
         }
 
-        public IQueryable<Syst> findByEndDate(DateTime endDate)
+        public IQueryable<Application> findByEndDate(DateTime endDate)
         {
             return systems.Where(t => t.EndDate.ToShortDateString().Equals(endDate.ToShortDateString()));
         }
 
-        public IQueryable<Syst> findByStartDate(DateTime startDate)
+        public IQueryable<Application> findByStartDate(DateTime startDate)
         {
             return systems.Where(t => t.StartDate.ToShortDateString().Equals(startDate.ToShortDateString()));
         }

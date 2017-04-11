@@ -15,7 +15,7 @@ namespace Project_TL.Models.Domain
         void AddHotel(Hotel hotel);
         void EditHotel(Hotel hotel);
         void RemoveHotel(Hotel hotel);
-        void RemoveApplication(Hotel hotel, Syst syst);
+        void RemoveApplication(Hotel hotel, Application syst);
         void SaveChanges();
 
 

@@ -19,7 +19,7 @@ namespace Project_TL.Controllers
         {
 
         }
-        public ApplicationController(ISystemRepository systRepo,IHotelRepository hotelRepo)
+        public ApplicationController(ISystemRepository systRepo, IHotelRepository hotelRepo)
         {
             this.systRepo = systRepo;
             this.hotelRepo = hotelRepo;
@@ -29,25 +29,25 @@ namespace Project_TL.Controllers
         public ActionResult Index()
         {
             IEnumerable<ApplicationViewModel> list = systRepo.FindAll().ToList().Select(t => new ApplicationViewModel(t));
-            
+
             return View(list);
         }
-       
+
         public ActionResult Details(int id)
         {
-           Syst s = systRepo.FindById(id);
-           ApplicationViewModel avw = new ApplicationViewModel(s);
+            Application s = systRepo.FindById(id);
+            ApplicationViewModel avw = new ApplicationViewModel(s);
             if (Request.IsAjaxRequest())
                 return PartialView("DetailsList", avw);
-                return View(avw);
+            return View(avw);
         }
-        
-        public ActionResult DeleteApplication(string id,int systId)
+
+        public ActionResult DeleteApplication(string id, int systId)
         {
             try
             {
                 Hotel h = hotelRepo.FindByCode(id);
-                Syst s = systRepo.FindById(systId);
+                Application s = systRepo.FindById(systId);
                 hotelRepo.RemoveApplication(h, s);
                 s.removeHotel(h);
 
@@ -58,31 +58,31 @@ namespace Project_TL.Controllers
                 hotelRepo.SaveChanges();
                 TempData["message"] = String.Format("The system has been deleted from the hotel");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 //return new HttpStatusCodeResult(HttpStatusCode.BadRequest, ex.Message);
             }
             //if (Request.IsAjaxRequest())
             //    return Details(systId);
-                return RedirectToAction("Details", new { id = systId });
+            return RedirectToAction("Details", new { id = systId });
         }
 
         public ActionResult Delete(int id)
         {
-            Syst s = systRepo.FindById(id);
-            if(s == null)
+            Application s = systRepo.FindById(id);
+            if (s == null)
             {
                 return HttpNotFound();
             }
             return View(s);
         }
 
-        [HttpPost,ActionName("Delete")]
+        [HttpPost, ActionName("Delete")]
         public ActionResult ConfirmDelete(int id)
         {
             try
             {
-                Syst s = systRepo.FindById(id);
+                Application s = systRepo.FindById(id);
                 if (s == null)
                     return HttpNotFound();
                 List<Hotel> hot = hotelRepo.FindBySystem(s.Name).ToList();
@@ -97,10 +97,10 @@ namespace Project_TL.Controllers
                 systRepo.RemoveSyst(s);
                 systRepo.SaveChanges();
                 hotelRepo.SaveChanges();
-                TempData["message"] = String.Format("Application {0} was succesfully deleted",s.Name);
+                TempData["message"] = String.Format("Application {0} was succesfully deleted", s.Name);
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 TempData["error"] = "There was an error, if this keeps happening, please contact the IT administrator";
             }
@@ -109,17 +109,17 @@ namespace Project_TL.Controllers
 
         public ActionResult AddHotel(int id)
         {
-            Syst s = systRepo.FindById(id);
+            Application s = systRepo.FindById(id);
             List<int> i = new List<int>();
             hotels = hotelRepo.FindAll().ToList();
-            
+
             //deleting the hotels that the application already has
             //You can't delete a hotel while in the loop so first save the positions and after that loop it and delete the hotels
-            foreach(Hotel h in s.Hotels)
+            foreach (Hotel h in s.Hotels)
             {
                 hotels.ForEach(t =>
                {
-                  
+
                    if (t.HotelId == h.HotelId)
                        i.Add(hotels.IndexOf(t));
                });
@@ -127,21 +127,21 @@ namespace Project_TL.Controllers
 
             //after deleting a hotel the indexes change? Use 'j' to solve this
 
-            for(int j = 0; j<i.Count();j++)
+            for (int j = 0; j < i.Count(); j++)
             {
-                
+
                 hotels.RemoveAt(i.ElementAt(j) - j);
             }
 
             IEnumerable<AddHotel> list = hotels.Select(t => new AddHotel(t));
             AddHotelToApplicationViewModel model = new AddHotelToApplicationViewModel(list.ToList());
             return View(model);
-            
+
         }
-        [HttpPost,ActionName("addHotel")]
-        public ActionResult addHotelConfirmed(int id,AddHotelToApplicationViewModel model,List<string> hotelId)
+        [HttpPost, ActionName("addHotel")]
+        public ActionResult addHotelConfirmed(int id, AddHotelToApplicationViewModel model, string hotelId)
         {
-            Syst s = systRepo.FindById(id);
+            Application s = systRepo.FindById(id);
             if (s == null)
                 return HttpNotFound();
             try
@@ -149,34 +149,43 @@ namespace Project_TL.Controllers
 
 
                 //foreach (AddHotel m in model.Hotels.Where(t => t.Checked == true))
-                for(int i = 0; i<model.Hotels.Count(); i++)
+                for (int i = 0; i < model.Hotels.Count(); i++)
                 {
-                    if(model.Hotels[i].Checked == true)
+                    if (model.Hotels[i].Checked == true)
                     {
-                        string str = (string)ViewBag[i.ToString()];
-                        Hotel h = hotelRepo.FindByCode(str);
+
+                        Hotel h = hotelRepo.FindByCode(hotelId);
                         s.addHotel(h);
 
-                        Syst s1 = new Syst();
+                        Application s1 = new Application();
                         MapToApplication(s1, model.Hotels[i], s);
                         h.addApplication(s1);
 
-                        systRepo.SaveChanges();
+
+                        //systRepo.EditSyst(s);
+                        //systRepo.SaveChanges();
                         hotelRepo.SaveChanges();
                         TempData["message"] = String.Format("Hotel {0} was added to the list", h.Name);
+
                     }
-                   
+
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 TempData["error"] = "There was a problem when trying to add the hotel. Try again later. If this keeps happening, please contact the IT administrator";
+                s.removeHotel(hotelRepo.FindByCode(hotelId));
+                return AddHotel(id);
+
             }
             return RedirectToAction("Details", new { id = id });
 
+
         }
 
-        private void MapToApplication(Syst s1,AddHotel model,Syst s)
+        private void MapToApplication(Application s1, AddHotel model, Application s)
         {
+            s1.ApplicationId = s.ApplicationId;
             s1.Name = s.Name;
             s1.Price = model.Cost;
             s1.Maintenance = s.Maintenance;
@@ -184,8 +193,10 @@ namespace Project_TL.Controllers
             s1.EndDate = model.EndDate;
             s1.Type = s.Type;
         }
-    }
-   
 
-    
+
+       
+
+    }
+
 }

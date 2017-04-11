@@ -9,7 +9,7 @@ namespace Project_TL.Models.DAL
 {
     public class BranchRepository : IBranchRepository
     {
-        private Context context;
+        private readonly Context context;
         private DbSet<Branch> branches;
 
         public BranchRepository(Context context)

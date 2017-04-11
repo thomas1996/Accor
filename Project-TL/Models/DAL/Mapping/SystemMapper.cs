@@ -7,12 +7,12 @@ using System.Web;
 
 namespace Project_TL.Models.DAL.Mapping
 {
-    public class SystemMapper : EntityTypeConfiguration<Syst>
+    public class SystemMapper : EntityTypeConfiguration<Application>
     {
         public SystemMapper()
         {
             //properties
-            Property(t => t.SystId).HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
+            Property(t => t.ApplicationId).HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
             Property(t => t.Price).IsRequired();
             Property(t => t.StartDate).IsRequired();
             Property(t => t.EndDate).IsRequired();

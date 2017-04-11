@@ -117,6 +117,7 @@
                             <th>Cost</th>
                             <th>EndDate</th>
                             <th> Cost Maintenance</th>
+                            <th></th>
                         </tr>
                         @foreach (var item in Model.Systems)
                         {
@@ -133,6 +134,7 @@
                                 <td>
                                     @String.Format("€{0:N}", item.Maintenance.Price)
                                 </td>
+                                <td>@Html.ActionLink("Delete Hotel from this Application", "DeleteApplication", new { id = item.ApplicationId, systId = Model.HotelId })</td>
                             </tr>
                         }
                     </table>
@@ -153,6 +155,7 @@
     <p>
 
         <a href="@Url.Action("Edit", "Search", new {  hotelId = Model.HotelId  })">Edit</a> |
+        <a href="@Url.Action("AddApplication", "Search", new {id = Model.HotelId})">Add application(s)</a> |
         @Html.ActionLink("Back to List", "Index")
     </p>
  

@@ -9,7 +9,7 @@ namespace Project_TL.Models.DAL
 {
     public class HotelRepository : IHotelRepository
     {
-        private Context context;
+        private readonly Context context;
         private DbSet<Hotel> hotels;
 
         public HotelRepository(Context context)
@@ -71,7 +71,7 @@ namespace Project_TL.Models.DAL
             hotels.Remove(hotel);
         }
 
-        public void RemoveApplication(Hotel hotel,Syst syst)
+        public void RemoveApplication(Hotel hotel,Application syst)
         {
             hotel.Systems.Remove(syst);
         }
@@ -79,6 +79,7 @@ namespace Project_TL.Models.DAL
         public void SaveChanges()
         {
             context.SaveChanges();
+            
         }
     }
 }

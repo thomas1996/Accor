@@ -36,15 +36,15 @@ namespace Project_TL.Models.DAL
 
                 Maintenance m = new Maintenance(new DateTime(2017, 03, 15), new DateTime(2018, 10, 10), 5000);
 
-                Syst s1 = new Syst(10000.00, "Boekhouding", Domain.Type.Rented, new DateTime(2017,03,15), (new DateTime(2017, 03, 15)).Date, m);
-                Syst s2 = new Syst(1500.00, "Reservaties", Domain.Type.Rented, new DateTime(2017, 03, 15).Date, new DateTime(2017, 03, 15), m);
-                Syst s3 = new Syst(1500.00, "Personeelsprogramma", Domain.Type.Rented, new DateTime(2017, 03, 15).Date, new DateTime(2017, 03, 15), m);
+                Application s1 = new Application(10000.00, "Boekhouding", Domain.Type.Rented, new DateTime(2017,03,15), (new DateTime(2017, 03, 15)).Date, m);
+                Application s2 = new Application(1500.00, "Reservaties", Domain.Type.Rented, new DateTime(2017, 03, 15).Date, new DateTime(2017, 03, 15), m);
+                Application s3 = new Application(1500.00, "Personeelsprogramma", Domain.Type.Rented, new DateTime(2017, 03, 15).Date, new DateTime(2017, 03, 15), m);
  
-                List<Syst> sys = new List<Syst>();
+                List<Application> sys = new List<Application>();
                 sys.Add(s1);
                 sys.Add(s2);
 
-                List<Syst> sys2 = new List<Syst>();
+                List<Application> sys2 = new List<Application>();
                 sys2.Add(s1);
                 sys2.Add(s2);
                 sys2.Add(s3);
