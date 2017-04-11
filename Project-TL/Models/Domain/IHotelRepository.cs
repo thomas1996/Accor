@@ -10,12 +10,12 @@ namespace Project_TL.Models.Domain
         Hotel FindByCode(string code);
         IQueryable<Hotel> FindByBranchName(string branch);
         IQueryable<Hotel> FindByOwner(string owner);
-        IQueryable<Hotel> FindBySystem(string system);
+        IQueryable<Hotel> FindBySystem(int systemId);
         IQueryable<Hotel> FindAll();
         void AddHotel(Hotel hotel);
         void EditHotel(Hotel hotel);
         void RemoveHotel(Hotel hotel);
-        void RemoveApplication(Hotel hotel, Application syst);
+        void RemoveApplication(Hotel hotel, HotelApplication syst);
         void SaveChanges();
 
 

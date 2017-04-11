@@ -15,8 +15,7 @@ namespace Project_TL.ViewModels.Application
             Id = syst.ApplicationId;
             Price = syst.TotalPrice;
             Name = syst.Name;
-            Type = syst.Type;
-            StartDate = syst.StartDate;
+            Type = syst.Type;          
             NumberOfHotels = syst.Hotels.Count();
             Hotels = syst.Hotels;
             Maintenance = syst.Maintenance;
@@ -32,12 +31,11 @@ namespace Project_TL.ViewModels.Application
         public string Name { get; set; }
 
         public Models.Domain.Type Type { get; set; }
-
-        public  DateTime StartDate { get; set; }
+      
 
         public  int NumberOfHotels { get; set; }
 
-        public  ICollection<Project_TL.Models.Domain.Hotel> Hotels { get; }
+        public  ICollection<HotelApplication> Hotels { get; }
 
         public  Maintenance Maintenance { get; set; }
 

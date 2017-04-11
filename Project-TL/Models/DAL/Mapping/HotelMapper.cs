@@ -26,12 +26,14 @@ namespace Project_TL.Models.DAL.Mapping
             HasRequired(t => t.Owner).WithMany(t => t.Hotels).Map(m => m.MapKey("Owner")).WillCascadeOnDelete(false);
             HasRequired(t => t.Branch).WithMany(t => t.Hotels).Map(m => m.MapKey("branch")).WillCascadeOnDelete(false);
             HasRequired(t => t.ContactPerson).WithMany(t => t.Hotels).Map(m => m.MapKey("ContactPerson")).WillCascadeOnDelete(false);
-            HasMany(t => t.Systems).WithMany(s => s.Hotels).Map(m =>
-            {
-                m.ToTable("HotelSystem");
-                m.MapLeftKey("HotelId");
-                m.MapRightKey("SystId");
-            });
+            //HasMany(t => t.Applications).WithMany(s => s.Hotels).Map(m =>
+            //{
+            //    m.ToTable("HotelSystem");
+            //    m.MapLeftKey("HotelId");
+            //    m.MapRightKey("SystId");
+            //});
+
+            //HasMany(t => t.Applications).WithOptional().Map(m => m.MapKey("Application"));
             HasRequired(t => t.Adres).WithOptional().Map(m => m.MapKey("Adres"));
          //   HasRequired(t => t.Status).WithOptional().Map(m => m.MapKey("Status"));
            

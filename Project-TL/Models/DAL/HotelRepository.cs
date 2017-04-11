@@ -31,7 +31,6 @@ namespace Project_TL.Models.DAL
                 hotels.Add(h);
             }
         }
-
         public IQueryable<Hotel> FindAll()
         {
             return hotels;
@@ -52,16 +51,18 @@ namespace Project_TL.Models.DAL
             return hotels.Where(t => t.Owner.LastName.Equals(owner)).ToList().AsQueryable();
         }
 
-        public IQueryable<Hotel> FindBySystem(string system)
+        public IQueryable<Hotel> FindBySystem(int sysId)
         {
             List<Hotel> ho = new List<Hotel>();
 
             foreach (Hotel h in hotels.ToList())
             {
-                if (h.Systems.FirstOrDefault(s => s.Name.Equals(system)) != null)
+                h.Applications.ToList().ForEach(t =>
                 {
-                    ho.Add(h);
-                }
+                    if (t.ApplicationId == sysId)
+                        ho.Add(h);
+                });
+               
             }      
                 return ho.AsQueryable();            
        }
@@ -71,9 +72,9 @@ namespace Project_TL.Models.DAL
             hotels.Remove(hotel);
         }
 
-        public void RemoveApplication(Hotel hotel,Application syst)
+        public void RemoveApplication(Hotel hotel,HotelApplication syst)
         {
-            hotel.Systems.Remove(syst);
+            hotel.Applications.Remove(syst);
         }
 
         public void SaveChanges()
@@ -81,5 +82,7 @@ namespace Project_TL.Models.DAL
             context.SaveChanges();
             
         }
+
+       
     }
 }

@@ -30,7 +30,7 @@
             Maintenance price
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Maintenance.Price)
+            @String.Format("€{0:N}",Model.Maintenance.Price)
         </dd>     
         
         <dt>

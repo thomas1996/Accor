@@ -15,7 +15,7 @@ namespace Project_TL.Controllers
     public class SearchController : Controller
     {
         private IHotelRepository hotelRepo;
-        private ISystemRepository sysRepo;
+        private IApplicationRepository sysRepo;
         private IOwnerRepository ownerRepo;
         private IContactPersonRepository contactRepo;
         private IBranchRepository branchRepo;
@@ -23,27 +23,20 @@ namespace Project_TL.Controllers
         private List<Hotel> hh;
         // GET: Search
 
-        public SearchController(IHotelRepository hotelRepo, ISystemRepository sysRepo,IOwnerRepository ownerRepo,IContactPersonRepository contactRepo,IBranchRepository branchRepo) {
+        public SearchController(IHotelRepository hotelRepo, IApplicationRepository sysRepo,IOwnerRepository ownerRepo,IContactPersonRepository contactRepo,IBranchRepository branchRepo) {
             this.hotelRepo = hotelRepo;
             this.sysRepo = sysRepo;
             this.ownerRepo = ownerRepo;
             this.contactRepo = contactRepo;
             this.branchRepo = branchRepo;
            
-
             hh = hotelRepo.FindAll().ToList();
             hh.OrderBy(t => t.Name);
-           
-            
 
         }
         public ActionResult Index()
-        {
-
-
-            hh.Select(t => t.calculateTotalCost());
+        {         
             IEnumerable<HotelViewModel> hvm = hh.Select(t => new HotelViewModel(t));
-            //ViewBag.admin = true;
 
             return View(hvm);
         }
@@ -61,10 +54,8 @@ namespace Project_TL.Controllers
             }
 
             //Use a viewmodel to display al the details of the hotel
-            h.calculateTotalCost();
             HotelViewModel hvm = new HotelViewModel(h);
-
-            
+         
             return View(hvm);
         }
 
@@ -80,7 +71,6 @@ namespace Project_TL.Controllers
             {
                 return HttpNotFound();
             }
-
 
             //Use a viewmodel to display al the details of the hotel
             
@@ -143,7 +133,6 @@ namespace Project_TL.Controllers
             if (h == null)
                 return HttpNotFound();
             return View(h);
-
         }
 
         [HttpPost,ActionName("Delete")]
@@ -151,11 +140,23 @@ namespace Project_TL.Controllers
         {
             try
             {
-                Hotel h = hotelRepo.FindByCode(id);
+                Hotel h = hotelRepo.FindByCode(id);               
                 if(h == null)
                 {
                     return HttpNotFound();
                 }
+
+                //removing the hotel from all the applications
+                List<Application> apps = sysRepo.FindByHotel(h.HotelId).ToList();
+                apps.ForEach(t =>
+                {
+                    t.Hotels.Where(s => s.ApplicationId == t.ApplicationId).Where(r => r.HotelId == id).ToList().ForEach(q =>
+                    {
+                        t.removeHotel(q);
+                    });
+                });
+
+
                 hotelRepo.RemoveHotel(h);
                 hotelRepo.SaveChanges();
                 TempData["message"] = String.Format("Hotel {0} has been deleted", h.Branch);
@@ -175,13 +176,12 @@ namespace Project_TL.Controllers
 
             //deleting the systems that the application already has
             //You can't delete a system while in the loop so first save the positions and after that loop it and delete the hotels
-            foreach (Application s in h.Systems)
+            foreach (Application s in systems)
             {
-                systems.ForEach(t =>
+                s.Hotels.ToList().ForEach(t =>
                 {
-
-                    if (t.ApplicationId == s.ApplicationId)
-                        i.Add(systems.IndexOf(t));
+                    if (t.HotelId == id && DateTime.Compare(t.EndDate, DateTime.Today) < 0)
+                        i.Add(systems.IndexOf(s));
                 });
             }
 

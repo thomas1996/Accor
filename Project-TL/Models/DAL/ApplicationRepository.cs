@@ -7,12 +7,12 @@ using System.Web;
 
 namespace Project_TL.Models.DAL
 {
-    public class SystemRepository : ISystemRepository
+    public class ApplicationRepository : IApplicationRepository
     {
         private readonly Context context;
         private DbSet<Application> systems;
 
-        public SystemRepository(Context context)
+        public ApplicationRepository(Context context)
         {
             this.context = context;
             systems = context.Systems;
@@ -42,10 +42,11 @@ namespace Project_TL.Models.DAL
             List<Application> sy = new List<Application>();
             foreach(Application s in systems)
             {
-                if(s.Hotels.FirstOrDefault(h => h.HotelId.Equals(hotelId)) != null)
+                s.Hotels.ToList().ForEach(t =>
                 {
-                    sy.Add(s);
-                }
+                    if (t.HotelId.Equals(hotelId))
+                        sy.Add(s);
+                });
             }
             return sy.AsQueryable();
         }
@@ -70,14 +71,6 @@ namespace Project_TL.Models.DAL
             context.SaveChanges();
         }
 
-        public IQueryable<Application> findByEndDate(DateTime endDate)
-        {
-            return systems.Where(t => t.EndDate.ToShortDateString().Equals(endDate.ToShortDateString()));
-        }
-
-        public IQueryable<Application> findByStartDate(DateTime startDate)
-        {
-            return systems.Where(t => t.StartDate.ToShortDateString().Equals(startDate.ToShortDateString()));
-        }
+        
     }
 }

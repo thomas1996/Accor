@@ -123,17 +123,18 @@
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(model => item.Name)
+                                    @Html.DisplayFor(model => item.ApplicationName)
                                 </td>
                                 <td>
-                                    @String.Format("€{0:N}", item.Price)
+                                   @String.Format(item.StartDate.ToShortDateString())
+                                </td>
+                                <td>
+                                    @String.Format("€{0:N}", item.Cost)
                                 </td>
                                 <td>
                                     @String.Format(item.EndDate.ToShortDateString())
                                 </td>
-                                <td>
-                                    @String.Format("€{0:N}", item.Maintenance.Price)
-                                </td>
+
                                 <td>@Html.ActionLink("Delete Hotel from this Application", "DeleteApplication", new { id = item.ApplicationId, systId = Model.HotelId })</td>
                             </tr>
                         }

@@ -36,9 +36,9 @@ namespace Project_TL.Models.DAL
 
                 Maintenance m = new Maintenance(new DateTime(2017, 03, 15), new DateTime(2018, 10, 10), 5000);
 
-                Application s1 = new Application(10000.00, "Boekhouding", Domain.Type.Rented, new DateTime(2017,03,15), (new DateTime(2017, 03, 15)).Date, m);
-                Application s2 = new Application(1500.00, "Reservaties", Domain.Type.Rented, new DateTime(2017, 03, 15).Date, new DateTime(2017, 03, 15), m);
-                Application s3 = new Application(1500.00, "Personeelsprogramma", Domain.Type.Rented, new DateTime(2017, 03, 15).Date, new DateTime(2017, 03, 15), m);
+                Application s1 = new Application(10000.00, "Boekhouding", Domain.Type.Rented, m);
+                Application s2 = new Application(1500.00, "Reservaties", Domain.Type.Rented,  m);
+                Application s3 = new Application(1500.00, "Personeelsprogramma", Domain.Type.Rented, m);
  
                 List<Application> sys = new List<Application>();
                 sys.Add(s1);
@@ -53,28 +53,33 @@ namespace Project_TL.Models.DAL
                 Hotel h2 = new Hotel("Ibis Schiphol",a2, b2, "BE 0635.611.207 ", p2, "0649", "h0649-GM@Accor.com", "+31 20 50 25 100", o3,Status.MAN);
                 Hotel h3 = new Hotel("Ibis At",a3, b2, "BE 0635.611.207 ", p3, "0650", "HA3P2@accor.com", "+31 20 34 83 533", o2,Status.FR);
 
-                h1.addApplication(s1);
-                h1.addApplication(s2);
-                h1.addApplication(s3);
+                HotelApplication ha1 = new HotelApplication("8602", 1, 15000, DateTime.Today, new DateTime(2018, 12, 31), "Adagio Brussel", "PersoneelsProgramma");
+                HotelApplication ha2 = new HotelApplication("8602", 2, 20000, DateTime.Today, new DateTime(2017, 12, 31), "Adagio Brussel", "Reservatie");
+                HotelApplication ha3 = new HotelApplication("8602", 3, 5000, DateTime.Today, new DateTime(2018, 12, 31), "Adagio Brussel", "Boekhouden");
 
-               
+                HotelApplication ha4 = new HotelApplication("0649", 1, 15000, DateTime.Today, new DateTime(2018, 12, 31), "Ibis Schiphol", "Personeelsprogramma");
+                HotelApplication ha5 = new HotelApplication("0649", 3, 1500, DateTime.Today, new DateTime(2018, 12, 31), "Ibis Schiphol", "Boekhouden");
 
-                h2.addApplication(s1);
+                HotelApplication ha6 = new HotelApplication("0950", 2, 20000, DateTime.Today, new DateTime(2019, 12, 31), "Ibis At", "Reservaties");
 
-                h3.addApplication(s2);
-                h3.addApplication(s3);
+                h1.addApplication(ha1);
+                h1.addApplication(ha2);
+                h1.addApplication(ha3);
+                h2.addApplication(ha4);
+                h2.addApplication(ha5);
+                h3.addApplication(ha6);
 
+                s1.addHotel(ha1);
+                s1.addHotel(ha2);
+                s2.addHotel(ha1);
+                s2.addHotel(ha3);
+                s3.addHotel(ha1);
+                s3.addHotel(ha2);
 
                 p1.addHotel(h1);
                 p2.addHotel(h2);
                 p3.addHotel(h3);
 
-                s1.addHotel(h1);
-                s1.addHotel(h2);
-               
-
-                s2.addHotel(h2);
-                s3.addHotel(h3);
 
                 b1.addHotel(h1);
                 b2.addHotel(h2);

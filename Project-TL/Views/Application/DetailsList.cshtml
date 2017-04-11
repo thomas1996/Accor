@@ -2,11 +2,8 @@
 
 <table class="table-condensed table-responsive table-bordered">
     <tr>
-        <th>Name</th>
-        <th>City</th>
-        <th>Owner</th>
-        <th>Contract Price</th>
-        <th>Maintenance Price</th>
+        <th>Name</th>        
+        <th>Contract Price</th>      
         <th>Start date</th>
         <th>End date</th>
         <th></th>
@@ -14,15 +11,13 @@
     @foreach (var item in Model.Hotels)
     {
         <tr>
-            <td>@Html.DisplayFor(modelitem => item.Name)</td>
-            <td>@Html.DisplayFor(modelitem => item.Adres.City)</td>
-            <td>@Html.DisplayFor(modelitem => item.Owner.LastName) @Html.DisplayFor(modelitem => item.Owner.FirstName)</td>
-            <td>€@Html.DisplayFor(modelitem => item.Systems.Single(t => t.ApplicationId == Model.Id).Price)</td>
-            <td>€@Html.DisplayFor(modelitem => item.Systems.FirstOrDefault(t => t.ApplicationId == Model.Id).Maintenance.Price)</td>
-            <td>@String.Format(item.Systems.FirstOrDefault(t => t.ApplicationId == Model.Id).StartDate.ToShortDateString()) </td>
-            <td>@String.Format(item.Systems.FirstOrDefault(t => t.ApplicationId == Model.Id).EndDate.ToShortDateString()) </td>
+            <td>@Html.DisplayFor(modelitem => item.HotelName)</td>          
+            <td>@String.Format("€{0:N}",item.Cost)</td>
+           
+            <td>@String.Format(item.StartDate.ToShortDateString()) </td>
+            <td>@String.Format(item.EndDate.ToShortDateString()) </td>
             <td>
-                @Html.ActionLink("Delete application from this hotel", "DeleteApplication", new { id = item.HotelId ,systId = Model.Id})
+                @Html.ActionLink("Delete application from this hotel", "DeleteApplication", new { id = item.HotelId ,systId = item.ApplicationId})
             </td>
         </tr>
     }

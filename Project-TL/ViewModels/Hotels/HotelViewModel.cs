@@ -14,7 +14,7 @@ namespace Project_TL.ViewModels
 
         }
 
-        public HotelViewModel(Project_TL.Models.Domain.Hotel h)
+        public HotelViewModel(Hotel h)
         {
             Name = h.Name;
             Owner = h.Owner;
@@ -25,7 +25,7 @@ namespace Project_TL.ViewModels
             HotelId = h.HotelId;
             Email = h.Email;
             TelephoneNumber = h.TelephoneNumber;
-            Systems = h.Systems.ToList();
+            Systems = h.Applications.ToList();
             TotalCost = h.TotalCost;
             Status = h.Status;
 
@@ -68,7 +68,7 @@ namespace Project_TL.ViewModels
         public virtual Owner Owner { get; set; }
 
         [Required(ErrorMessage = "{0} is required")]
-        public List<Models.Domain.Application> Systems { get; }
+        public List<HotelApplication> Systems { get; }
 
         [Display(Name ="Total cost")]
         [Range(0,Int32.MaxValue,ErrorMessage ="Cost can't be negative")]

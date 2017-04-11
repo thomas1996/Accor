@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace Project_TL.Models.Domain
 {
-    public interface ISystemRepository
+    public interface IApplicationRepository
     {
         IQueryable<Application> FindByName(string name);
-        IQueryable<Application> findByStartDate(DateTime startDate);
-        IQueryable<Application> findByEndDate(DateTime endDate);
         IQueryable<Application> FindByHotel(string hotelId);
         Application FindById(int id);
         IQueryable<Application> FindAll();

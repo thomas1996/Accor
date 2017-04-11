@@ -12,11 +12,11 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Price)
+            @Html.DisplayNameFor(model => model.TotalPrice)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Price)
+            @Html.DisplayFor(model => model.TotalPrice)
         </dd>
 
         <dt>
@@ -28,19 +28,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.StartDate)
+           Number of hotels
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.StartDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EndDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EndDate)
+            @String.Format("", Model.Hotels.Count())
         </dd>
 
     </dl>

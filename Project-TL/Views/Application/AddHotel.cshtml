@@ -70,8 +70,10 @@
                     <td>
                         @Html.EditorFor(item => item.Hotels[i].EndDate, new { HtmlAttributes = new { @class = "datefield", type = "date", value = DateTime.Today.ToShortDateString() } })
                     </td>
+               
                 <td>
                     <input type="hidden" name="hotelId" value="@Model.Hotels[i].HotelId" />
+                    
                 </td>
             </tr>
             @*@ViewBag.h[i]. = @Model.Hotels[i].Name;*@

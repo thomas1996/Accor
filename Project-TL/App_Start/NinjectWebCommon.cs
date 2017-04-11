@@ -64,7 +64,7 @@ namespace Project_TL.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IHotelRepository>().To<HotelRepository>().InRequestScope();
-            kernel.Bind<ISystemRepository>().To<SystemRepository>().InRequestScope();
+            kernel.Bind<IApplicationRepository>().To<ApplicationRepository>().InRequestScope();
             kernel.Bind<IUserRepository>().To<UserRepository>().InRequestScope();
             kernel.Bind<IOwnerRepository>().To<OwnerRepository>().InRequestScope();
             kernel.Bind<IContactPersonRepository>().To<ContactPersonRepository>().InRequestScope();

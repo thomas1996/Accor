@@ -20,16 +20,11 @@ namespace Project_TL.Models.Domain
                 {
                     Hotels.ToList().ForEach(t =>
                    {
-                       if (t.Systems.Count > 0)
-                       {
-                           t.Systems.ToList().ForEach(s =>
-                            {
-                                price += s.Price;
-                                if (s.Maintenance.Price > 0)
-                                    price += s.Maintenance.Price;
-                            });
-                       }
+
+                       price += t.Cost;
+                       
                    });
+                    price += Maintenance.Price;
                 
                 }
                 return price;                
@@ -39,36 +34,32 @@ namespace Project_TL.Models.Domain
     //}
 }
         public string Name { get; set; }
-        public double Price { get; set; }
+        public double OtherCosts { get; set; }      
         public virtual Type Type {get;set;    }
-        public virtual DateTime StartDate { get; set; }
-        public virtual DateTime EndDate { get; set; }
-        public virtual ICollection<Hotel> Hotels { get;  }
+        public virtual ICollection<HotelApplication> Hotels { get;  }
         public virtual Maintenance Maintenance { get; set; }
 
         public Application()
         {
-            Hotels = new List<Hotel>();
+            Hotels = new List<HotelApplication>();
             
         }
 
-        public Application(double price,string name,Type type,DateTime startDate,DateTime endDate,Maintenance maintenance)
+        public Application(double price,string name,Type type,Maintenance maintenance)
         {
-            Price = price;
+            OtherCosts = price;
             Name = name;
             Type = type;
-            StartDate = startDate;
-            EndDate = endDate;
             Maintenance = maintenance;
 
-            Hotels = new List<Hotel>();
+            Hotels = new List<HotelApplication>();
         }
 
-        public void addHotel(Hotel h)
+        public void addHotel(HotelApplication h)
         {
             Hotels.Add(h);
         }
-        public void removeHotel(Hotel h)
+        public void removeHotel(HotelApplication h)
         {
             Hotels.Remove(h);
         }

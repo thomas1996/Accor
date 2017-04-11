@@ -19,20 +19,20 @@ namespace Project_TL.Models.Domain
         public string TelephoneNumber { get; set; }
         public virtual Owner Owner { get; set; }
      
-        public virtual ICollection<Application> Systems { get; }
+        public virtual ICollection<HotelApplication> Applications { get; }
         public double TotalCost {
             get
             {
                 totalCost = 0.0;
-                if (Systems.Count > 0)
+                if (Applications.Count > 0)
                 {
-                    Systems.ToList().ForEach(t =>
+                    Applications.ToList().ForEach(t =>
                     {
-                        totalCost += t.Price;
-                        if (t.Maintenance.Price > 0)
-                        {
-                            totalCost += t.Maintenance.Price;  
-                        }
+                        totalCost += t.Cost;
+                        //if (t.Maintenance.Price > 0)
+                        //{
+                        //    totalCost += t.Maintenance.Price;  
+                        //}
                     });
                 }
                 return totalCost;
@@ -44,11 +44,11 @@ namespace Project_TL.Models.Domain
 
         public Hotel()
         {
-            Systems = new List<Application>();
+            Applications = new List<HotelApplication>();
             //TotalCost = calculateTotalCost();
         }
 
-        public Hotel(string name,Adres adres, Branch branch, string vatNumber, ContactPerson contactPerson, string hotelId, string email, string telephoneNumber, Owner owner, List<Application> systems,Status status)
+        public Hotel(string name,Adres adres, Branch branch, string vatNumber, ContactPerson contactPerson, string hotelId, string email, string telephoneNumber, Owner owner, List<HotelApplication> systems,Status status)
         {
             Name = name;
             Adres = adres;
@@ -59,7 +59,7 @@ namespace Project_TL.Models.Domain
             Email = email;
             TelephoneNumber = telephoneNumber;
             Owner = owner;
-            Systems = systems;
+            Applications = systems;
             Status = status;
             
             //TotalCost = calculateTotalCost();
@@ -75,33 +75,33 @@ namespace Project_TL.Models.Domain
             Email = email;
             TelephoneNumber = telephoneNumber;
             Owner = owner;
-            Systems = new List<Application>();
+            Applications = new List<HotelApplication>();
             Status = status;
 
             //TotalCost = calculateTotalCost();
         }
 
-        public double calculateTotalCost()
-        {
-            double kosts = 0;
-           foreach (Application s in Systems)
-            {
-                kosts += s.Price;
-                if(s.Maintenance != null)
-                {
-                    kosts += s.Maintenance.Price;
-                }
-            }
-            return kosts;
-        }
+        //public double calculateTotalCost()
+        //{
+        //    double kosts = 0;
+        //   foreach (Ho s in Applications)
+        //    {
+        //        kosts += s.Price;
+        //        if(s.Maintenance != null)
+        //        {
+        //            kosts += s.Maintenance.Price;
+        //        }
+        //    }
+        //    return kosts;
+        //}
 
-        public void removeApplication(Application syst)
+        public void removeApplication(HotelApplication syst)
         {
-            Systems.Remove(syst);
+            Applications.Remove(syst);
         }
-        public void addApplication(Application syst)
+        public void addApplication(HotelApplication syst)
         {
-            Systems.Add(syst);
+            Applications.Add(syst);
         }
 
 

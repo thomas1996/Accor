@@ -15,7 +15,7 @@ namespace Project_TL.Controllers
         private IBranchRepository branchRepo;
         private IContactPersonRepository contactRepo;
         private IOwnerRepository ownerRepo;
-        private ISystemRepository sysRepo;
+        private IApplicationRepository sysRepo;
         private IHotelRepository hotelRepo;
         private List<Status> status;
         private List<Models.Domain.Type> type;
@@ -24,7 +24,7 @@ namespace Project_TL.Controllers
         {
 
         }
-        public SettingsController(IBranchRepository branchRepo, IContactPersonRepository contactRepo, IOwnerRepository ownerRepo, ISystemRepository systRepo,IHotelRepository hotelRepo)
+        public SettingsController(IBranchRepository branchRepo, IContactPersonRepository contactRepo, IOwnerRepository ownerRepo, IApplicationRepository systRepo,IHotelRepository hotelRepo)
         {
             this.branchRepo = branchRepo;
             this.hotelRepo = hotelRepo;

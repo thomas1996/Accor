@@ -12,14 +12,14 @@ namespace Project_TL.Controllers
 {
     public class ApplicationController : Controller
     {
-        private ISystemRepository systRepo;
+        private IApplicationRepository systRepo;
         private IHotelRepository hotelRepo;
         private List<Hotel> hotels;
         public ApplicationController()
         {
 
         }
-        public ApplicationController(ISystemRepository systRepo, IHotelRepository hotelRepo)
+        public ApplicationController(IApplicationRepository systRepo, IHotelRepository hotelRepo)
         {
             this.systRepo = systRepo;
             this.hotelRepo = hotelRepo;
@@ -48,11 +48,8 @@ namespace Project_TL.Controllers
             {
                 Hotel h = hotelRepo.FindByCode(id);
                 Application s = systRepo.FindById(systId);
-                hotelRepo.RemoveApplication(h, s);
-                s.removeHotel(h);
-
-                systRepo.EditSyst(s);
-                hotelRepo.EditHotel(h);
+                h.removeApplication(h.Applications.Where(t => t.ApplicationId == systId).Where(t => t.HotelId == id).FirstOrDefault());
+                s.removeHotel(s.Hotels.Where(t => t.ApplicationId == systId).Where(t => t.HotelId == id).FirstOrDefault());
 
                 systRepo.SaveChanges();
                 hotelRepo.SaveChanges();
@@ -85,12 +82,17 @@ namespace Project_TL.Controllers
                 Application s = systRepo.FindById(id);
                 if (s == null)
                     return HttpNotFound();
-                List<Hotel> hot = hotelRepo.FindBySystem(s.Name).ToList();
+                List<Hotel> hot = hotelRepo.FindBySystem(s.ApplicationId).ToList();
 
                 //check all hotels and delete the application if they have it
                 foreach (Hotel h in hot)
                 {
-                    h.removeApplication(s);
+                    //h.Applications.ToList().RemoveAll(t => t.ApplicationId == id && t.HotelId == h.HotelId);
+                    h.Applications.Where(t => t.ApplicationId == id).Where(t => t.HotelId.Equals(h.HotelId)).ToList().ForEach(t =>
+                    {
+                        h.removeApplication(t);
+                        
+                    });
                 }
 
                 //save everything and popup message if it's all ok
@@ -115,13 +117,13 @@ namespace Project_TL.Controllers
 
             //deleting the hotels that the application already has
             //You can't delete a hotel while in the loop so first save the positions and after that loop it and delete the hotels
-            foreach (Hotel h in s.Hotels)
-            {
-                hotels.ForEach(t =>
+            foreach (Hotel h in hotels)
+            {               
+                h.Applications.ToList().ForEach(t =>
                {
 
-                   if (t.HotelId == h.HotelId)
-                       i.Add(hotels.IndexOf(t));
+                   if (t.ApplicationId == id && DateTime.Compare(t.EndDate,DateTime.Today) > 0)
+                       i.Add(hotels.IndexOf(h));
                });
             }
 
@@ -146,8 +148,6 @@ namespace Project_TL.Controllers
                 return HttpNotFound();
             try
             {
-
-
                 //foreach (AddHotel m in model.Hotels.Where(t => t.Checked == true))
                 for (int i = 0; i < model.Hotels.Count(); i++)
                 {
@@ -155,26 +155,25 @@ namespace Project_TL.Controllers
                     {
 
                         Hotel h = hotelRepo.FindByCode(hotelId);
-                        s.addHotel(h);
+                        HotelApplication ha = new HotelApplication();
 
-                        Application s1 = new Application();
-                        MapToApplication(s1, model.Hotels[i], s);
-                        h.addApplication(s1);
+                        MapToApplication(ha, model.Hotels[i], s,h);
+
+                        s.addHotel(ha);                    
+                        h.addApplication(ha);
 
 
                         //systRepo.EditSyst(s);
                         //systRepo.SaveChanges();
                         hotelRepo.SaveChanges();
                         TempData["message"] = String.Format("Hotel {0} was added to the list", h.Name);
-
                     }
-
                 }
             }
             catch (Exception ex)
             {
                 TempData["error"] = "There was a problem when trying to add the hotel. Try again later. If this keeps happening, please contact the IT administrator";
-                s.removeHotel(hotelRepo.FindByCode(hotelId));
+                s.removeHotel(hotelRepo.FindByCode(hotelId).Applications.Where(t => t.ApplicationId == id).First());
                 return AddHotel(id);
 
             }
@@ -183,15 +182,17 @@ namespace Project_TL.Controllers
 
         }
 
-        private void MapToApplication(Application s1, AddHotel model, Application s)
+        private void MapToApplication(HotelApplication ha, AddHotel model, Application s,Hotel h)
         {
-            s1.ApplicationId = s.ApplicationId;
-            s1.Name = s.Name;
-            s1.Price = model.Cost;
-            s1.Maintenance = s.Maintenance;
-            s1.StartDate = model.StartDate;
-            s1.EndDate = model.EndDate;
-            s1.Type = s.Type;
+            ha.ApplicationId = s.ApplicationId;
+            ha.HotelId = h.HotelId;
+            ha.Cost = model.Cost;
+            ha.ApplicationName = s.Name;
+            ha.HotelName = h.Name;
+            
+            ha.StartDate = model.StartDate;
+            ha.EndDate = model.EndDate;
+            //s1.Type = s.Type;
         }
 
 
