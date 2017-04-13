@@ -41,6 +41,8 @@ namespace Project_TL.Controllers
             return View(hvm);
         }
 
+        //CRUD methods Hotel
+
         public ActionResult Details(string hotelId)
         {
             //find the hotel in the repository
@@ -167,6 +169,9 @@ namespace Project_TL.Controllers
             return RedirectToAction("Index");
         }
 
+
+        // applications of the hotel crud methods
+
         public ActionResult AddApplication(string id)
         {
             Hotel h = hotelRepo.FindByCode(id);
@@ -198,6 +203,69 @@ namespace Project_TL.Controllers
 
         }
 
+        [HttpPost,ActionName("AddApplication")]
+        public ActionResult ConfirmAddApplication(string id,AddApplicationToHotelViewModel model,int sysId)
+        {
+            Hotel h = hotelRepo.FindByCode(id);
+            if (h == null)
+                return HttpNotFound();
+            try
+            {
+                for(int i = 0;i < model.Applications.Count();i++)
+                {
+                    if(model.Applications[i].Checked == true)
+                    {
+                        Application app = sysRepo.FindById(sysId);
+                        HotelApplication ha = new HotelApplication();
+
+                        //fill up the HA from the model etc
+                        MapToHotelApp(ha, model.Applications[i], h, app);
+
+                        app.addHotel(ha);
+                        h.addApplication(ha);
+
+                        hotelRepo.SaveChanges();
+                        TempData["message"] = String.Format("Application {0} was succesfully added to the hotel", app.Name);
+                    }
+                }
+            }catch (Exception ex)
+            {
+                TempData["error"] = "There was a problem when adding te application to the hotel. Please try again later";
+                //if the app was added but the error came from de DB
+                    h.removeApplication(sysRepo.FindById(sysId).Hotels.Where(t => t.HotelId == id).First()); 
+            }
+            return RedirectToAction("Details", new { hotelId = id });
+        }
+
+        public ActionResult DeleteApplication(string id,int sysId,DateTime endDate)
+        {
+            try
+            {
+                Application app = sysRepo.FindById(sysId);
+                Hotel h = hotelRepo.FindByCode(id);
+
+                h.removeApplication(h.Applications.Where(t => t.ApplicationId == sysId).Where(s => s.HotelId == id).Where(r => r.EndDate.Equals(endDate)).FirstOrDefault());
+                app.removeHotel(app.Hotels.Where(t => t.ApplicationId == sysId).Where(s => s.HotelId == id).Where(r => r.EndDate.Equals(endDate)).FirstOrDefault());
+                TempData["message"] = "The system has succesfully been deleted from the hotel";
+            }catch(Exception ex)
+            {
+                TempData["error"] = "There has been een error. Please try again or contact the IT department";
+            }
+
+            return RedirectToAction("Details", new { hotelId = id });
+        }
+
+        private void MapToHotelApp(HotelApplication ha, AddApplication model, Hotel h, Application app)
+        {
+            ha.ApplicationId = app.ApplicationId;
+            ha.ApplicationName = app.Name;
+            ha.Cost = model.Cost;
+            ha.EndDate = model.EndDate;
+            ha.StartDate = model.StartDate;
+            ha.HotelId = h.HotelId;
+            ha.HotelName = h.Name;
+            
+        }
 
         private void MapToHotel(EditHotelViewModel ehvm, Hotel hotel)
         {

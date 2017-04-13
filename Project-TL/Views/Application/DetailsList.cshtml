@@ -17,7 +17,7 @@
             <td>@String.Format(item.StartDate.ToShortDateString()) </td>
             <td>@String.Format(item.EndDate.ToShortDateString()) </td>
             <td>
-                @Html.ActionLink("Delete application from this hotel", "DeleteApplication", new { id = item.HotelId ,systId = item.ApplicationId})
+                @Html.ActionLink("Delete application from this hotel", "DeleteHotel", new { id = item.HotelId ,systId = item.ApplicationId,endDate = item.EndDate})
             </td>
         </tr>
     }

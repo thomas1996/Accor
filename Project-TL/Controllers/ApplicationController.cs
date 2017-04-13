@@ -33,6 +33,8 @@ namespace Project_TL.Controllers
             return View(list);
         }
 
+        //CRUD methods Hotel
+
         public ActionResult Details(int id)
         {
             Application s = systRepo.FindById(id);
@@ -42,27 +44,6 @@ namespace Project_TL.Controllers
             return View(avw);
         }
 
-        public ActionResult DeleteApplication(string id, int systId)
-        {
-            try
-            {
-                Hotel h = hotelRepo.FindByCode(id);
-                Application s = systRepo.FindById(systId);
-                h.removeApplication(h.Applications.Where(t => t.ApplicationId == systId).Where(t => t.HotelId == id).FirstOrDefault());
-                s.removeHotel(s.Hotels.Where(t => t.ApplicationId == systId).Where(t => t.HotelId == id).FirstOrDefault());
-
-                systRepo.SaveChanges();
-                hotelRepo.SaveChanges();
-                TempData["message"] = String.Format("The system has been deleted from the hotel");
-            }
-            catch (Exception ex)
-            {
-                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest, ex.Message);
-            }
-            //if (Request.IsAjaxRequest())
-            //    return Details(systId);
-            return RedirectToAction("Details", new { id = systId });
-        }
 
         public ActionResult Delete(int id)
         {
@@ -109,6 +90,8 @@ namespace Project_TL.Controllers
             return RedirectToAction("Index");
         }
 
+        //hotels of the application crud methods
+
         public ActionResult AddHotel(int id)
         {
             Application s = systRepo.FindById(id);
@@ -148,7 +131,6 @@ namespace Project_TL.Controllers
                 return HttpNotFound();
             try
             {
-                //foreach (AddHotel m in model.Hotels.Where(t => t.Checked == true))
                 for (int i = 0; i < model.Hotels.Count(); i++)
                 {
                     if (model.Hotels[i].Checked == true)
@@ -157,14 +139,12 @@ namespace Project_TL.Controllers
                         Hotel h = hotelRepo.FindByCode(hotelId);
                         HotelApplication ha = new HotelApplication();
 
+                        //fill up the object HA from the model etc
                         MapToApplication(ha, model.Hotels[i], s,h);
 
                         s.addHotel(ha);                    
                         h.addApplication(ha);
 
-
-                        //systRepo.EditSyst(s);
-                        //systRepo.SaveChanges();
                         hotelRepo.SaveChanges();
                         TempData["message"] = String.Format("Hotel {0} was added to the list", h.Name);
                     }
@@ -173,13 +153,36 @@ namespace Project_TL.Controllers
             catch (Exception ex)
             {
                 TempData["error"] = "There was a problem when trying to add the hotel. Try again later. If this keeps happening, please contact the IT administrator";
+                //if the hotel was added but the error came from the DB
                 s.removeHotel(hotelRepo.FindByCode(hotelId).Applications.Where(t => t.ApplicationId == id).First());
+                
                 return AddHotel(id);
 
             }
             return RedirectToAction("Details", new { id = id });
 
 
+        }
+        public ActionResult DeleteHotel(string id, int systId,DateTime endDate)
+        {
+            try
+            {
+                Hotel h = hotelRepo.FindByCode(id);
+                Application s = systRepo.FindById(systId);
+                h.removeApplication(h.Applications.Where(t => t.ApplicationId == systId).Where(t => t.HotelId == id).FirstOrDefault());
+                s.removeHotel(s.Hotels.Where(t => t.ApplicationId == systId).Where(t => t.HotelId == id).Where(t => t.EndDate.Equals(endDate)).FirstOrDefault());
+
+                systRepo.SaveChanges();
+                hotelRepo.SaveChanges();
+                TempData["message"] = String.Format("The system has been deleted from the hotel");
+            }
+            catch (Exception ex)
+            {
+                //return new HttpStatusCodeResult(HttpStatusCode.BadRequest, ex.Message);
+            }
+            //if (Request.IsAjaxRequest())
+            //    return Details(systId);
+            return RedirectToAction("Details", new { id = systId });
         }
 
         private void MapToApplication(HotelApplication ha, AddHotel model, Application s,Hotel h)
