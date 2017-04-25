@@ -11,9 +11,7 @@ namespace Project_TL.ViewModels
     public class EditHotelViewModel
     {
         //make a readonly list so it's impossible to change the objects, but only change the selected object
-        private readonly List<Branch> branches;
-        private readonly List<ContactPerson> contacts;
-        private readonly List<Owner> owners;
+        private List<Branch> branches;
         private readonly List<Models.Domain.Application> syst;
         private  List<Status> status;
 
@@ -24,12 +22,11 @@ namespace Project_TL.ViewModels
 
         public EditHotelViewModel(Project_TL.Models.Domain.Hotel h, List<Owner> owners, List<ContactPerson> contacts, List<Branch> branches, List<Models.Domain.Application> systems)
         {
-            this.branches = branches;
-            this.owners = owners;
-            this.contacts = contacts;
+           
             syst = systems;
             status = new List<Status>();
             makeStatusList();
+            this.branches = branches;
 
             Name = h.Name;
             VatNumber = h.VatNumber;
@@ -37,8 +34,21 @@ namespace Project_TL.ViewModels
             Email = h.Email;
             TelephoneNumber = h.TelephoneNumber;
             Adres = h.Adres;
-           
-            
+
+            //filling the selectlist
+            //Branch = branches.Select(t => new SelectListItem
+            //{
+            //    Value = t.BranchId.ToString(),
+            //    Text = t.Name
+            //});
+
+            ContactPerson = new SelectList(contacts, "ContactPersonId", "LastName", "FirstName");
+            Owner = new SelectList(owners, "OwnerId", "LastName", "FirstName");
+            Status = new SelectList(status);
+            Systems = new SelectList(syst, "ApplicationId", "Name");
+
+
+
 
         }
         [Required(ErrorMessage ="{0} is required")]
@@ -51,15 +61,7 @@ namespace Project_TL.ViewModels
         [Display(Name = "Branch name")]
         public IEnumerable<SelectListItem> Branch
         {
-            get
-            {
-                return new SelectList(branches, "BranchId", "Name");
-            }
-            set {
-                
-            }
-            
-            
+            get { return new SelectList(branches, "BrangeId,name"); }
         }
 
         [Required(ErrorMessage = "{0} is required")]
@@ -73,10 +75,7 @@ namespace Project_TL.ViewModels
         [Display(Name = "Contact person")]
         public IEnumerable<SelectListItem> ContactPerson
         {
-            get
-            {
-                return new SelectList(contacts, "ContactPersonId", "LastName", "FirstName");
-            }
+            get;set;
         }
 
         [Required(ErrorMessage = "{0} is required")]
@@ -98,20 +97,12 @@ namespace Project_TL.ViewModels
         [Display(Name = "Owner")]
         public IEnumerable<SelectListItem> Owner
         {
-            get
-            {
-                return new SelectList(owners, "OwnerId", "LastName", "FirstName");
-            }
+            get;set;
         }
         [Display(Name ="Select the systems")]
         public int SelectedSystId { get; set; }
 
-        public IEnumerable<SelectListItem> Systems { get
-            {
-                return new MultiSelectList(syst, "SystId", "Name");
-            }
-
-        }
+        public IEnumerable<SelectListItem> Systems { get;set;}
         [Required(ErrorMessage ="{0} is required")]
         public Adres Adres { get; set; }
 
@@ -119,11 +110,7 @@ namespace Project_TL.ViewModels
         [Required(ErrorMessage ="{0} is required")]
         public Enum SelectedStatusId { get; set; }
 
-        public IEnumerable<SelectListItem> Status { get
-            {
-                return new SelectList(status);
-            }
-        }
+        public IEnumerable<SelectListItem> Status { get; set; }
 
         private void makeStatusList()
         {

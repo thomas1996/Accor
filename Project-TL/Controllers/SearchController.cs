@@ -126,6 +126,11 @@ namespace Project_TL.Controllers
                     ModelState.AddModelError("", ex.Message);
                 }
             }
+            //ehvm.Branch = branchRepo.FindAll().ToList().Select(t => new SelectListItem
+            //{
+            //    Value = t.BranchId.ToString(),
+            //    Text = t.Name
+            //});
             return View("Create", ehvm);
         }
 
