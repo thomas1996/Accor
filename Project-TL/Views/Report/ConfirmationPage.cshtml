@@ -1,0 +1,80 @@
+﻿
+@model Project_TL.ViewModels.Report.SecondReportViewModel
+
+@{
+    ViewBag.Title = "SecondPage";
+}
+<br />
+<br />
+<br />
+<br />
+<h2>Confirmation</h2>
+<html>
+<body>
+   
+    @foreach (var item in Model.List)
+    {
+        <h3>Detals Hotel @Html.DisplayFor(model => item.HotelName)  </h3>
+        <br />
+        <p><b>Owner</b> : @Html.DisplayFor(model => item.OwnerName)</p>
+        <p><b>Branch</b> : @Html.DisplayFor(model => item.BranchName)</p>
+        <table class="table table-hover table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <th> @Html.DisplayNameFor(model => item.List.FirstOrDefault().ApplicationName)</th>                    
+                    <th> @Html.DisplayNameFor(model => item.List.FirstOrDefault().StartDate)</th>
+                    <th> @Html.DisplayNameFor(model => item.List.FirstOrDefault().EndDate)</th>
+                    <th> @Html.DisplayNameFor(model => item.List.FirstOrDefault().Cost)</th>
+                    @if (Model.Future == true)
+                    {
+                    <th>Future price</th>}
+                        
+                </tr>
+
+            </thead>
+            <tbody>
+                @* no foreach, we need index to fill in the new prices at the right place *@
+                @for (int i = 0; i < item.List.Count(); i++)
+                {
+                    if (Model.Future == true)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(model => item.List[i].ApplicationName)</td>                          
+                            <td>@String.Format(item.List[i].StartDate.ToShortDateString())</td>
+                            <td>@String.Format(item.List[i].EndDate.ToShortDateString())</td>
+                            <td>@String.Format("€{0:N}", item.List[i].Cost.ToString())   </td>
+                           
+                            <td>Fill in the furure price(in €): @Html.EditorFor(model => item.NewList[i])  </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <tr>
+
+
+                            <td>@Html.DisplayFor(model => item.List[i].ApplicationName)</td>
+                            <td>@String.Format(item.List[i].StartDate.ToShortDateString())</td>
+                            <td>@String.Format(item.List[i].EndDate.ToShortDateString())</td>
+                            <td>@String.Format("€{0:N}", item.List[i].Cost.ToString())   </td>
+                        </tr>
+                    }
+                }
+                
+                </tbody>
+            </table>
+            
+    }
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <div class="btn btn-warning">
+                @Html.ActionLink("back", "Index", "Report", new { Style = "color:white" })
+            </div>
+            <input type="submit" value="Make report" class="btn btn-success" />
+
+        </div>
+    </div>
+
+
+
+</body>
+</html>

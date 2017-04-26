@@ -55,7 +55,7 @@ namespace Project_TL.Models.DAL
         {
             List<Hotel> ho = new List<Hotel>();
 
-            foreach (Hotel h in hotels.ToList())
+            foreach (Hotel h in hotels)
             {
                 h.Applications.ToList().ForEach(t =>
                 {

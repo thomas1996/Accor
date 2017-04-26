@@ -126,11 +126,7 @@ namespace Project_TL.Controllers
                     ModelState.AddModelError("", ex.Message);
                 }
             }
-            //ehvm.Branch = branchRepo.FindAll().ToList().Select(t => new SelectListItem
-            //{
-            //    Value = t.BranchId.ToString(),
-            //    Text = t.Name
-            //});
+           
             return View("Create", ehvm);
         }
 
@@ -153,8 +149,9 @@ namespace Project_TL.Controllers
                     return HttpNotFound();
                 }
 
-                //removing the hotel from all the applications
                 List<Application> apps = sysRepo.FindByHotel(h.HotelId).ToList();
+                //removing the hotel from all the applications
+
                 apps.ForEach(t =>
                 {
                     t.Hotels.Where(s => s.ApplicationId == t.ApplicationId).Where(r => r.HotelId == id).ToList().ForEach(q =>
@@ -190,7 +187,7 @@ namespace Project_TL.Controllers
             {
                 s.Hotels.ToList().ForEach(t =>
                 {
-                    if (t.HotelId == id && DateTime.Compare(t.EndDate, DateTime.Today) < 0)
+                    if (t.HotelId == id && DateTime.Compare(t.EndDate, DateTime.Today) > 0)
                         i.Add(systems.IndexOf(s));
                 });
             }
@@ -209,7 +206,7 @@ namespace Project_TL.Controllers
         }
 
         [HttpPost,ActionName("AddApplication")]
-        public ActionResult ConfirmAddApplication(string id,AddApplicationToHotelViewModel model,int sysId)
+        public ActionResult ConfirmAddApplication(string id,AddApplicationToHotelViewModel model)
         {
             Hotel h = hotelRepo.FindByCode(id);
             if (h == null)
@@ -220,7 +217,7 @@ namespace Project_TL.Controllers
                 {
                     if(model.Applications[i].Checked == true)
                     {
-                        Application app = sysRepo.FindById(sysId);
+                        Application app = sysRepo.FindById(model.Applications[i].ApplicationId);
                         HotelApplication ha = new HotelApplication();
 
                         //fill up the HA from the model etc
@@ -237,7 +234,7 @@ namespace Project_TL.Controllers
             {
                 TempData["error"] = "There was a problem when adding te application to the hotel. Please try again later";
                 //if the app was added but the error came from de DB
-                    h.removeApplication(sysRepo.FindById(sysId).Hotels.Where(t => t.HotelId == id).First()); 
+                    //h.removeApplication(sysRepo.FindById(ApplicationId).Hotels.Where(t => t.HotelId == id).First()); 
             }
             return RedirectToAction("Details", new { hotelId = id });
         }
@@ -251,6 +248,7 @@ namespace Project_TL.Controllers
 
                 h.removeApplication(h.Applications.Where(t => t.ApplicationId == sysId).Where(s => s.HotelId == id).Where(r => r.EndDate.Equals(endDate)).FirstOrDefault());
                 app.removeHotel(app.Hotels.Where(t => t.ApplicationId == sysId).Where(s => s.HotelId == id).Where(r => r.EndDate.Equals(endDate)).FirstOrDefault());
+                hotelRepo.SaveChanges();
                 TempData["message"] = "The system has succesfully been deleted from the hotel";
             }catch(Exception ex)
             {

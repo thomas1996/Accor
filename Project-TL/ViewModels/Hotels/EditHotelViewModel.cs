@@ -11,7 +11,7 @@ namespace Project_TL.ViewModels
     public class EditHotelViewModel
     {
         //make a readonly list so it's impossible to change the objects, but only change the selected object
-        private List<Branch> branches;
+    
         private readonly List<Models.Domain.Application> syst;
         private  List<Status> status;
 
@@ -26,7 +26,7 @@ namespace Project_TL.ViewModels
             syst = systems;
             status = new List<Status>();
             makeStatusList();
-            this.branches = branches;
+           
 
             Name = h.Name;
             VatNumber = h.VatNumber;
@@ -36,11 +36,11 @@ namespace Project_TL.ViewModels
             Adres = h.Adres;
 
             //filling the selectlist
-            //Branch = branches.Select(t => new SelectListItem
-            //{
-            //    Value = t.BranchId.ToString(),
-            //    Text = t.Name
-            //});
+            Branch = branches.Select(t => new SelectListItem
+            {
+                Value = t.BranchId.ToString(),
+                Text = t.Name
+            });
 
             ContactPerson = new SelectList(contacts, "ContactPersonId", "LastName", "FirstName");
             Owner = new SelectList(owners, "OwnerId", "LastName", "FirstName");
@@ -61,7 +61,7 @@ namespace Project_TL.ViewModels
         [Display(Name = "Branch name")]
         public IEnumerable<SelectListItem> Branch
         {
-            get { return new SelectList(branches, "BrangeId,name"); }
+            get; set;
         }
 
         [Required(ErrorMessage = "{0} is required")]

@@ -71,20 +71,25 @@
                         @Html.EditorFor(item => item.Hotels[i].EndDate, new { HtmlAttributes = new { @class = "datefield", type = "date", value = DateTime.Today.ToShortDateString() } })
                     </td>
                
-                <td>
+                <td class="hidden">
                     <input type="hidden" name="hotelId" value="@Model.Hotels[i].HotelId" />
                     
                 </td>
             </tr>
-            @*@ViewBag.h[i]. = @Model.Hotels[i].Name;*@
+     
         }
 
     </table>
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Add" class="btn btn-default" />
+            <div class="btn btn-warning">
+                @Html.ActionLink("back", "Index", "Application", new { Style = "color:white" })
+            </div>
+            <input type="submit" value="Add" class="btn btn-success" />
+            
         </div>
+       
     </div>
 }
 

@@ -17,7 +17,8 @@
             <td>@String.Format(item.StartDate.ToShortDateString()) </td>
             <td>@String.Format(item.EndDate.ToShortDateString()) </td>
             <td>
-                @Html.ActionLink("Delete application from this hotel", "DeleteHotel", new { id = item.HotelId ,systId = item.ApplicationId,endDate = item.EndDate})
+                @Html.ActionLink("Delete application from this hotel", "DeleteHotel", new { id = item.HotelId ,systId = item.ApplicationId,endDate = item.EndDate},
+               new { onclick = "return confirm('Are you sure you wish to delete this article?');" } )
             </td>
         </tr>
     }

@@ -79,7 +79,7 @@ namespace Project_TL.Controllers
                 //save everything and popup message if it's all ok
                 systRepo.RemoveSyst(s);
                 systRepo.SaveChanges();
-                hotelRepo.SaveChanges();
+              
                 TempData["message"] = String.Format("Application {0} was succesfully deleted", s.Name);
 
             }
@@ -173,15 +173,14 @@ namespace Project_TL.Controllers
                 s.removeHotel(s.Hotels.Where(t => t.ApplicationId == systId).Where(t => t.HotelId == id).Where(t => t.EndDate.Equals(endDate)).FirstOrDefault());
 
                 systRepo.SaveChanges();
-                hotelRepo.SaveChanges();
-                TempData["message"] = String.Format("The system has been deleted from the hotel");
+                
+                TempData["message"] = "The system has been deleted from the hotel";
             }
             catch (Exception ex)
             {
                 //return new HttpStatusCodeResult(HttpStatusCode.BadRequest, ex.Message);
             }
-            //if (Request.IsAjaxRequest())
-            //    return Details(systId);
+           
             return RedirectToAction("Details", new { id = systId });
         }
 

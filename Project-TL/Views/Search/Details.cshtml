@@ -115,6 +115,7 @@
                         <tr>
                             <th>System</th>
                             <th>Cost</th>
+                            <th>StartDate</th>
                             <th>EndDate</th>
                             <th> Cost Maintenance</th>
                             <th></th>
@@ -125,17 +126,22 @@
                                 <td>
                                     @Html.DisplayFor(model => item.ApplicationName)
                                 </td>
-                                <td>
-                                   @String.Format(item.StartDate.ToShortDateString())
-                                </td>
+                                
                                 <td>
                                     @String.Format("€{0:N}", item.Cost)
                                 </td>
                                 <td>
+                                    @String.Format(item.StartDate.ToShortDateString())
+                                </td>
+                                <td>
                                     @String.Format(item.EndDate.ToShortDateString())
                                 </td>
+                                <td>
 
-                                <td>@Html.ActionLink("Delete Hotel from this Application", "DeleteApplication", new { id = Model.HotelId, sysId = item.ApplicationId,endDate = item.EndDate })</td>
+                                </td>
+
+                                <td>@Html.ActionLink("Delete Hotel from this Application", "DeleteApplication", new { id = Model.HotelId, sysId = item.ApplicationId,endDate = item.EndDate },
+                                   new { onclick = "return confirm('Are you sure you wish to delete this article?');" })</td>
                             </tr>
                         }
                     </table>

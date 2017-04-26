@@ -78,22 +78,10 @@ namespace Project_TL.Models.Domain
             Applications = new List<HotelApplication>();
             Status = status;
 
-            //TotalCost = calculateTotalCost();
+
         }
 
-        //public double calculateTotalCost()
-        //{
-        //    double kosts = 0;
-        //   foreach (Ho s in Applications)
-        //    {
-        //        kosts += s.Price;
-        //        if(s.Maintenance != null)
-        //        {
-        //            kosts += s.Maintenance.Price;
-        //        }
-        //    }
-        //    return kosts;
-        //}
+     
 
         public void removeApplication(HotelApplication syst)
         {
