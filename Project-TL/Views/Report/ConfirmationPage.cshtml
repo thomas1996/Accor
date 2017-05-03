@@ -44,7 +44,7 @@
                             <td>@String.Format(item.List[i].EndDate.ToShortDateString())</td>
                             <td>@String.Format("€{0:N}", item.List[i].Cost.ToString())   </td>
                            
-                            <td>Fill in the furure price(in €): @Html.EditorFor(model => item.NewList[i])  </td>
+                            <td>Fill in the furure price(in €): @Html.EditorFor(model => item.NewListCost[i])  </td>
                         </tr>
                     }
                     else

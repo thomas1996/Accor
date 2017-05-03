@@ -18,6 +18,9 @@ namespace Project_TL.Models.DAL.Mapping
             Property(t => t.Cost).IsRequired();
             Property(t => t.StartDate).IsRequired();
             Property(t => t.EndDate).IsRequired();
+
+            //assocations
+            HasOptional(t => t.Maintenance).WithMany();
         }
     }
 }

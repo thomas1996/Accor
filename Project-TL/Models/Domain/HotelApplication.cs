@@ -12,11 +12,12 @@ namespace Project_TL.Models.Domain
 
         }
 
-        public HotelApplication(string hotelId,int appId,double cost,DateTime startDate,DateTime endDate,string hotelName,string appName)
-        {
+        public HotelApplication(string hotelId,int appId,double cost,Maintenance maintenance,DateTime startDate,DateTime endDate,string hotelName,string appName)
+       { 
             HotelId = hotelId;
             ApplicationId = appId;
             Cost = cost;
+            Maintenance = maintenance;
             StartDate = startDate;
             EndDate = endDate;
             HotelName = hotelName;
@@ -30,6 +31,7 @@ namespace Project_TL.Models.Domain
         public string ApplicationName { get; set; }
 
         public double Cost { get; set; }
+        public Maintenance Maintenance { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 

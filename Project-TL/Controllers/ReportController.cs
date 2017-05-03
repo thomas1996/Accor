@@ -1,10 +1,12 @@
-﻿using Project_TL.Models.Domain;
+﻿using java.util;
+using Project_TL.Models.Domain;
 using Project_TL.ViewModels.Report;
 using Project_TL.Views.Report;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 
 namespace Project_TL.Controllers
@@ -73,6 +75,21 @@ namespace Project_TL.Controllers
             SecondReportViewModel srvm = new SecondReportViewModel(l, future);
             return View(srvm);
 
+        }
+
+        public ActionResult ReportPage()
+        {
+
+        }
+
+        public ActionResult Chart()
+        {
+            ArrayList xValue = new ArrayList();
+            ArrayList yValue = new ArrayList();
+
+            new Chart(width: 6060, height: 400, theme: ChartTheme.Blue).AddTitle("Costs").AddSeries("Default", chartType: "Column", xValue: xValue, yValues: yValue)
+                .Write("bmp");
+            return null;
         }
 
 

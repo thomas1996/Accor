@@ -15,29 +15,43 @@ namespace Project_TL.Models.Domain
 
             get
             {
+                return TotalCost + TotalMaintenance + OtherCosts;           
+            }        
+        }
+        public double TotalCost { get
+            {
                 price = 0.0;
                 if (Hotels.Count > 0)
                 {
                     Hotels.ToList().ForEach(t =>
-                   {
+                    {
 
-                       price += t.Cost;
-                       
-                   });
-                    price += Maintenance.Price;
-                
+                        price += t.Cost;
+
+                    });
                 }
-                return price;                
-            }        
-        //set {
-        //price = value;
-    //}
-}
+                return price;
+            }
+        }
         public string Name { get; set; }
         public double OtherCosts { get; set; }      
         public virtual Type Type {get;set;    }
         public virtual ICollection<HotelApplication> Hotels { get;  }
-        public virtual Maintenance Maintenance { get; set; }
+        public virtual double TotalMaintenance { get
+            {
+                double maintenance = 0.0;
+                
+                if(Hotels.Count > 0)
+                {
+                    Hotels.ToList().ForEach(t =>
+                    {
+                        maintenance += t.Maintenance.Price;
+                    });
+                }
+                
+                return maintenance;
+            }
+        }
 
         public Application()
         {
@@ -45,13 +59,11 @@ namespace Project_TL.Models.Domain
             
         }
 
-        public Application(double price,string name,Type type,Maintenance maintenance)
+        public Application(double price,string name,Type type)
         {
             OtherCosts = price;
             Name = name;
             Type = type;
-            Maintenance = maintenance;
-
             Hotels = new List<HotelApplication>();
         }
 

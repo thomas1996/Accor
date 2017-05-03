@@ -80,11 +80,11 @@ namespace Project_TL.Controllers
         {
             Branch b = new Branch();
             BranchViewModel bvm = new BranchViewModel(b,hotelRepo);
-            return View(b);
+            return View(bvm);
         }
 
         [HttpPost]
-        public ActionResult CreateBranch(Branch bvm)
+        public ActionResult CreateBranch(BranchViewModel bvm)
         {
             if(ModelState.IsValid)
             {
@@ -105,7 +105,7 @@ namespace Project_TL.Controllers
             return View("CreateBranch", bvm);
         }
 
-        private void MapToBranch(Branch bvm, Branch b)
+        private void MapToBranch(BranchViewModel bvm, Branch b)
         {
             throw new NotImplementedException();
         }

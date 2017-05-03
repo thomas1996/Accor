@@ -3,7 +3,8 @@
 <table class="table-condensed table-responsive table-bordered">
     <tr>
         <th>Name</th>        
-        <th>Contract Price</th>      
+        <th>Contract Price</th>  
+        <th>Maintenance Price</th>    
         <th>Start date</th>
         <th>End date</th>
         <th></th>
@@ -13,10 +14,12 @@
         <tr>
             <td>@Html.DisplayFor(modelitem => item.HotelName)</td>          
             <td>@String.Format("€{0:N}",item.Cost)</td>
+            <td>@String.Format("€{0:N}",item.Maintenance.Price)</td>
            
             <td>@String.Format(item.StartDate.ToShortDateString()) </td>
             <td>@String.Format(item.EndDate.ToShortDateString()) </td>
             <td>
+                
                 @Html.ActionLink("Delete application from this hotel", "DeleteHotel", new { id = item.HotelId ,systId = item.ApplicationId,endDate = item.EndDate},
                new { onclick = "return confirm('Are you sure you wish to delete this article?');" } )
             </td>

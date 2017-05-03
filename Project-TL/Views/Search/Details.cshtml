@@ -137,7 +137,7 @@
                                     @String.Format(item.EndDate.ToShortDateString())
                                 </td>
                                 <td>
-
+                                    @String.Format("€{0:N}",item.Maintenance.Price)
                                 </td>
 
                                 <td>@Html.ActionLink("Delete Hotel from this Application", "DeleteApplication", new { id = Model.HotelId, sysId = item.ApplicationId,endDate = item.EndDate },

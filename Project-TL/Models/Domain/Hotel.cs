@@ -29,10 +29,11 @@ namespace Project_TL.Models.Domain
                     Applications.ToList().ForEach(t =>
                     {
                         totalCost += t.Cost;
-                        //if (t.Maintenance.Price > 0)
-                        //{
-                        //    totalCost += t.Maintenance.Price;  
-                        //}
+                        if(t.Maintenance != null)
+                        {
+                            totalCost += t.Maintenance.Price;
+                        }
+                        
                     });
                 }
                 return totalCost;

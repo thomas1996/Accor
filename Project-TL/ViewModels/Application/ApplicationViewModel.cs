@@ -18,7 +18,7 @@ namespace Project_TL.ViewModels.Application
             Type = syst.Type;          
             NumberOfHotels = syst.Hotels.Count();
             Hotels = syst.Hotels;
-            Maintenance = syst.Maintenance;
+            Maintenance = syst.TotalMaintenance;
 
                       
         }
@@ -37,7 +37,7 @@ namespace Project_TL.ViewModels.Application
 
         public  ICollection<HotelApplication> Hotels { get; }
 
-        public  Maintenance Maintenance { get; set; }
+        public  double Maintenance { get; set; }
 
     }
 }
