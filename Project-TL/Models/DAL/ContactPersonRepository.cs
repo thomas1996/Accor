@@ -9,7 +9,7 @@ namespace Project_TL.Models.DAL
 {
     public class ContactPersonRepository : IContactPersonRepository
     {
-        private Context context;
+        private readonly Context context;
         private DbSet<ContactPerson> contactpersons;
 
         public ContactPersonRepository(Context context)
@@ -21,7 +21,7 @@ namespace Project_TL.Models.DAL
         {
             contactpersons.Add(contact);
         }
-
+      
         public void EditContactPerson(ContactPerson contact)
         {
             ContactPerson cp = FindByEmail(contact.Email);
@@ -55,6 +55,11 @@ namespace Project_TL.Models.DAL
         public void SaveChanges()
         {
             context.SaveChanges();
+        }
+
+        public ContactPerson FindById(int id)
+        {
+            return contactpersons.FirstOrDefault(t => t.ContactPersonId == id);
         }
     }
 }

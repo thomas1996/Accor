@@ -12,7 +12,7 @@ namespace Project_TL.ViewModels
     {
         //make a readonly list so it's impossible to change the objects, but only change the selected object
     
-        private readonly List<Models.Domain.Application> syst;
+      
         private  List<Status> status;
 
         public EditHotelViewModel()
@@ -20,13 +20,11 @@ namespace Project_TL.ViewModels
 
         }
 
-        public EditHotelViewModel(Project_TL.Models.Domain.Hotel h, List<Owner> owners, List<ContactPerson> contacts, List<Branch> branches, List<Models.Domain.Application> systems)
+        public EditHotelViewModel(Hotel h)
         {
            
-            syst = systems;
             status = new List<Status>();
-            makeStatusList();
-           
+            //makeStatusList();
 
             Name = h.Name;
             VatNumber = h.VatNumber;
@@ -35,27 +33,12 @@ namespace Project_TL.ViewModels
             TelephoneNumber = h.TelephoneNumber;
             Adres = h.Adres;
 
-            //filling the selectlist
-            Branch = branches.Select(t => new SelectListItem
-            {
-                Value = t.BranchId.ToString(),
-                Text = t.Name
-            });
-
-            ContactPerson = new SelectList(contacts, "ContactPersonId", "LastName", "FirstName");
-            Owner = new SelectList(owners, "OwnerId", "LastName", "FirstName");
-            Status = new SelectList(status);
-            Systems = new SelectList(syst, "ApplicationId", "Name");
-
-
-
-
         }
         [Required(ErrorMessage ="{0} is required")]
         public string Name { get; set; }
 
         [Display(Name = "Select the branch")]
-        public int SelectedBranchId { get; set; }
+        public string SelectedBranchId { get; set; }
 
         [Required(ErrorMessage = "{0} is required")]
         [Display(Name = "Branch name")]
@@ -69,7 +52,7 @@ namespace Project_TL.ViewModels
         public string VatNumber { get; set; }
 
         [Display(Name = "Select the contact person")]
-        public int SelectedContactPersonId { get; set; }
+        public string SelectedContactPersonId { get; set; }
 
         [Required(ErrorMessage = "{0} is required")]
         [Display(Name = "Contact person")]
@@ -99,28 +82,16 @@ namespace Project_TL.ViewModels
         {
             get;set;
         }
-        [Display(Name ="Select the systems")]
-        public int SelectedSystId { get; set; }
-
-        public IEnumerable<SelectListItem> Systems { get;set;}
-        [Required(ErrorMessage ="{0} is required")]
+       
         public Adres Adres { get; set; }
 
         [Display(Name ="Select the status")]
         [Required(ErrorMessage ="{0} is required")]
-        public Enum SelectedStatusId { get; set; }
+        public String SelectedStatusId { get; set; }
 
         public IEnumerable<SelectListItem> Status { get; set; }
 
-        private void makeStatusList()
-        {
-
-            foreach (Status s in Enum.GetValues(typeof(Status)))
-            {
-                this.status.Add(s);
-            }
-        }
-
+    
 
     } 
 }

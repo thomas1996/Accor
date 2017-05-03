@@ -45,7 +45,7 @@ namespace Project_TL.Models.Domain
                 {
                     Hotels.ToList().ForEach(t =>
                     {
-                        maintenance += t.Maintenance.Price;
+                        maintenance += t.Maintenance;
                     });
                 }
                 

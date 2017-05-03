@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project_TL.Models.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,6 +13,7 @@ namespace Project_TL.Models.Domain
         IQueryable<Hotel> FindByOwner(string owner);
         IQueryable<Hotel> FindBySystem(int systemId);
         IQueryable<Hotel> FindAll();
+        Context getContext();
         void AddHotel(Hotel hotel);
         void EditHotel(Hotel hotel);
         void RemoveHotel(Hotel hotel);

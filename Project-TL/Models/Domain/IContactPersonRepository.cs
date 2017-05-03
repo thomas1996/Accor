@@ -10,6 +10,7 @@ namespace Project_TL.Models.Domain
     {
         ContactPerson FindByEmail(string email);
         ContactPerson FindByName(string lastname);
+        ContactPerson FindById(int id);
         IQueryable<ContactPerson> FindAll();
         void AddContactPerson(ContactPerson contact);
         void EditContactPerson(ContactPerson contact);

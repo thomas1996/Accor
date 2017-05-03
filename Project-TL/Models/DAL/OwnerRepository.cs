@@ -10,7 +10,7 @@ namespace Project_TL.Models.DAL
     public class OwnerRepository : IOwnerRepository
     {
         private DbSet<Owner> owners;
-        private Context context;
+        private readonly Context context;
 
         public OwnerRepository(Context context)
         {
@@ -39,16 +39,6 @@ namespace Project_TL.Models.DAL
 
         public Owner FindByFirm(int firmId)
         {
-            //owners.Select(t =>
-            //{
-            //    t.Firm.Select(f =>
-            //    {
-            //        if (f.FirmId == firmId)
-            //        {
-
-            //        }
-            //    });
-            //});
 
             Owner ow = null;
             foreach (Owner o in owners)
@@ -83,6 +73,10 @@ namespace Project_TL.Models.DAL
         {
             context.SaveChanges();
            
+        }
+        public Context getContext()
+        {
+            return context;
         }
     }
 }

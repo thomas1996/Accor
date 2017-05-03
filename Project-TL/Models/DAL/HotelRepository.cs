@@ -82,7 +82,11 @@ namespace Project_TL.Models.DAL
             context.SaveChanges();
             
         }
+        public Context getContext()
+        {
+            return context;
+        }
 
-       
+
     }
 }

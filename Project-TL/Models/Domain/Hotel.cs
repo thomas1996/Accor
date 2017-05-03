@@ -29,9 +29,9 @@ namespace Project_TL.Models.Domain
                     Applications.ToList().ForEach(t =>
                     {
                         totalCost += t.Cost;
-                        if(t.Maintenance != null)
+                        if(t.Maintenance >0)
                         {
-                            totalCost += t.Maintenance.Price;
+                            totalCost += t.Maintenance;
                         }
                         
                     });

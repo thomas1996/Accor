@@ -11,8 +11,11 @@
 <h2>Confirmation</h2>
 <html>
 <body>
-   
-    @foreach (var item in Model.List)
+   @using (Html.BeginForm("ConfirmationPage", "Report", FormMethod.Post, new { model = Model }))
+   {
+    @Html.AntiForgeryToken()
+
+    foreach (var item in Model.List)
     {
         <h3>Detals Hotel @Html.DisplayFor(model => item.HotelName)  </h3>
         <br />
@@ -62,7 +65,7 @@
                 
                 </tbody>
             </table>
-            
+
     }
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
@@ -74,7 +77,7 @@
         </div>
     </div>
 
-
+   }
 
 </body>
 </html>

@@ -52,5 +52,10 @@ namespace Project_TL.Models.DAL
         {
             context.SaveChanges();
         }
+
+        public Branch FindById(int id)
+        {
+            return branches.FirstOrDefault(t => t.BranchId == id);
+        }
     }
 }

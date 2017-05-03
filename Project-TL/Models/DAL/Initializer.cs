@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Project_TL.Models.DAL
 {
-    public class Initializer : DropCreateDatabaseAlways<Context>
+    public class Initializer : DropCreateDatabaseIfModelChanges<Context>
     {
         protected override void Seed(Context context)
         {
@@ -53,14 +53,14 @@ namespace Project_TL.Models.DAL
                 Hotel h2 = new Hotel("Ibis Schiphol",a2, b2, "BE 0635.611.207 ", p2, "0649", "h0649-GM@Accor.com", "+31 20 50 25 100", o3,Status.MAN);
                 Hotel h3 = new Hotel("Ibis At",a3, b2, "BE 0635.611.207 ", p3, "0650", "HA3P2@accor.com", "+31 20 34 83 533", o2,Status.FR);
 
-                HotelApplication ha1 = new HotelApplication("8602",1, 15000,m, DateTime.Today, new DateTime(2018, 12, 31), "Adagio Brussel", "PersoneelsProgramma");
-                HotelApplication ha2 = new HotelApplication("8602", 2, 20000,m, DateTime.Today, new DateTime(2017, 12, 31), "Adagio Brussel", "Reservatie");
-                HotelApplication ha3 = new HotelApplication("8602", 3, 5000,m, DateTime.Today, new DateTime(2018, 12, 31), "Adagio Brussel", "Boekhouden");
+                HotelApplication ha1 = new HotelApplication("8602",1, 15000,m.Price, DateTime.Today, new DateTime(2018, 12, 31), "Adagio Brussel", "PersoneelsProgramma");
+                HotelApplication ha2 = new HotelApplication("8602", 2, 20000,m.Price, DateTime.Today, new DateTime(2017, 12, 31), "Adagio Brussel", "Reservatie");
+                HotelApplication ha3 = new HotelApplication("8602", 3, 5000,m.Price, DateTime.Today, new DateTime(2018, 12, 31), "Adagio Brussel", "Boekhouden");
 
-                HotelApplication ha4 = new HotelApplication("0649", 1, 15000,m, DateTime.Today, new DateTime(2018, 12, 31), "Ibis Schiphol", "Personeelsprogramma");
-                HotelApplication ha5 = new HotelApplication("0649", 3, 1500,m, DateTime.Today, new DateTime(2018, 12, 31), "Ibis Schiphol", "Boekhouden");
+                HotelApplication ha4 = new HotelApplication("0649", 1, 15000,m.Price, DateTime.Today, new DateTime(2018, 12, 31), "Ibis Schiphol", "Personeelsprogramma");
+                HotelApplication ha5 = new HotelApplication("0649", 3, 1500,m.Price, DateTime.Today, new DateTime(2018, 12, 31), "Ibis Schiphol", "Boekhouden");
 
-                HotelApplication ha6 = new HotelApplication("0950", 2, 20000,m, DateTime.Today, new DateTime(2019, 12, 31), "Ibis At", "Reservaties");
+                HotelApplication ha6 = new HotelApplication("0950", 2, 20000,m.Price, DateTime.Today, new DateTime(2019, 12, 31), "Ibis At", "Reservaties");
 
                 h1.addApplication(ha1);
                 h1.addApplication(ha2);

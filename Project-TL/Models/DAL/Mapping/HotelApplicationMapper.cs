@@ -20,7 +20,7 @@ namespace Project_TL.Models.DAL.Mapping
             Property(t => t.EndDate).IsRequired();
 
             //assocations
-            HasOptional(t => t.Maintenance).WithMany();
+            //HasOptional(t => t.Maintenance).WithMany();
         }
     }
 }

@@ -8,6 +8,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
+using NsExcel = Microsoft.Office.Interop.Excel;
 
 namespace Project_TL.Controllers
 {
@@ -48,6 +49,8 @@ namespace Project_TL.Controllers
 
                 list = listChecked.Select(t => new SecondMakeReport(t)).ToList();
                 TempData["list"] = list;
+                TempData["Start"] = model.StartDate;
+                TempData["End"] = model.EndDate;
 
 
                 if (DateTime.Compare(model.EndDate, DateTime.Today) > 0)
@@ -70,16 +73,47 @@ namespace Project_TL.Controllers
         }
         public ActionResult ConfirmationPage(List<SecondMakeReport> l, bool future)
         {
-            l = list;
-            l = (List <SecondMakeReport> )TempData["list"];
+           
+            l = (List <SecondMakeReport> )TempData["list"];           
             SecondReportViewModel srvm = new SecondReportViewModel(l, future);
+            
             return View(srvm);
 
         }
 
+        [HttpPost,ActionName("ConfirmationPage")]
+        public ActionResult ConfirmationPageBis(SecondReportViewModel model)
+        {
+            try
+            {
+                MakeTable(model.List);
+                return RedirectToAction("Index");
+            }catch(Exception ex)
+            {
+
+            }
+            return RedirectToAction("Index");
+        }
+
         public ActionResult ReportPage()
         {
+            
 
+            return View(); 
+        }
+
+        private System.Data.DataTable MakeTable(List<SecondMakeReport> list)
+        {
+            System.Data.DataTable table = new System.Data.DataTable();
+            table.Columns.Add();
+            list.ForEach(t =>
+            {
+                var row = table.NewRow();
+                row[0] = t.OwnerName;
+                table.Rows.Add(row);
+            });
+
+            return table;
         }
 
         public ActionResult Chart()
@@ -87,7 +121,13 @@ namespace Project_TL.Controllers
             ArrayList xValue = new ArrayList();
             ArrayList yValue = new ArrayList();
 
-            new Chart(width: 6060, height: 400, theme: ChartTheme.Blue).AddTitle("Costs").AddSeries("Default", chartType: "Column", xValue: xValue, yValues: yValue)
+            DateTime start = (DateTime)TempData["Start"];
+            DateTime end = (DateTime)TempData["End"];
+
+
+            
+
+            new Chart(width: 6060, height: 400, theme: ChartTheme.Blue).AddTitle("Costs").AddSeries("Default", chartType: "line", xValue: xValue, yValues: yValue)
                 .Write("bmp");
             return null;
         }
