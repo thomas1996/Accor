@@ -107,7 +107,9 @@ namespace Project_TL.Controllers
 
         private void MapToBranch(BranchViewModel bvm, Branch b)
         {
-            throw new NotImplementedException();
+            b.Name = bvm.Name;
+            b.PriceCat = bvm.PriceCat;
+
         }
     }
 }

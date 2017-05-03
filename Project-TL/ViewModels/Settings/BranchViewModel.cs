@@ -21,6 +21,10 @@ namespace Project_TL.ViewModels.Settings
                 Hotels = hotelRepo.FindAll().ToList();
 
         }
+        public BranchViewModel()
+        {
+            Hotels = new List<Hotel>();
+        }
         [Display(Name ="Price category")]
         public  PriceCategorie PriceCat { get; set; }
 

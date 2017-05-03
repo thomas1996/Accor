@@ -74,7 +74,7 @@ namespace Project_TL.ViewModels
         public string TelephoneNumber { get; set; }
 
         [Display(Name = "Select the owner")]
-        public int SelectedOwnerId { get; set; }
+        public string SelectedOwnerId { get; set; }
 
         [Required(ErrorMessage = "{0} is required")]
         [Display(Name = "Owner")]

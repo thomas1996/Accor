@@ -70,6 +70,17 @@ namespace Project_TL.Controllers
             // Hotel h = hotelRepo.FindByCode(hotelId);
             Hotel h = hh.FirstOrDefault(t => t.HotelId.Equals(hotelId));
 
+            //making the lists so that you only go to the Repo's once
+            List<ContactPerson> contact = contactRepo.FindAll().OrderBy(t => t.LastName).ToList();
+            List<Branch> branch = branchRepo.FindAll().OrderBy(t => t.Name).ToList();
+            List<Owner> owner = ownerRepo.FindAll().OrderBy(t => t.LastName).ToList();
+            List<Status> status = new List<Status>();
+
+            foreach (Status s in Enum.GetValues(typeof(Status)))
+            {
+                status.Add(s);
+            }
+
             //check if the hotel exist (normally this can never give null unless DB failure)
             if (h == null)
             {
@@ -77,23 +88,62 @@ namespace Project_TL.Controllers
             }
 
             //Use a viewmodel to display al the details of the hotel
+            EditHotelViewModel ehvm = new EditHotelViewModel(h)
+            {
+                //select the active branch
+                SelectedBranchId = branch.Where(t => t.BranchId == h.Branch.BranchId).FirstOrDefault().Name,
+                //fill the list with all the branches
+                Branch = branch.Select(t => new SelectListItem
+                {
+                    Value = t.BranchId.ToString(),
+                    Text = t.Name
+                }),
+                //repeat for al the other lists
 
-            EditHotelViewModel ehvm = new EditHotelViewModel(h);
+                //Contactperson
+                //it doesn't matter with the selectedId if you use the id of the name 
+                SelectedContactPersonId = contact.Where(t => t.ContactPersonId == h.ContactPerson.ContactPersonId).FirstOrDefault().ContactPersonId.ToString(),
+                ContactPerson = contact.Select(t => new SelectListItem
+                {
+                    Value = t.ContactPersonId.ToString(),
+                    Text = t.LastName + " " + t.FirstName
+                }),
+
+                //Owner
+                SelectedOwnerId = owner.Where(t => t.OwnerId == h.Owner.OwnerId).FirstOrDefault().OwnerId.ToString(),
+                Owner = owner.Select(t => new SelectListItem
+                {
+                    Value = t.OwnerId.ToString(),
+                    Text = t.LastName + " " + t.FirstName
+                }),
+
+                //status
+                SelectedStatusId = status.FirstOrDefault().ToString(),
+                Status = status.Select(t => new SelectListItem
+                {
+                    Value = t.ToString(),
+                    Text = t.ToString()
+                })
+
+            };
+
+          
+
 
             return View(ehvm);
         }
         [HttpPost]
         public ActionResult Edit(string hotelId, EditHotelViewModel ehvm)
         {
-            if (ModelState.IsValid)
+            //if (ModelState.IsValid)
             {
                 try
                 {
                     Hotel hotel = hotelRepo.FindByCode(hotelId);
                     Context x = hotelRepo.getContext();
                     MapToHotel(ehvm, hotel,x);
-                    hotelRepo.SaveChanges();
-                    TempData["message"] = String.Format("Hotel {0} werd aangepast", hotel.Branch + hotel.Adres.City);
+                    x.SaveChanges();
+                    TempData["message"] = String.Format("Hotel {0} werd aangepast", hotel.Name);
                     return RedirectToAction("Index");
                 }
                 catch (Exception ex)
@@ -101,6 +151,33 @@ namespace Project_TL.Controllers
                     ModelState.AddModelError("", ex.Message);
                 }
             }
+            // http policy requires to fill the list again after the post
+            ehvm.Branch = branchRepo.FindAll().Select(t => new SelectListItem
+            {
+                Value = t.Name,
+                Text = t.Name
+            });
+            ehvm.ContactPerson = contactRepo.FindAll().Select(t => new SelectListItem
+            {
+                Value = t.ContactPersonId.ToString(),
+                Text = t.LastName + " " + t.FirstName
+            });
+            ehvm.Owner = ownerRepo.FindAll().Select(t => new SelectListItem
+            {
+                Value = t.OwnerId.ToString(),
+                Text = t.LastName + " " + t.FirstName
+            });
+            List<Status> status = new List<Status>();
+
+            foreach (Status s in Enum.GetValues(typeof(Status)))
+            {
+                status.Add(s);
+            }
+            ehvm.Status = status.Select(t => new SelectListItem
+            {
+                Value = t.ToString(),
+                Text = t.ToString()
+            });
             return View(ehvm);
         }
 
@@ -141,7 +218,7 @@ namespace Project_TL.Controllers
                 }),
 
                 //Owner
-                SelectedOwnerId = owner.FirstOrDefault().OwnerId,
+                SelectedOwnerId = owner.FirstOrDefault().OwnerId.ToString(),
                 Owner = owner.Select(t => new SelectListItem
                 {
                     Value = t.OwnerId.ToString(),
