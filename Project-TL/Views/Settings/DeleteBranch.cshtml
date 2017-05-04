@@ -1,0 +1,41 @@
+﻿@model Project_TL.ViewModels.Settings.DeleteBranchViewModel
+
+@{
+    ViewBag.Title = "DeleteBranch";
+}
+
+<h2>Delete @Model.Name</h2>
+
+<h3>Are you sure you want to delete @Model.Name?</h3>
+<div>
+ 
+    <hr />
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="centering">
+
+            <p>Please select an other branch. All the hotels of this branch will be transfered to that branch</p>
+
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(m => m.SelectedListItem, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(m => m.SelectedListItem, new SelectList(Model.List, "Value", "Text"), new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(m => m.SelectedListItem, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <input type="hidden" name="name" value=@Model.Name />
+            <br />
+        </div>
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+    }
+
+</div>

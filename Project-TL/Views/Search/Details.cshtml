@@ -78,16 +78,20 @@
                 @Html.DisplayNameFor(model => model.Owner)
             </dt>
             <dd class="bubbleInfo">
-
-                <a >@Html.DisplayFor(model => model.Owner.LastName)</a>
-              
-                   
-            </dd>
+                <a data-tooltip="#contact2" href="@Url.Action("DetailsOwner", "Settings", new {id = Model.Owner.OwnerId})"> @Html.DisplayFor(model => model.Owner.LastName) @Html.DisplayFor(model => model.Owner.FirstName)</a>
+                <div class="popup" id="contact2">
+                    @Html.DisplayFor(model => model.Owner.Email)
+                    <br />
+                    @Html.DisplayFor(model => model.Owner.CellphoneNumber)
+                </div>
+             </dd>
             <dt>
                 @Html.DisplayNameFor(model => model.ContactPerson)
             </dt>
-            <dd>
-                <a data-tooltip="#contact">@Html.DisplayFor(model => model.ContactPerson.LastName)</a> 
+            <dd class="bubbleInfo">
+               
+                <a data-tooltip="#contact" href="@Url.Action("DetailsContactPerson", "Settings", new {id = Model.ContactPerson.ContactPersonId})"> @Html.DisplayFor(model => model.ContactPerson.LastName) @Html.DisplayFor(model => model.ContactPerson.FirstName)</a>
+
                 <div class="popup" id="contact">
                     @Html.DisplayFor(model => model.ContactPerson.Email)
                     <br />

@@ -13,9 +13,15 @@
 <body>
 
 
-    <h2>SearchPage</h2>
-    <br />
+    <h2>Search Page</h2>
     <div class="centering ">
+        <p>
+            @Html.ActionLink("Create new hotel", "Create", "Search", routeValues: null, htmlAttributes: new { title = "Create" })
+        </p>
+        <p>
+
+        </p>
+
         <table class="table table-hover table-bordered table-responsive" id="example">
             <thead>
                 <tr class="alert-info">
@@ -117,9 +123,7 @@
                 }
             </tbody>
         </table>
-        <button>
-            @Html.ActionLink("Create new hotel", "Create", "Search", routeValues: null, htmlAttributes: new { title = "Create" })
-    </button>
+       
     </div>
 </body>
 </html>

@@ -16,13 +16,13 @@
     <br />
     <h2>Branches</h2>
     <p>
-        @Html.ActionLink("Create New Branch", "CreateBranch")
+        @Html.ActionLink("Create New Branch","CreateBranch")
     </p>
     <table class="table table-hover table-bordered table-responsive display" id="">
         <thead>
             <tr class="alert-info">
                 <th>@Html.DisplayNameFor(model => model.Branches.FirstOrDefault().Name)</th>
-                <th>@Html.DisplayNameFor(model => model.Branches.FirstOrDefault().PriceCat)</th>
+               
                 <th></th>
             </tr>
         </thead>
@@ -35,14 +35,11 @@
                 <tr>
                     <td>
                         @Html.DisplayFor(model => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(model => item.PriceCat)
-                    </td>
+                    </td>                 
                     <td>
                         @Html.ActionLink("Edit", "Edit", new {name = item.Name  }) |
                         @Html.ActionLink("Details", "DetailBranch", new {name = item.Name  }) |
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        @Html.ActionLink("Delete", "DeleteBranch", new {  name = item.Name  })
                     </td>
                 </tr>
             }
@@ -124,7 +121,7 @@
                     <td>
                         @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                         @Html.ActionLink("Details", "DetailsContactPerson", new { id=item.ContactPersonId }) |
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        @Html.ActionLink("Delete", "DeleteContactPerson", new {  id=item.ContactPersonId})
                     </td>
                 </tr>
             }

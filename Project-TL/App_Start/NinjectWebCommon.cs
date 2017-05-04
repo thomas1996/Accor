@@ -69,6 +69,7 @@ namespace Project_TL.App_Start
             kernel.Bind<IOwnerRepository>().To<OwnerRepository>().InRequestScope();
             kernel.Bind<IContactPersonRepository>().To<ContactPersonRepository>().InRequestScope();
             kernel.Bind<IBranchRepository>().To<BranchRepository>().InRequestScope();
+            kernel.Bind<IFirmRepository>().To<IFirmRepository>().InRequestScope();
 
             
         }        

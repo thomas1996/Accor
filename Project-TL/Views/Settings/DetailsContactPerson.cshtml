@@ -1,38 +1,49 @@
-﻿@model Project_TL.ViewModels.Settings.BranchViewModel
+﻿@model Project_TL.ViewModels.Settings.ContactViewModel
 
 @{
-    ViewBag.Title = "DetailBranch";
+    ViewBag.Title = "DetailsContactPerson";
 }
 
-<br />
-<br />
-<br />
-<div>
-    <h2>Details @Model.Name</h2>
+<h2>Details @Model.LastName @Model.FirstName</h2>
 
+<div>
+   
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.LastName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.PriceCat)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.PriceCat)
+            @Html.DisplayFor(model => model.LastName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Hotels)
+            @Html.DisplayNameFor(model => model.FirstName)
         </dt>
-       
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CellphoneNr)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CellphoneNr)
+        </dd>
         @if (Model.Hotels.Count == 0)
         {
-            <dd>There are currently no Hotels in this branch </dd>
+            <dd>This person is currently of no hotels the contact person. </dd>
         }
         else
         {
@@ -41,7 +52,7 @@
                     <tr>
                         <th>Name</th>
                         <th>Owner</th>
-                        <th>Contact Person</th>
+                        <th>Total cost</th>
 
                     </tr>
                     @foreach (var item in Model.Hotels)
@@ -54,7 +65,7 @@
                                 @Html.DisplayFor(model => item.Owner.LastName) @Html.DisplayFor(model => item.Owner.FirstName)
                             </td>
                             <td>
-                                @Html.DisplayFor(model => item.ContactPerson.LastName) @Html.DisplayFor(model => item.ContactPerson.FirstName)
+                                @String.Format("€{0:N}", item.TotalCost)
                             </td>
                         </tr>
                     }
@@ -64,12 +75,10 @@
                 </table>
             </dd>
         }
-  
-
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Name}) |
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

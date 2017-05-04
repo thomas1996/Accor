@@ -263,6 +263,7 @@
     </Compile>
     <Compile Include="Models\DAL\BranchRepository.cs" />
     <Compile Include="Models\DAL\ContactPersonRepository.cs" />
+    <Compile Include="Models\DAL\FirmRepository.cs" />
     <Compile Include="Models\DAL\Mapping\HotelApplicationMapper.cs" />
     <Compile Include="Models\DAL\OwnerRepository.cs" />
     <Compile Include="Models\DAL\UserRepository.cs" />
@@ -322,6 +323,9 @@
     <Compile Include="ViewModels\Report\SecondReportViewModel.cs" />
     <Compile Include="ViewModels\Settings\BranchViewModel.cs" />
     <Compile Include="ViewModels\Settings\ContactViewModel.cs" />
+    <Compile Include="ViewModels\Settings\DeleteBranchViewModel.cs" />
+    <Compile Include="ViewModels\Settings\DeleteContactPersonViewModel.cs" />
+    <Compile Include="ViewModels\Settings\DeleteOwnerViewModel.cs" />
     <Compile Include="ViewModels\Settings\OwnerViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
@@ -518,7 +522,7 @@
     <Content Include="Views\Search\Create.cshtml" />
     <Content Include="Views\Search\Delete.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />
-    <Content Include="Views\Settings\Branch\DetailBranch.cshtml" />
+    <Content Include="Views\Settings\DetailBranch.cshtml" />
     <Content Include="Views\Application\Index.cshtml" />
     <Content Include="Views\Application\Details.cshtml" />
     <Content Include="Views\Application\DetailsList.cshtml" />
@@ -530,11 +534,13 @@
     <Content Include="Views\Search\AddApplication.cshtml" />
     <Content Include="Views\Report\Index.cshtml" />
     <Content Include="Views\Report\ConfirmationPage.cshtml" />
-    <Content Include="Views\Settings\Branch\CreateBranch.cshtml" />
-    <Content Include="Views\Settings\Contact\DetailsContactPerson.cshtml" />
-    <Content Include="Views\Settings\Contact\CreateContactPerson.cshtml" />
-    <Content Include="Views\Settings\Owner\DetailsOwner.cshtml" />
-    <Content Include="Views\Settings\Owner\CreateOwner.cshtml" />
+    <Content Include="Views\Settings\CreateBranch.cshtml" />
+    <Content Include="Views\Settings\DetailsContactPerson.cshtml" />
+    <Content Include="Views\Settings\CreateContactPerson.cshtml" />
+    <Content Include="Views\Settings\DetailsOwner.cshtml" />
+    <Content Include="Views\Settings\CreateOwner.cshtml" />
+    <Content Include="Views\Settings\DeleteBranch.cshtml" />
+    <Content Include="Views\Settings\DeleteContactPerson.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -40,10 +40,10 @@ namespace Project_TL.Models.DAL
 
         public Branch FindByName(string name)
         {
-            return branches.FirstOrDefault(t => t.Name.Equals(name));
+            return branches.FirstOrDefault(t => t.Name == name);
         }
 
-        public void RemoveBranach(Branch branch)
+        public void RemoveBranch(Branch branch)
         {
             branches.Remove(branch);
         }

@@ -12,7 +12,7 @@ namespace Project_TL.Models.Domain
         IQueryable<Branch> FindAll();
         void AddBranch(Branch branch);
         void EditBranch(Branch branch);
-        void RemoveBranach(Branch branch);
+        void RemoveBranch(Branch branch);
         void SaveChanges();
        
 

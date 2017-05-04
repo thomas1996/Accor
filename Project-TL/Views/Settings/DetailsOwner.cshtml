@@ -68,7 +68,7 @@
                                 @Html.DisplayFor(model => item.ContactPerson.LastName) @Html.DisplayFor(model => item.ContactPerson.FirstName)
                             </td>
                             <td>
-                                @Html.DisplayFor(model => item.TotalCost)
+                                @String.Format("€{0:N}", item.TotalCost)
                             </td>
                         </tr>
                     }
