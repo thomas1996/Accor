@@ -12,6 +12,7 @@ namespace Project_TL.App_Start
     using Ninject.Web.Common;
     using Models.Domain;
     using Models.DAL;
+    using Models.DAL.Mapping;
 
     public static class NinjectWebCommon 
     {
@@ -69,7 +70,7 @@ namespace Project_TL.App_Start
             kernel.Bind<IOwnerRepository>().To<OwnerRepository>().InRequestScope();
             kernel.Bind<IContactPersonRepository>().To<ContactPersonRepository>().InRequestScope();
             kernel.Bind<IBranchRepository>().To<BranchRepository>().InRequestScope();
-            kernel.Bind<IFirmRepository>().To<IFirmRepository>().InRequestScope();
+            kernel.Bind<IFirmRepository>().To<FirmRepository>().InRequestScope();
 
             
         }        

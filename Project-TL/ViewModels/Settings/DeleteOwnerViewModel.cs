@@ -31,10 +31,7 @@ namespace Project_TL.ViewModels.Settings
         public int SelectedOwner { get; set; }
         public IEnumerable<SelectListItem> ListOwner { get; set; }
 
-        [Required]
-        [Display(Name ="Please select the firm")]
-        public int SelectFirm { get; set; }
-        public IEnumerable<SelectListItem> ListFirm { get; set; }
+       
 
     }
 }

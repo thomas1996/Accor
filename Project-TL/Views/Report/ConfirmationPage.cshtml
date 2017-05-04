@@ -30,7 +30,9 @@
                     <th> @Html.DisplayNameFor(model => item.List.FirstOrDefault().Cost)</th>
                     @if (Model.Future == true)
                     {
-                    <th>Future price</th>}
+                    <th>Future price</th>
+                    <th>Future maintenance price</th>
+                    }
                         
                 </tr>
 
@@ -42,12 +44,25 @@
                     if (Model.Future == true)
                     {
                         <tr>
-                            <td>@Html.DisplayFor(model => item.List[i].ApplicationName)</td>                          
+                            <td>@Html.DisplayFor(model => item.List[i].ApplicationName)</td>        
+                            <td class="hidden">
+                                @Html.HiddenFor(model => item.List[i].ApplicationName)
+                            </td>                  
                             <td>@String.Format(item.List[i].StartDate.ToShortDateString())</td>
+                            <td class="hidden">
+                                @Html.HiddenFor(model => item.List[i].StartDate)
+                            </td>  
                             <td>@String.Format(item.List[i].EndDate.ToShortDateString())</td>
+                            <td class="hidden">
+                                @Html.HiddenFor(model => item.List[i].EndDate)
+                            </td>  
                             <td>@String.Format("€{0:N}", item.List[i].Cost.ToString())   </td>
+                            <td class="hidden">
+                                @Html.HiddenFor(model => item.List[i].Cost)
+                            </td>  
                            
-                            <td>Fill in the furure price(in €): @Html.EditorFor(model => item.NewListCost[i])  </td>
+                            <td>Fill in the furure price (in €): @Html.EditorFor(model => item.NewListCost[i])  </td>
+                            <td>Fill in the future price for maintenance (in €:) @Html.EditorFor(model => item.NewListMaintenance[i])</td>
                         </tr>
                     }
                     else

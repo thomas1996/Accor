@@ -311,17 +311,46 @@ namespace Project_TL.Controllers
                 {
                     Value = t.OwnerId.ToString(),
                     Text = t.LastName + " " + t.FirstName
-                }),
-
-                SelectFirm = listFirm.FirstOrDefault().FirmId,
-                ListFirm = listFirm.Select(t => new SelectListItem
-                {
-                    Value = t.FirmId.ToString(),
-                    Text = t.name
                 })
             };
 
             return View(dovm);
+        }
+
+        [HttpPost,ActionName("DeleteOwner")]
+        public ActionResult DeleteOwnerConfirmed(int id,DeleteOwnerViewModel model)
+        {
+            try
+            {
+                Owner o = ownerRepo.FindById(id);
+                if (o == null)
+                {
+                    TempData["error"] = "There was a problem deleting the owner. Please contact the IT department.";
+                    return RedirectToAction("Index");
+                }
+                Owner newOwner = ownerRepo.FindById(model.SelectedOwner);
+
+
+                o.Hotels.ToList().ForEach(t =>
+                {
+                    t.Owner = newOwner;
+                });
+                o.Firms.ToList().ForEach(t =>
+                {
+                    t.Owner = newOwner;
+                });
+
+                ownerRepo.RemoveOwner(o);
+                ownerRepo.SaveChanges();
+                TempData["message"] = String.Format("The owner {0} has succesfully been removed", o.LastName + " " + o.FirstName);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["error"] = "There was a problem deleting the owner. Please contact the IT department.";
+            }
+            return RedirectToAction("Index");
+
         }
 
         private void MapToOwner(Owner o, OwnerViewModel model)

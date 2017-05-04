@@ -5,7 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 
-namespace Project_TL.Models.DAL.Mapping
+namespace Project_TL.Models.DAL
 {
     public class FirmRepository : IFirmRepository
     {
@@ -35,7 +35,7 @@ namespace Project_TL.Models.DAL.Mapping
 
         public IQueryable<Firm> FindByOwner(int ownerId)
         {
-            return firms.Where(t => t.Owner.OwnerId == ownerId) 
+            return firms.Where(t => t.Owner.OwnerId == ownerId);
         }
 
         public void RemoveFirm(Firm firm)

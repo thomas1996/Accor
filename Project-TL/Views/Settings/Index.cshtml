@@ -80,7 +80,7 @@
                     <td>
                         @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                         @Html.ActionLink("Details", "DetailsOwner", new {  id=item.OwnerId }) |
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        @Html.ActionLink("Delete", "DeleteOwner", new { id=item.OwnerId })
                     </td>
                 </tr>
             }
