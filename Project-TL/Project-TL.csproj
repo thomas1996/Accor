@@ -321,6 +321,8 @@
     <Compile Include="ViewModels\Hotels\HotelViewModel.cs" />
     <Compile Include="ViewModels\Report\SecondReportViewModel.cs" />
     <Compile Include="ViewModels\Settings\BranchViewModel.cs" />
+    <Compile Include="ViewModels\Settings\ContactViewModel.cs" />
+    <Compile Include="ViewModels\Settings\OwnerViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="ViewModels\Report\ReportViewModel.cs" />
@@ -516,7 +518,7 @@
     <Content Include="Views\Search\Create.cshtml" />
     <Content Include="Views\Search\Delete.cshtml" />
     <Content Include="Views\Settings\Index.cshtml" />
-    <Content Include="Views\Settings\DetailBranch.cshtml" />
+    <Content Include="Views\Settings\Branch\DetailBranch.cshtml" />
     <Content Include="Views\Application\Index.cshtml" />
     <Content Include="Views\Application\Details.cshtml" />
     <Content Include="Views\Application\DetailsList.cshtml" />
@@ -528,7 +530,11 @@
     <Content Include="Views\Search\AddApplication.cshtml" />
     <Content Include="Views\Report\Index.cshtml" />
     <Content Include="Views\Report\ConfirmationPage.cshtml" />
-    <Content Include="Views\Settings\CreateBranch.cshtml" />
+    <Content Include="Views\Settings\Branch\CreateBranch.cshtml" />
+    <Content Include="Views\Settings\Contact\DetailsContactPerson.cshtml" />
+    <Content Include="Views\Settings\Contact\CreateContactPerson.cshtml" />
+    <Content Include="Views\Settings\Owner\DetailsOwner.cshtml" />
+    <Content Include="Views\Settings\Owner\CreateOwner.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

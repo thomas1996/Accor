@@ -39,7 +39,7 @@
             <dd>
                 <table class="table-condensed table-responsive table-bordered">
                     <tr>
-                        <th>City</th>
+                        <th>Name</th>
                         <th>Owner</th>
                         <th>Contact Person</th>
 
@@ -48,7 +48,7 @@
                     {
                         <tr>
                             <td>
-                                @Html.DisplayFor(model => item.Adres.City)
+                                @Html.DisplayFor(model => item.Name)
                             </td>
                             <td>
                                 @Html.DisplayFor(model => item.Owner.LastName) @Html.DisplayFor(model => item.Owner.FirstName)
@@ -70,6 +70,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Name}) |
     @Html.ActionLink("Back to List", "Index")
 </p>

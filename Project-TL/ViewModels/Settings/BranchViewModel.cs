@@ -11,15 +11,13 @@ namespace Project_TL.ViewModels.Settings
     public class BranchViewModel
     {
         
-        public BranchViewModel(Branch branch, IHotelRepository hotelRepo)
+        public BranchViewModel(Branch branch)
         {
             PriceCat = branch.PriceCat;
             Name = branch.Name;
-            if (hotelRepo == null)
+            
                 Hotels = branch.Hotels.ToList();
-            else
-                Hotels = hotelRepo.FindAll().ToList();
-
+           
         }
         public BranchViewModel()
         {
@@ -28,6 +26,7 @@ namespace Project_TL.ViewModels.Settings
         [Display(Name ="Price category")]
         public  PriceCategorie PriceCat { get; set; }
 
+        [Required(ErrorMessage = "{0} is required")]
         [Display(Name ="Branch name")]
         public string Name { get; set; }
 

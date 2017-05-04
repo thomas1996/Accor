@@ -30,9 +30,9 @@ namespace Project_TL.Models.DAL
                 ContactPerson p2 = new ContactPerson("h0649-GM@Accor.com"," van der Graaf", "Martijn","0031627081233");
                 ContactPerson p3 = new ContactPerson("HA3P2-GM@accor.com", "Rutger","Blom", "0031627081168");
 
-                Owner o1 = new Owner("Georges", "Deom");
-                Owner o2 = new Owner("Their","Bommens");
-                Owner o3 = new Owner("Rullems", "Dennis");
+                Owner o1 = new Owner("Georges", "Deom","Geores.deom@accor.com","+324816981");
+                Owner o2 = new Owner("Their","Bommens","Their.bommes@accor.com","/");
+                Owner o3 = new Owner("Rullems", "Dennis","rullems.dennis@accor.com","/");
 
                 Maintenance m = new Maintenance(new DateTime(2017, 03, 15), new DateTime(2018, 10, 10), 5000);
 

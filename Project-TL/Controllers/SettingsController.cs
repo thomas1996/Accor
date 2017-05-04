@@ -24,7 +24,7 @@ namespace Project_TL.Controllers
         {
 
         }
-        public SettingsController(IBranchRepository branchRepo, IContactPersonRepository contactRepo, IOwnerRepository ownerRepo, IApplicationRepository systRepo,IHotelRepository hotelRepo)
+        public SettingsController(IBranchRepository branchRepo, IContactPersonRepository contactRepo, IOwnerRepository ownerRepo, IApplicationRepository systRepo, IHotelRepository hotelRepo)
         {
             this.branchRepo = branchRepo;
             this.hotelRepo = hotelRepo;
@@ -64,7 +64,7 @@ namespace Project_TL.Controllers
         // GET: Settings
         public ActionResult Index()
         {
-            SettingsViewModel svm = new SettingsViewModel(branchRepo.FindAll().ToList(),contactRepo.FindAll().ToList(),ownerRepo.FindAll().ToList());
+            SettingsViewModel svm = new SettingsViewModel(branchRepo.FindAll().ToList(), contactRepo.FindAll().ToList(), ownerRepo.FindAll().ToList());
             return View(svm);
         }
 
@@ -72,37 +72,107 @@ namespace Project_TL.Controllers
         public ActionResult DetailBranch(string name)
         {
             Branch b = branchRepo.FindByName(name);
-            BranchViewModel bvm = new BranchViewModel(b,null);
+            if (b == null)
+                return HttpNotFound();
+            BranchViewModel bvm = new BranchViewModel(b);
             return View(bvm);
         }
 
         public ActionResult CreateBranch()
         {
             Branch b = new Branch();
-            BranchViewModel bvm = new BranchViewModel(b,hotelRepo);
+            BranchViewModel bvm = new BranchViewModel(b);
             return View(bvm);
         }
 
         [HttpPost]
         public ActionResult CreateBranch(BranchViewModel bvm)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 try
                 {
                     Branch b = new Branch();
                     branchRepo.AddBranch(b);
-                    MapToBranch(bvm,b);
+                    MapToBranch(bvm, b);
                     branchRepo.SaveChanges();
                     TempData["message"] = String.Format("Branch {0} was created", b.Name);
                     return RedirectToAction("Index");
-                }catch(Exception ex)
+                }
+                catch (Exception ex)
                 {
                     ModelState.AddModelError("", ex.Message);
                 }
 
             }
             return View("CreateBranch", bvm);
+        }
+
+        //contact person
+        public ActionResult DetailsContactPerson(int id)
+        {
+            ContactPerson cp = contactRepo.FindById(id);
+            if (cp == null)
+                return HttpNotFound();
+            ContactViewModel cvm = new ContactViewModel(cp);
+            return View(cvm);
+        }
+
+        public ActionResult CreateContactPerson()
+        {
+            ContactPerson cp = new ContactPerson();
+            ContactViewModel cvm = new ContactViewModel(cp);
+            return View(cvm);
+
+        }
+
+        [HttpPost]
+        public ActionResult CreateContactPerson(ContactViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return HttpNotFound();
+            }
+            try
+            {
+                ContactPerson cp = new ContactPerson();
+                contactRepo.AddContactPerson(cp);
+                MapToContact(cp, model);
+                contactRepo.SaveChanges();
+                TempData["message"] = String.Format("Contact person {0} was succesfully created.", cp.LastName + cp.FirstName);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["error"] = "There was a problem creating the contact person. Please contact IT department.";
+            }
+            return View("CreateContactPerson", model);
+        }
+
+        //Owner
+        public ActionResult DetailsOwner(int id)
+        {
+            Owner o = ownerRepo.FindById(id);
+            if (o == null)
+                return HttpNotFound();
+            OwnerViewModel ovm = new OwnerViewModel(o);
+            return View(ovm);
+        }
+        
+        public ActionResult CreateOwner()
+        {
+            Owner o = new Owner();
+            OwnerViewModel ovm = new OwnerViewModel(o);
+            return View(ovm);
+        }
+
+        private void MapToContact(ContactPerson cp, ContactViewModel model)
+        {
+            cp.FirstName = model.FirstName;
+            cp.LastName = model.LastName;
+            cp.Email = model.Email;
+            cp.CellphoneNr = model.CellphoneNr;
+            cp.Hotels = model.Hotels;
         }
 
         private void MapToBranch(BranchViewModel bvm, Branch b)
