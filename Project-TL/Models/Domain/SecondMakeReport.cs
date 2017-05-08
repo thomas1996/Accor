@@ -20,16 +20,17 @@ namespace Project_TL.Models.Domain
             OwnerName = h.Owner.LastName + " " + h.Owner.FirstName;
             List = h.Applications.ToList();
             NewListCost = new List<double>();
-            NewListMaintenance = new List<double>();
+            //NewListMaintenance = new List<double>();
             FillList();
         }
 
         private void FillList()
         {
+            //U have to fill the list with 0, otherwise you go out of range when iterate over it in the view for filling up
             List.ForEach(t =>
             {
                 NewListCost.Add(0.0);
-                NewListMaintenance.Add(0.0);
+                //NewListMaintenance.Add(0.0);
             });
         }
 
@@ -39,6 +40,6 @@ namespace Project_TL.Models.Domain
         public string OwnerName { get; set; }
         public List<HotelApplication> List { get; set; }
         public List<double> NewListCost { get; set; }
-        public List<double> NewListMaintenance { get; set; }
+        //public List<double> NewListMaintenance { get; set; }
     }
 }

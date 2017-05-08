@@ -3,9 +3,8 @@
 
 @{
     ViewBag.Title = "SecondPage";
+
 }
-<br />
-<br />
 <br />
 <br />
 <h2>Confirmation</h2>
@@ -18,13 +17,16 @@
     foreach (var item in Model.List)
     {
         <h3>Detals Hotel @Html.DisplayFor(model => item.HotelName)  </h3>
+        @Html.HiddenFor(model => item.HotelName)
+           @Html.HiddenFor(model => item.OwnerName)
         <br />
         <p><b>Owner</b> : @Html.DisplayFor(model => item.OwnerName)</p>
         <p><b>Branch</b> : @Html.DisplayFor(model => item.BranchName)</p>
         <table class="table table-hover table-bordered table-responsive">
-            <thead>
-                <tr>
-                    <th> @Html.DisplayNameFor(model => item.List.FirstOrDefault().ApplicationName)</th>                    
+         <tr>
+                    <th> @Html.DisplayNameFor(model => item.List.FirstOrDefault().ApplicationName)</th>  
+                    <th class="hidden"> @Html.HiddenFor(model => item.OwnerName )</th> 
+                    <th class="hidden"> @Html.HiddenFor(model => item.HotelName) </th>                 
                     <th> @Html.DisplayNameFor(model => item.List.FirstOrDefault().StartDate)</th>
                     <th> @Html.DisplayNameFor(model => item.List.FirstOrDefault().EndDate)</th>
                     <th> @Html.DisplayNameFor(model => item.List.FirstOrDefault().Cost)</th>
@@ -32,12 +34,9 @@
                     {
                     <th>Future price</th>
                     <th>Future maintenance price</th>
-                    }
-                        
+                    }    
                 </tr>
 
-            </thead>
-            <tbody>
                 @* no foreach, we need index to fill in the new prices at the right place *@
                 @for (int i = 0; i < item.List.Count(); i++)
                 {
@@ -62,23 +61,26 @@
                             </td>  
                            
                             <td>Fill in the furure price (in €): @Html.EditorFor(model => item.NewListCost[i])  </td>
-                            <td>Fill in the future price for maintenance (in €:) @Html.EditorFor(model => item.NewListMaintenance[i])</td>
+                            @*<td>Fill in the future price for maintenance (in €:) @Html.EditorFor(model => item.NewListMaintenance[i])</td>*@
                         </tr>
                     }
                     else
                     {
                         <tr>
-
-
-                            <td>@Html.DisplayFor(model => item.List[i].ApplicationName)</td>
+                            <td>@Html.DisplayFor(model => item.List[i].ApplicationName)</td>                           
                             <td>@String.Format(item.List[i].StartDate.ToShortDateString())</td>
                             <td>@String.Format(item.List[i].EndDate.ToShortDateString())</td>
                             <td>@String.Format("€{0:N}", item.List[i].Cost.ToString())   </td>
+
+                            <td class="hidden"> @Html.HiddenFor(model => item.List[i].ApplicationName)</td>
+                            <td class="hidden"> @Html.HiddenFor(model => item.List[i].StartDate)</td>
+                            <td class="hidden"> @Html.HiddenFor(model => item.List[i].EndDate)</td>
+                            <td class="hidden"> @Html.HiddenFor(model => item.List[i].Cost)</td>
                         </tr>
                     }
                 }
                 
-                </tbody>
+               
             </table>
 
     }
