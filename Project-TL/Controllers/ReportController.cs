@@ -61,11 +61,11 @@ namespace Project_TL.Controllers
                 if (DateTime.Compare(model.EndDate, DateTime.Today) > 0)
                 {
 
-                    return RedirectToAction("ConfirmationPage",new { l = list, future = true });
+                    return RedirectToAction("ConfirmationPage",new { l = list, future = true,startDate = model.StartDate,endDate = model.EndDate });
                 }
                 else
                 {
-                    return RedirectToAction("ConfirmationPage", new { l = list, future = false });
+                    return RedirectToAction("ConfirmationPage", new { l = list, future = false, startDate = model.StartDate, endDate = model.EndDate });
                 }
 
             }
@@ -76,11 +76,11 @@ namespace Project_TL.Controllers
             return RedirectToAction("Index");
 
         }
-        public ActionResult ConfirmationPage(List<SecondMakeReport> l, bool future)
+        public ActionResult ConfirmationPage(List<SecondMakeReport> l, bool future,DateTime startDate,DateTime endDate)
         {
            
             l = (List <SecondMakeReport> )TempData["list"];           
-            SecondReportViewModel srvm = new SecondReportViewModel(l, future);
+            SecondReportViewModel srvm = new SecondReportViewModel(l, future,startDate,endDate);
             
             return View(srvm);
 
@@ -93,9 +93,10 @@ namespace Project_TL.Controllers
             {
                 System.Data.DataTable data =  MakeTable(model.List);
                 MakeExcel(data);
-                
 
-                return RedirectToAction("Index");
+
+                // return RedirectToAction("Index");
+                return RedirectToAction("ReportPage", new { model = model });
             }catch(Exception ex)
             {
 
@@ -120,6 +121,10 @@ namespace Project_TL.Controllers
             response.AddHeader("Content-Type", "application/Excel");
             response.ContentType = "application/vnd.xlsx";
             //response.AddHeader("Content-Length", file.Length.ToString());
+            //sets the table border, cell spacing, border color, font of the text, background, foreground, font height
+            response.Write("<Table border='1' bgColor='#ffffff' " +
+              "borderColor='#000000' cellSpacing='0' cellPadding='0' " +
+              "style='font-size:10.0pt; font-family:Calibri; background:white;'> <TR>");
 
 
             // create a string writer
@@ -140,11 +145,10 @@ namespace Project_TL.Controllers
             }
         }
 
-        public ActionResult ReportPage()
+        public ActionResult ReportPage(SecondReportViewModel model)
         {
             
-
-            return View(); 
+            return View(model); 
         }
 
         private System.Data.DataTable MakeTable(List<SecondMakeReport> list)
@@ -156,16 +160,6 @@ namespace Project_TL.Controllers
                 table.Columns.Add(pr.Name);
             }
 
-            //list.ForEach(t =>
-            //{
-
-            //    var row = table.NewRow();
-            //    row[0] = t.OwnerName;
-            //    row[1] = t.HotelName;
-            //    row[2] = t.NewListCost;
-            //    table.Rows.Add(row);
-
-            //});
 
             foreach(SecondMakeReport item in list)
             {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -20,6 +21,7 @@ namespace Project_TL.Models.Domain
             OwnerName = h.Owner.LastName + " " + h.Owner.FirstName;
             HAList = h.Applications.ToList();
             NewListCost = new List<double>();
+           
             //NewListMaintenance = new List<double>();
             FillList();
         }
@@ -38,8 +40,15 @@ namespace Project_TL.Models.Domain
         public string HotelId { get; set; }
         public string BranchName { get; set; }
         public string OwnerName { get; set; }
+
+        [Display(Name ="List of applications")]
         public List<HotelApplication> HAList { get; set; }
+
+        [Display(Name =("Future kost"))]
         public List<double> NewListCost { get; set; }
         //public List<double> NewListMaintenance { get; set; }
+
+       
+
     }
 }
