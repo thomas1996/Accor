@@ -1,0 +1,47 @@
+﻿@model Project_TL.ViewModels.Report.SecondReportViewModel
+
+@{
+    ViewBag.Title = "ReportPage";
+}
+<link href="~/Content/Hotels.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/theme.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/Other.css" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/Own Scripts/DataTable.js"></script>
+<script src="~/Scripts/Own Scripts/Grouping.js"> </script>
+<html>
+<body>
+
+
+    <h2>Report Page</h2>
+    <br />
+    <br />
+    <h3>Summary </h3>
+    <table class="table table-hover table-bordered table-responsive display" id="example">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Number of applications</th>
+                <th>Total application cost between @Model.StartDate.ToShortDateString() and @Model.EndDate</th>
+                <th>Total maintenance cost between @Model.StartDate.ToShortDateString() and @Model.EndDate</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.List.OrderBy(t =>t.HotelName))
+            {
+                
+                <tr>
+                    <td>@Html.DisplayFor(model => item.HotelName)</td>
+                    <td>@item.HAList.Count() </td>
+                    <td>( @item.HAList.Sum(t => t.Cost) + @item.NewListCost.Sum() )</td>
+                    <td> @item.HAList.Sum(t => t.Maintenance)</td>
+                </tr>
+            }
+            
+        </tbody>
+    </table>
+
+
+</body>
+</html>
+

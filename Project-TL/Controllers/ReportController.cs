@@ -95,59 +95,22 @@ namespace Project_TL.Controllers
                 MakeExcel(data);
 
 
-                // return RedirectToAction("Index");
-                return RedirectToAction("ReportPage", new { model = model });
+                return RedirectToAction("Index");
+                TempData["model"] = model;
+                //return RedirectToAction("Index");
+
             }catch(Exception ex)
             {
-
+                TempData["error"] = "there has been an error. Please contact the IT department";
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("ReportPage");
         }
 
-        private void MakeExcel(DataTable data)
+       
+        
+        public ActionResult ReportPage()
         {
-            string FileName = Guid.NewGuid().ToString();
-            FileInfo f = new FileInfo(Server.MapPath("Downloads") + string.Format("\\{0}.xlsx", FileName));
-            if (f.Exists)
-                f.Delete();
-            // delete the file if it already exist.
-
-            HttpResponseBase response = HttpContext.Response;
-            response.Clear();
-            response.ClearHeaders();
-            response.ClearContent();
-            response.Charset = Encoding.UTF8.WebName;
-            response.AddHeader("content-disposition", "attachment; filename=" + FileName + ".xls");
-            response.AddHeader("Content-Type", "application/Excel");
-            response.ContentType = "application/vnd.xlsx";
-            //response.AddHeader("Content-Length", file.Length.ToString());
-            //sets the table border, cell spacing, border color, font of the text, background, foreground, font height
-            response.Write("<Table border='1' bgColor='#ffffff' " +
-              "borderColor='#000000' cellSpacing='0' cellPadding='0' " +
-              "style='font-size:10.0pt; font-family:Calibri; background:white;'> <TR>");
-
-
-            // create a string writer
-            using (StringWriter sw = new StringWriter())
-            {
-                using (HtmlTextWriter htw = new HtmlTextWriter(sw)) 
-                {
-                    // instantiate a datagrid
-                    DataGrid dg = new DataGrid();
-                    dg.DataSource = data;
-                    dg.DataBind();
-                    dg.RenderControl(htw);
-                    response.Write(sw.ToString());
-                    dg.Dispose();
-                    data.Dispose();
-                    response.End();
-                }
-            }
-        }
-
-        public ActionResult ReportPage(SecondReportViewModel model)
-        {
-            
+            SecondReportViewModel model = (SecondReportViewModel) TempData["model"];
             return View(model); 
         }
 
@@ -172,6 +135,46 @@ namespace Project_TL.Controllers
             };
             
             return table;
+        }
+        private void MakeExcel(DataTable data)
+        {
+            string FileName = "report" + DateTime.Today.ToShortDateString();
+            FileInfo f = new FileInfo(Server.MapPath("Downloads") + string.Format("\\{0}.xlsx", FileName));
+            if (f.Exists)
+                f.Delete();
+            // delete the file if it already exist.
+
+            HttpResponseBase response = HttpContext.Response;
+            response.Clear();
+            response.ClearHeaders();
+            response.ClearContent();
+            response.Charset = Encoding.UTF8.WebName;
+            response.AddHeader("content-disposition", "attachment; filename=" + FileName + ".xls");
+            response.AddHeader("Content-Type", "application/Excel");
+            response.ContentType = "application/vnd.xlsx";
+            //response.AddHeader("Content-Length", file.Length.ToString());
+            //sets the table border, cell spacing, border color, font of the text, background, foreground, font height
+            response.Write("<Table border='1' bgColor='#ffffff' " +
+              "borderColor='#000000' cellSpacing='0' cellPadding='0' " +
+              "style='font-size:10.0pt; font-family:Calibri; background:white;'> <TR>");
+
+
+            // create a string writer
+            using (StringWriter sw = new StringWriter())
+            {
+                using (HtmlTextWriter htw = new HtmlTextWriter(sw))
+                {
+                    // instantiate a datagrid
+                    DataGrid dg = new DataGrid();
+                    dg.DataSource = data;
+                    dg.DataBind();
+                    dg.RenderControl(htw);
+                    response.Write(sw.ToString());
+                    dg.Dispose();
+                    data.Dispose();
+                    response.End();
+                }
+            }
         }
 
         public ActionResult Chart()
