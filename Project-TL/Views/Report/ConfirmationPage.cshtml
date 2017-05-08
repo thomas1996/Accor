@@ -7,6 +7,7 @@
 }
 <br />
 <br />
+<br />
 <h2>Confirmation</h2>
 <html>
 <body>
@@ -14,22 +15,22 @@
    {
     @Html.AntiForgeryToken()
 
-    foreach (var item in Model.List)
-    {
-        <h3>Detals Hotel @Html.DisplayFor(model => item.HotelName)  </h3>
-        @Html.HiddenFor(model => item.HotelName)
-           @Html.HiddenFor(model => item.OwnerName)
+       for (int i = 0; i < Model.List.Count(); i++)
+       {
+        <h3>Detals Hotel @Html.DisplayFor(model => Model.List[i].HotelName)  </h3>
+        @Html.HiddenFor(model => Model.List[i].HotelName)
+           @Html.HiddenFor(model => Model.List[i].OwnerName)
         <br />
-        <p><b>Owner</b> : @Html.DisplayFor(model => item.OwnerName)</p>
-        <p><b>Branch</b> : @Html.DisplayFor(model => item.BranchName)</p>
+        <p><b>Owner</b> : @Html.DisplayFor(model => Model.List[i].OwnerName)</p>
+        <p><b>Branch</b> : @Html.DisplayFor(model => Model.List[i].BranchName)</p>
         <table class="table table-hover table-bordered table-responsive">
          <tr>
-                    <th> @Html.DisplayNameFor(model => item.List.FirstOrDefault().ApplicationName)</th>  
-                    <th class="hidden"> @Html.HiddenFor(model => item.OwnerName )</th> 
-                    <th class="hidden"> @Html.HiddenFor(model => item.HotelName) </th>                 
-                    <th> @Html.DisplayNameFor(model => item.List.FirstOrDefault().StartDate)</th>
-                    <th> @Html.DisplayNameFor(model => item.List.FirstOrDefault().EndDate)</th>
-                    <th> @Html.DisplayNameFor(model => item.List.FirstOrDefault().Cost)</th>
+                    <th> @Html.DisplayNameFor(model => Model.List[i].HAList.FirstOrDefault().ApplicationName)</th>  
+                    <th class="hidden"> @Html.HiddenFor(model => Model.List[i].OwnerName )</th> 
+                    <th class="hidden"> @Html.HiddenFor(model => Model.List[i].HotelName) </th>                 
+                    <th> @Html.DisplayNameFor(model => Model.List[i].HAList.FirstOrDefault().StartDate)</th>
+                    <th> @Html.DisplayNameFor(model => Model.List[i].HAList.FirstOrDefault().EndDate)</th>
+                    <th> @Html.DisplayNameFor(model => Model.List[i].HAList.FirstOrDefault().Cost)</th>
                     @if (Model.Future == true)
                     {
                     <th>Future price</th>
@@ -38,44 +39,44 @@
                 </tr>
 
                 @* no foreach, we need index to fill in the new prices at the right place *@
-                @for (int i = 0; i < item.List.Count(); i++)
+                @for (int j = 0; j < Model.List[i].HAList.Count(); j++)
                 {
                     if (Model.Future == true)
                     {
                         <tr>
-                            <td>@Html.DisplayFor(model => item.List[i].ApplicationName)</td>        
+                            <td>@Html.DisplayFor(model => Model.List[i].HAList[j].ApplicationName)</td>        
                             <td class="hidden">
-                                @Html.HiddenFor(model => item.List[i].ApplicationName)
+                                @Html.HiddenFor(model => Model.List[i].HAList[j].ApplicationName)
                             </td>                  
-                            <td>@String.Format(item.List[i].StartDate.ToShortDateString())</td>
+                            <td>@String.Format(Model.List[i].HAList[j].StartDate.ToShortDateString())</td>
                             <td class="hidden">
-                                @Html.HiddenFor(model => item.List[i].StartDate)
+                                @Html.HiddenFor(model => Model.List[i].HAList[j].StartDate)
                             </td>  
-                            <td>@String.Format(item.List[i].EndDate.ToShortDateString())</td>
+                            <td>@String.Format(Model.List[i].HAList[j].EndDate.ToShortDateString())</td>
                             <td class="hidden">
-                                @Html.HiddenFor(model => item.List[i].EndDate)
+                                @Html.HiddenFor(model => Model.List[i].HAList[j].EndDate)
                             </td>  
-                            <td>@String.Format("€{0:N}", item.List[i].Cost.ToString())   </td>
+                            <td>@String.Format("€{0:N}", Model.List[i].HAList[j].Cost.ToString())   </td>
                             <td class="hidden">
-                                @Html.HiddenFor(model => item.List[i].Cost)
+                                @Html.HiddenFor(model => Model.List[i].HAList[j].Cost)
                             </td>  
                            
-                            <td>Fill in the furure price (in €): @Html.EditorFor(model => item.NewListCost[i])  </td>
+                            <td>Fill in the furure price (in €): @Html.EditorFor(model => Model.List[i].NewListCost[j])  </td>
                             @*<td>Fill in the future price for maintenance (in €:) @Html.EditorFor(model => item.NewListMaintenance[i])</td>*@
                         </tr>
                     }
                     else
                     {
                         <tr>
-                            <td>@Html.DisplayFor(model => item.List[i].ApplicationName)</td>                           
-                            <td>@String.Format(item.List[i].StartDate.ToShortDateString())</td>
-                            <td>@String.Format(item.List[i].EndDate.ToShortDateString())</td>
-                            <td>@String.Format("€{0:N}", item.List[i].Cost.ToString())   </td>
+                            <td>@Html.DisplayFor(model => Model.List[i].HAList[j].ApplicationName)</td>                           
+                            <td>@String.Format(Model.List[i].HAList[j].StartDate.ToShortDateString())</td>
+                            <td>@String.Format(Model.List[i].HAList[j].EndDate.ToShortDateString())</td>
+                            <td>@String.Format("€{0:N}", Model.List[i].HAList[j].Cost.ToString())   </td>
 
-                            <td class="hidden"> @Html.HiddenFor(model => item.List[i].ApplicationName)</td>
-                            <td class="hidden"> @Html.HiddenFor(model => item.List[i].StartDate)</td>
-                            <td class="hidden"> @Html.HiddenFor(model => item.List[i].EndDate)</td>
-                            <td class="hidden"> @Html.HiddenFor(model => item.List[i].Cost)</td>
+                            <td class="hidden"> @Html.HiddenFor(model => Model.List[i].HAList[j].ApplicationName)</td>
+                            <td class="hidden"> @Html.HiddenFor(model => Model.List[i].HAList[j].StartDate)</td>
+                            <td class="hidden"> @Html.HiddenFor(model => Model.List[i].HAList[j].EndDate)</td>
+                            <td class="hidden"> @Html.HiddenFor(model => Model.List[i].HAList[j].Cost)</td>
                         </tr>
                     }
                 }
