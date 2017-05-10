@@ -103,7 +103,7 @@ namespace Project_TL.Controllers
             {
                 TempData["error"] = "there has been an error. Please contact the IT department";
             }
-            return RedirectToAction("ReportPage");
+            return RedirectToAction("Index");
         }
 
        
@@ -120,7 +120,15 @@ namespace Project_TL.Controllers
             PropertyInfo[] prop = typeof(SecondMakeReport).GetProperties(BindingFlags.Public | BindingFlags.Instance);
             foreach (PropertyInfo pr in prop)
             {
-                table.Columns.Add(pr.Name);
+                if(pr.Name.Equals("HAList"))
+                {
+                    table.Columns.Add("Applications");
+                }
+                else
+                {
+                    table.Columns.Add(pr.Name);
+                }
+                
             }
 
 
@@ -129,7 +137,39 @@ namespace Project_TL.Controllers
                 var values = new object[prop.Length];
                 for (int i = 0; i < prop.Length; i++)
                 {
-                    values[i] = prop[i].GetValue(item, null);
+                    if (i == 4)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        item.HAList.ForEach(t =>
+                        {
+                            String s = t.ApplicationName + " Start Date: " + t.StartDate.ToShortDateString() + " End Date: " + t.EndDate.ToShortDateString() + " CostPrice: " + String.Format("€{0:N}", t.Cost) + "Maintenance price: " + String.Format("€{0:N}",t.Maintenance) + Environment.NewLine;
+                            sb.Append(s);
+
+                        });
+                        values[i] = sb.ToString();
+                    } else if (i == 5)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        item.NewListCost.ForEach(t =>
+                        {
+                            if (t > 0)
+                            {
+                                String s = "New price after end date " + String.Format("€{0:N}", t) + Environment.NewLine;
+                                sb.Append(s);
+                            }
+                            else
+                            {
+                                String s = " " + Environment.NewLine;
+                                sb.Append(s);
+                            }
+                        });
+                        values[i] = sb.ToString();
+                    }
+                    else
+                    {
+                        values[i] = prop[i].GetValue(item, null);
+                    }
+                    
                 }
                 table.Rows.Add(values);
             };

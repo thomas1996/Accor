@@ -88,7 +88,9 @@
                                 <td class="hidden"> @Html.HiddenFor(model => Model.List[i].HAList[j].StartDate)</td>
                                 <td class="hidden"> @Html.HiddenFor(model => Model.List[i].HAList[j].EndDate)</td>
                                 <td class="hidden"> @Html.HiddenFor(model => Model.List[i].HAList[j].Cost)</td>
-                            </tr>
+                                <td class="hidden">@Html.HiddenFor(model => Model.List[i].NewListCost[j])</td>   
+                                    
+                             </tr>
                         }
                     }
 
