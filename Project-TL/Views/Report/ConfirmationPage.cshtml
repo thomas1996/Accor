@@ -33,6 +33,8 @@
                     <th class="hidden"> @Html.HiddenFor(model => Model.List[i].HotelName)</th> 
                     <th class="hidden"> @Html.HiddenFor(model => Model.List[i].HotelId)</th>
                     <th class="hidden"> @Html.HiddenFor(model => Model.List[i].BranchName)</th>
+                    <th class="hidden">@Html.HiddenFor(model => model.StartDate)</th>
+                    <th class="hidden">@Html.HiddenFor(model => model.EndDate)</th>
                     @if (Model.Future == true)
                     {
                     <th>Future price</th>
@@ -72,6 +74,7 @@
                                 {
                                     <td>Fill in the price after @Model.List[i].HAList[j].EndDate.ToShortDateString() (in €): @Html.EditorFor(model => Model.List[i].NewListCost[j])  </td>
                                 }
+                                <td class="hidden">@Html.HiddenFor(model => Model.List[i].NewListCost[j])</td>
 
                                 @*<td>Fill in the future price for maintenance (in €:) @Html.EditorFor(model => item.NewListMaintenance[i])</td>*@
                             </tr>

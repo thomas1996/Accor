@@ -8,7 +8,8 @@
 <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
 <link href="~/Content/Other.css" rel="stylesheet" type="text/css" />
 <script src="~/Scripts/Own Scripts/DataTable.js"></script>
-<script src="~/Scripts/Own Scripts/Grouping.js"> </script>
+<script src="~/Scripts/Own Scripts/BasicTable.js"></script>
+
 <html>
 <body>
 
@@ -22,10 +23,11 @@
             <tr>
                 <th>Name</th>
                 <th>Number of applications</th>
-                <th>Total application cost between @Model.StartDate.ToShortDateString() and @Model.EndDate</th>
-                <th>Total maintenance cost between @Model.StartDate.ToShortDateString() and @Model.EndDate</th>
+                <th>Total application cost between @Model.StartDate.ToShortDateString() and @Model.EndDate.ToShortDateString()</th>
+                <th>Total maintenance cost between @Model.StartDate.ToShortDateString() and @Model.EndDate.ToShortDateString()</th>
             </tr>
         </thead>
+       
         <tbody>
             @foreach (var item in Model.List.OrderBy(t =>t.HotelName))
             {
@@ -33,14 +35,14 @@
                 <tr>
                     <td>@Html.DisplayFor(model => item.HotelName)</td>
                     <td>@item.HAList.Count() </td>
-                    <td>( @item.HAList.Sum(t => t.Cost) + @item.NewListCost.Sum() )</td>
+                    <td>@item.HAList.Sum(t => t.Cost) + @item.NewListCost.Sum()</td>
                     <td> @item.HAList.Sum(t => t.Maintenance)</td>
                 </tr>
             }
             
         </tbody>
     </table>
-
+    @Html.ActionLink("back", "Index", "Report", new { Style = "color:white" })
 
 </body>
 </html>

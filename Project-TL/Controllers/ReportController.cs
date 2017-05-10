@@ -14,6 +14,7 @@ using System.Text;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Reflection;
+using Microsoft.Office.Interop.Excel;
 
 namespace Project_TL.Controllers
 {
@@ -61,11 +62,11 @@ namespace Project_TL.Controllers
                 if (DateTime.Compare(model.EndDate, DateTime.Today) > 0)
                 {
 
-                    return RedirectToAction("ConfirmationPage",new { l = list, future = true,startDate = model.StartDate,endDate = model.EndDate });
+                    return RedirectToAction("ConfirmationPage",new { future = true});
                 }
                 else
                 {
-                    return RedirectToAction("ConfirmationPage", new { l = list, future = false, startDate = model.StartDate, endDate = model.EndDate });
+                    return RedirectToAction("ConfirmationPage", new { future = false});
                 }
 
             }
@@ -76,10 +77,12 @@ namespace Project_TL.Controllers
             return RedirectToAction("Index");
 
         }
-        public ActionResult ConfirmationPage(List<SecondMakeReport> l, bool future,DateTime startDate,DateTime endDate)
+        public ActionResult ConfirmationPage(bool future)
         {
            
-            l = (List <SecondMakeReport> )TempData["list"];           
+           List<SecondMakeReport> l = (List <SecondMakeReport> )TempData["list"];
+            DateTime startDate = (DateTime) TempData["Start"];
+            DateTime endDate = (DateTime)TempData["End"];   
             SecondReportViewModel srvm = new SecondReportViewModel(l, future,startDate,endDate);
             
             return View(srvm);
@@ -92,18 +95,17 @@ namespace Project_TL.Controllers
             try
             {
                 System.Data.DataTable data =  MakeTable(model.List);
-                MakeExcel(data);
+                //MakeExcel(data);
 
-
-                return RedirectToAction("Index");
                 TempData["model"] = model;
                 //return RedirectToAction("Index");
 
             }catch(Exception ex)
             {
                 TempData["error"] = "there has been an error. Please contact the IT department";
+                return RedirectToAction("Index");
             }
-            return RedirectToAction("Index");
+            return Redirect("ReportPage");
         }
 
        
@@ -117,32 +119,48 @@ namespace Project_TL.Controllers
         private System.Data.DataTable MakeTable(List<SecondMakeReport> list)
         {
             System.Data.DataTable table = new System.Data.DataTable();
+
+            //Get all the properties of SecondMakeReport for the titles
             PropertyInfo[] prop = typeof(SecondMakeReport).GetProperties(BindingFlags.Public | BindingFlags.Instance);
-            foreach (PropertyInfo pr in prop)
-            {
-                if(pr.Name.Equals("HAList"))
-                {
-                    table.Columns.Add("Applications");
-                }
-                else
-                {
-                    table.Columns.Add(pr.Name);
-                }
+            //foreach (PropertyInfo pr in prop)
+            //{
+            //    if(pr.Name.Equals("HAList"))
+            //    {
+            //        table.Columns.Add("Applications");
+            //    }
+            //    else
+            //    {
+            //        table.Columns.Add(pr.Name);
+            //    }
                 
+            //}
+
+            //After the 4th column the names are different then the attributes from SecondMakeReport
+            for(int i = 0; i < 8; i ++)
+            {
+                switch(i)
+                {
+                    case 0: case 1: case 2: case 3: table.Columns.Add(prop[i].Name); break;
+                    case 4: table.Columns.Add("Application"); break;
+                    case 5: table.Columns.Add("Start date - End date"); break;
+                    case 6: table.Columns.Add("Cost price"); break;
+                    case 7: table.Columns.Add("Future cost price (after end date)"); break;
+                }
             }
 
 
             foreach(SecondMakeReport item in list)
             {
-                var values = new object[prop.Length];
-                for (int i = 0; i < prop.Length; i++)
+                //Make it +2 because in the begin we have a switch untill 7, we added 2 extra columns
+                var values = new object[prop.Length + 2];
+                for (int i = 0; i < prop.Length + 2 ; i++)
                 {
                     if (i == 4)
                     {
                         StringBuilder sb = new StringBuilder();
                         item.HAList.ForEach(t =>
                         {
-                            String s = t.ApplicationName + " Start Date: " + t.StartDate.ToShortDateString() + " End Date: " + t.EndDate.ToShortDateString() + " CostPrice: " + String.Format("€{0:N}", t.Cost) + "Maintenance price: " + String.Format("€{0:N}",t.Maintenance) + Environment.NewLine;
+                            String s = t.ApplicationName + "<br/>";
                             sb.Append(s);
 
                         });
@@ -150,16 +168,34 @@ namespace Project_TL.Controllers
                     } else if (i == 5)
                     {
                         StringBuilder sb = new StringBuilder();
+                        item.HAList.ForEach(t =>
+                        {
+                            String s = t.StartDate.ToShortDateString() + " - " + t.EndDate.ToShortDateString() + "<br/>";
+                            sb.Append(s);
+                        });
+                        values[i] = sb.ToString();
+                    }else if(i == 6)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        item.HAList.ForEach(t =>
+                        {
+                            String s = t.Cost.ToString() + "<br/>";
+                            sb.Append(s);
+                        });
+                        values[i] = sb.ToString();
+                    }else if (i == 7)
+                    {
+                        StringBuilder sb = new StringBuilder();
                         item.NewListCost.ForEach(t =>
                         {
                             if (t > 0)
                             {
-                                String s = "New price after end date " + String.Format("€{0:N}", t) + Environment.NewLine;
+                                String s = t.ToString() + "<br/>";
                                 sb.Append(s);
                             }
                             else
                             {
-                                String s = " " + Environment.NewLine;
+                                String s = " " + "<br/>";
                                 sb.Append(s);
                             }
                         });
@@ -176,8 +212,9 @@ namespace Project_TL.Controllers
             
             return table;
         }
-        private void MakeExcel(DataTable data)
+        private void MakeExcel(System.Data.DataTable data)
         {
+           
             string FileName = "report" + DateTime.Today.ToShortDateString();
             FileInfo f = new FileInfo(Server.MapPath("Downloads") + string.Format("\\{0}.xlsx", FileName));
             if (f.Exists)
@@ -204,6 +241,7 @@ namespace Project_TL.Controllers
             {
                 using (HtmlTextWriter htw = new HtmlTextWriter(sw))
                 {
+                   
                     // instantiate a datagrid
                     DataGrid dg = new DataGrid();
                     dg.DataSource = data;
@@ -228,7 +266,7 @@ namespace Project_TL.Controllers
 
             
 
-            new Chart(width: 6060, height: 400, theme: ChartTheme.Blue).AddTitle("Costs").AddSeries("Default", chartType: "line", xValue: xValue, yValues: yValue)
+            new System.Web.Helpers.Chart(width: 6060, height: 400, theme: ChartTheme.Blue).AddTitle("Costs").AddSeries("Default", chartType: "line", xValue: xValue, yValues: yValue)
                 .Write("bmp");
             return null;
         }
