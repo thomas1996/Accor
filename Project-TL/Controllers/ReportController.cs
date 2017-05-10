@@ -94,18 +94,19 @@ namespace Project_TL.Controllers
         {
             try
             {
-                System.Data.DataTable data =  MakeTable(model.List);
+                //System.Data.DataTable data =  MakeTable(model.List);
                 //MakeExcel(data);
 
                 TempData["model"] = model;
-                //return RedirectToAction("Index");
+                return RedirectToAction("ReportPage");
 
-            }catch(Exception ex)
+            }
+            catch(Exception ex)
             {
                 TempData["error"] = "there has been an error. Please contact the IT department";
                 return RedirectToAction("Index");
             }
-            return Redirect("ReportPage");
+           
         }
 
        
@@ -113,7 +114,42 @@ namespace Project_TL.Controllers
         public ActionResult ReportPage()
         {
             SecondReportViewModel model = (SecondReportViewModel) TempData["model"];
+            TempData["model"] = model;
+
+            model.BranchList = model.List.GroupBy(t => t.BranchName, t => t.HAList).ToList();
+            double cost = 0.0;
+            model.BranchList.ForEach(t =>
+        {
+            t.ToList().ForEach(s =>
+            {
+                s.ForEach(r =>
+               {
+                   cost += r.Cost;
+               });
+            });
+            model.BranchCost.Add(cost);
+            cost = 0.0;
+        });
+            
             return View(model); 
+        }
+
+        [HttpPost,ActionName("ReportPage")]
+        public ActionResult ReportPageConfirmed()
+        {
+            try
+            {
+                SecondReportViewModel model = (SecondReportViewModel)TempData["model"];
+                System.Data.DataTable data = MakeTable(model.List);
+                MakeExcel(data);
+
+            }
+            catch (Exception ex)
+            {
+                TempData["error"] = "there has been an error. Please contact the IT department";
+                return RedirectToAction("Index");
+            }
+            return Redirect("ReportPage");
         }
 
         private System.Data.DataTable MakeTable(List<SecondMakeReport> list)
@@ -122,20 +158,7 @@ namespace Project_TL.Controllers
 
             //Get all the properties of SecondMakeReport for the titles
             PropertyInfo[] prop = typeof(SecondMakeReport).GetProperties(BindingFlags.Public | BindingFlags.Instance);
-            //foreach (PropertyInfo pr in prop)
-            //{
-            //    if(pr.Name.Equals("HAList"))
-            //    {
-            //        table.Columns.Add("Applications");
-            //    }
-            //    else
-            //    {
-            //        table.Columns.Add(pr.Name);
-            //    }
-                
-            //}
-
-            //After the 4th column the names are different then the attributes from SecondMakeReport
+           
             for(int i = 0; i < 8; i ++)
             {
                 switch(i)
@@ -155,7 +178,7 @@ namespace Project_TL.Controllers
                 var values = new object[prop.Length + 2];
                 for (int i = 0; i < prop.Length + 2 ; i++)
                 {
-                    if (i == 4)
+                   if(i == 4)
                     {
                         StringBuilder sb = new StringBuilder();
                         item.HAList.ForEach(t =>
@@ -203,7 +226,13 @@ namespace Project_TL.Controllers
                     }
                     else
                     {
-                        values[i] = prop[i].GetValue(item, null);
+                        StringBuilder sb = new StringBuilder();
+                        item.HAList.ForEach(t =>
+                        {
+                            String s = prop[i].GetValue(item, null).ToString() + "<br/>";
+                            sb.Append(s);
+                        });
+                        values[i] = sb.ToString();
                     }
                     
                 }
@@ -250,6 +279,8 @@ namespace Project_TL.Controllers
                     response.Write(sw.ToString());
                     dg.Dispose();
                     data.Dispose();
+                    response.SetCookie(new HttpCookie("fileDownload", "true") { Path = "/" });
+                    //response.Redirect("ReportPage");
                     response.End();
                 }
             }
