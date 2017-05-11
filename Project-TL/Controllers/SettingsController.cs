@@ -19,7 +19,7 @@ namespace Project_TL.Controllers
         private IFirmRepository firmRepo;
         private IHotelRepository hotelRepo;
         private List<Status> status;
-        private List<Models.Domain.Type> type;
+        private List<Models.Domain.ApplicationType> type;
 
         public SettingsController()
         {
@@ -34,7 +34,7 @@ namespace Project_TL.Controllers
             this.firmRepo = firmRepo;
             this.sysRepo = systRepo;
             status = new List<Status>();
-            type = new List<Models.Domain.Type>();
+            type = new List<Models.Domain.ApplicationType>();
             MakeList("Status");
             MakeList("Type");
         }
@@ -54,7 +54,7 @@ namespace Project_TL.Controllers
                     break;
                 case "type":
                     {
-                        foreach (Models.Domain.Type t in Enum.GetValues(typeof(Models.Domain.Type)))
+                        foreach (Models.Domain.ApplicationType t in Enum.GetValues(typeof(Models.Domain.ApplicationType)))
                         {
                             type.Add(t);
                         }

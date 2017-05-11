@@ -61,6 +61,11 @@ namespace Project_TL.Models.DAL
             return systems.Where(t => t.Name.Equals(name));
         }
 
+        public Context getContext()
+        {
+            return context;
+        }
+
         public void RemoveSyst(Application syst)
         {
             systems.Remove(syst);

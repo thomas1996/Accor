@@ -13,12 +13,13 @@ namespace Project_TL.ViewModels.Application
         public ApplicationViewModel(Models.Domain.Application syst)
         {
             Id = syst.ApplicationId;
-            Price = syst.TotalPrice;
+            Price = syst.TotalCost;
             Name = syst.Name;
             Type = syst.Type;          
             NumberOfHotels = syst.Hotels.Count();
             Hotels = syst.Hotels;
             Maintenance = syst.TotalMaintenance;
+            TotalPrice = syst.TotalPrice;
 
                       
         }
@@ -26,18 +27,24 @@ namespace Project_TL.ViewModels.Application
         public int Id { get; set; }
 
         [DisplayFormat(DataFormatString = "€{0:N}")]
+
+        [Display(Name ="Contract Cost")]
         public double Price { get; set; }
 
         public string Name { get; set; }
 
-        public Models.Domain.Type Type { get; set; }
+        public Models.Domain.ApplicationType Type { get; set; }
       
 
         public  int NumberOfHotels { get; set; }
 
         public  ICollection<HotelApplication> Hotels { get; }
 
+        [Display(Name =("Maintenance Cost"))]
         public  double Maintenance { get; set; }
+
+        [Display(Name ="Total Application Cost")]
+        public double TotalPrice { get; set; }
 
     }
 }

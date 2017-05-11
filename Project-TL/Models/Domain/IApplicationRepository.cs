@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Project_TL.Models.DAL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ namespace Project_TL.Models.Domain
         IQueryable<Application> FindByHotel(string hotelId);
         Application FindById(int id);
         IQueryable<Application> FindAll();
+        Context getContext();
         void AddSyst(Application syst);
         void EditSyst(Application syst);
         void RemoveSyst(Application syst);

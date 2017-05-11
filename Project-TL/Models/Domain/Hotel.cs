@@ -28,10 +28,13 @@ namespace Project_TL.Models.Domain
                 {
                     Applications.ToList().ForEach(t =>
                     {
+                        //if contract is ended, price has not to be calculated 
+                        if(DateTime.Compare(t.EndDate,DateTime.Today) > 0)
                         totalCost += t.Cost;
-                        if(t.Maintenance >0)
-                        {
-                            totalCost += t.Maintenance;
+                        if(t.Maintenance !=null )
+                        {                  
+                            if(DateTime.Compare(t.Maintenance.EndDate,DateTime.Today) > 0)       
+                            totalCost += t.Maintenance.Price;
                         }
                         
                     });

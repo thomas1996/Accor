@@ -25,7 +25,8 @@ namespace Project_TL.Models.Domain
                 {
                     Hotels.ToList().ForEach(t =>
                     {
-
+                        //if contract is ended price has not be calculated
+                        if(DateTime.Compare(t.EndDate,DateTime.Today) > 0 )
                         price += t.Cost;
 
                     });
@@ -35,9 +36,9 @@ namespace Project_TL.Models.Domain
         }
         public string Name { get; set; }
         public double OtherCosts { get; set; }      
-        public virtual Type Type {get;set;    }
+        public virtual ApplicationType Type {get;set;    }
         public virtual ICollection<HotelApplication> Hotels { get;  }
-        public virtual double TotalMaintenance { get
+        public double TotalMaintenance { get
             {
                 double maintenance = 0.0;
                 
@@ -45,7 +46,9 @@ namespace Project_TL.Models.Domain
                 {
                     Hotels.ToList().ForEach(t =>
                     {
-                        maintenance += t.Maintenance;
+                        //If contract is ended, price has not to be calculated 
+                        if(DateTime.Compare(t.Maintenance.EndDate,DateTime.Today) > 0 )
+                        maintenance += t.Maintenance.Price;
                     });
                 }
                 
@@ -56,10 +59,11 @@ namespace Project_TL.Models.Domain
         public Application()
         {
             Hotels = new List<HotelApplication>();
+           
             
         }
 
-        public Application(double price,string name,Type type)
+        public Application(double price,string name,ApplicationType type)
         {
             OtherCosts = price;
             Name = name;

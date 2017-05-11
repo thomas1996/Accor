@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -20,6 +21,9 @@ namespace Project_TL.Models.Domain
             StartDate = DateTime.Today;
             EndDate = DateTime.Today;
             Cost = 0.0;
+            MaintenanceCost = 0.0;
+            MStartDate = DateTime.Today;
+            MEndDate = DateTime.Today;
         }
 
         public int ApplicationId { get; set; }
@@ -27,7 +31,18 @@ namespace Project_TL.Models.Domain
         public string Name { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
+
+        [Range(0,int.MaxValue,ErrorMessage ="Has to be positive")]
         public double Cost { get; set; }
+
+        [Range(0, int.MaxValue, ErrorMessage = "Has to be positive")]
+        public double MaintenanceCost { get; set; }
+
+        [Display(Name="StartDate Maintenance")]
+        public DateTime MStartDate { get; set; }
+
+        [Display(Name ="EndDate Maintenance")]
+        public DateTime MEndDate { get; set; }
 
     }
 }

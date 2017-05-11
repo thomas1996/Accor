@@ -12,7 +12,7 @@ namespace Project_TL.Models.Domain
 
         }
 
-        public HotelApplication(string hotelId,int appId,double cost,double maintenance,DateTime startDate,DateTime endDate,string hotelName,string appName)
+        public HotelApplication(string hotelId,int appId,double cost,Maintenance maintenance,DateTime startDate,DateTime endDate,string hotelName,string appName)
        { 
             HotelId = hotelId;
             ApplicationId = appId;
@@ -31,7 +31,7 @@ namespace Project_TL.Models.Domain
         public string ApplicationName { get; set; }
 
         public double Cost { get; set; }
-        public double Maintenance { get; set; }
+        public virtual Maintenance Maintenance { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 

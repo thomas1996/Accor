@@ -45,6 +45,123 @@ namespace Project_TL.Controllers
         }
 
 
+        public ActionResult Create()
+        {
+            //making the list of status
+
+            List<Models.Domain.ApplicationType> type = new List<Models.Domain.ApplicationType>();
+            foreach (Models.Domain.ApplicationType t in Enum.GetValues(typeof(Models.Domain.ApplicationType)))
+            {
+                type.Add(t);
+            }
+
+            Application a = new Application();
+            EditApplicationViewModel avm = new EditApplicationViewModel(a)
+            {
+                SelectedStatusId = type.FirstOrDefault().ToString(),
+                TypeList = type.Select(t => new SelectListItem
+                {
+                    Value = t.ToString(),
+                    Text = t.ToString()
+                }),
+            };
+            
+            return View(avm);
+        }
+
+        [HttpPost]
+        public ActionResult Create(EditApplicationViewModel model)
+        {
+           
+            try
+            {
+                Application ap = new Application();
+                systRepo.AddSyst(ap);
+                MapToApplication(model, ap);
+
+                systRepo.SaveChanges();
+                TempData["message"] = String.Format("Application {0} has been created", ap.Name);
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+            }
+            List<Models.Domain.ApplicationType> type = new List<Models.Domain.ApplicationType>();
+            foreach (Models.Domain.ApplicationType t in Enum.GetValues(typeof(Models.Domain.ApplicationType)))
+            {
+                type.Add(t);
+            }
+            model.TypeList = type.Select(t => new SelectListItem
+            {
+                Value = t.ToString(),
+                Text = t.ToString()
+            });
+            return View("Create", model);
+
+        }
+
+       public ActionResult Edit(int id)
+        {
+            Application ap = systRepo.FindById(id);
+            List<ApplicationType> type = new List<ApplicationType>();
+
+            foreach (ApplicationType t in Enum.GetValues(typeof(ApplicationType)))
+            {
+                type.Add(t);
+            }
+            //check if the application exist (normally this can never give null unless DB failure)
+            if (ap == null)
+            {
+                return HttpNotFound();
+            }
+
+            //fill the dropdown and select the default type
+            EditApplicationViewModel eavm = new EditApplicationViewModel(ap)
+            {
+                SelectedStatusId = type.FirstOrDefault().ToString(),
+                TypeList = type.Select(t => new SelectListItem
+                {
+                    Value = t.ToString(),
+                    Text = t.ToString()
+                })
+
+            };
+
+            return View(eavm);
+
+        }
+        [HttpPost]
+        public ActionResult Edit(int id,EditApplicationViewModel model)
+        {
+            try
+            {
+                Application ap = systRepo.FindById(id);
+                MapToApplication(model, ap);
+                systRepo.SaveChanges();
+                TempData["message"] = String.Format("Application {0} werd aangepast", ap.Name);
+                return RedirectToAction("Index");
+            }
+            catch(Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+
+            }
+            // http policy requires to fill the list again after the post
+            List<ApplicationType> type = new List<ApplicationType>();
+
+            foreach (ApplicationType t in Enum.GetValues(typeof(ApplicationType)))
+            {
+                type.Add(t);
+            }
+            model.TypeList = type.Select(t => new SelectListItem
+            {
+                Value = t.ToString(),
+                Text = t.ToString()
+            });
+            return Edit(id);
+        }
+
         public ActionResult Delete(int id)
         {
             Application s = systRepo.FindById(id);
@@ -63,17 +180,24 @@ namespace Project_TL.Controllers
                 Application s = systRepo.FindById(id);
                 if (s == null)
                     return HttpNotFound();
-                List<Hotel> hot = hotelRepo.FindBySystem(s.ApplicationId).ToList();
+
+                //error when you try to use the hotelrepo
+                List<Hotel> hot = new List<Hotel>();
+                systRepo.getContext().Hotels.ToList().ForEach(t =>
+            {
+                t.Applications.ToList().ForEach(r =>
+                {
+                    if (r.ApplicationId == s.ApplicationId)
+                        hot.Add(t);
+                });
+            });
+                    
 
                 //check all hotels and delete the application if they have it
                 foreach (Hotel h in hot)
                 {
-                    //h.Applications.ToList().RemoveAll(t => t.ApplicationId == id && t.HotelId == h.HotelId);
-                    h.Applications.Where(t => t.ApplicationId == id).Where(t => t.HotelId.Equals(h.HotelId)).ToList().ForEach(t =>
-                    {
-                        h.removeApplication(t);
-                        
-                    });
+                    h.Applications.ToList().RemoveAll(t => t.ApplicationId == id && t.HotelId == h.HotelId);
+                   
                 }
 
                 //save everything and popup message if it's all ok
@@ -85,10 +209,11 @@ namespace Project_TL.Controllers
             }
             catch (Exception ex)
             {
-                TempData["error"] = "There was an error, if this keeps happening, please contact the IT administrator";
+                TempData["error"] = "There was an error when deleting the hotel from the applciation. Please contact the IT department.";
             }
             return RedirectToAction("Index");
         }
+
 
         //hotels of the application crud methods
 
@@ -194,12 +319,30 @@ namespace Project_TL.Controllers
             
             ha.StartDate = model.StartDate;
             ha.EndDate = model.EndDate;
+
+            Maintenance m = new Maintenance(model.MStartDate, model.MEndDate, model.MaintenanceCost);
+            ha.Maintenance = m;
             //s1.Type = s.Type;
         }
+        private void MapToApplication(EditApplicationViewModel model, Application ap)
+        {
+            ap.Name = model.Name;
+            ap.Type = getEnum(model.SelectedStatusId);
+            ap.ApplicationId = model.Id;
+            
+           
+        }
 
-
-       
-
+        private Models.Domain.ApplicationType getEnum(string selectedStatusId)
+        {
+            switch(selectedStatusId)
+            {
+                case "Leased": return Models.Domain.ApplicationType.Leased;
+                case "Rented": return Models.Domain.ApplicationType.Rented;
+                case "Purashed":return Models.Domain.ApplicationType.Purashed;
+                default: return Models.Domain.ApplicationType.Leased;
+            }
+        }
     }
 
 }

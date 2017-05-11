@@ -10,10 +10,6 @@ namespace Project_TL.ViewModels
 {
     public class EditHotelViewModel
     {
-        //make a readonly list so it's impossible to change the objects, but only change the selected object
-    
-      
-        private  List<Status> status;
 
         public EditHotelViewModel()
         {
@@ -22,9 +18,6 @@ namespace Project_TL.ViewModels
 
         public EditHotelViewModel(Hotel h)
         {
-           
-            status = new List<Status>();
-            //makeStatusList();
 
             Name = h.Name;
             VatNumber = h.VatNumber;

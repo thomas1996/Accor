@@ -16,7 +16,7 @@ namespace Project_TL.ViewModels
             Contacts = contacts;
             Owners = owners;
             Statusses = new List<Status>();
-            Types = new List<Models.Domain.Type>();
+            Types = new List<Models.Domain.ApplicationType>();
             MakeList("Status");
             MakeList("Type");
         }
@@ -25,7 +25,7 @@ namespace Project_TL.ViewModels
         public List<ContactPerson> Contacts { get; set; }
         public List<Owner> Owners { get; set; }
         public List<Status> Statusses { get; set; }
-        public List<Models.Domain.Type> Types { get; set; }
+        public List<Models.Domain.ApplicationType> Types { get; set; }
 
     
     private void MakeList(string v)
@@ -42,7 +42,7 @@ namespace Project_TL.ViewModels
                 break;
              case "type":
                     {
-                       foreach(Models.Domain.Type t in Enum.GetValues(typeof(Models.Domain.Type)))
+                       foreach(Models.Domain.ApplicationType t in Enum.GetValues(typeof(Models.Domain.ApplicationType)))
                         {
                             Types.Add(t);
                         }

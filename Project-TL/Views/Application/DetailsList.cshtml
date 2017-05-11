@@ -1,29 +1,44 @@
 ﻿@model Project_TL.ViewModels.Application.ApplicationViewModel
 
-<table class="table-condensed table-responsive table-bordered">
-    <tr>
-        <th>Name</th>        
-        <th>Contract Price</th>  
-        <th>Maintenance Price</th>    
-        <th>Start date</th>
-        <th>End date</th>
-        <th></th>
-    </tr>
-    @foreach (var item in Model.Hotels)
-    {
+@if (Model.Hotels.Count() > 0)
+{
+    <table class="table-condensed table-responsive table-bordered">
         <tr>
-            <td>@Html.DisplayFor(modelitem => item.HotelName)</td>          
-            <td>@String.Format("€{0:N}",item.Cost)</td>
-            <td>@String.Format("€{0:N}",item.Maintenance)</td>
-           
-            <td>@String.Format(item.StartDate.ToShortDateString()) </td>
-            <td>@String.Format(item.EndDate.ToShortDateString()) </td>
-            <td>
-                
-                @Html.ActionLink("Delete application from this hotel", "DeleteHotel", new { id = item.HotelId ,systId = item.ApplicationId,endDate = item.EndDate},
-               new { onclick = "return confirm('Are you sure you wish to delete this article?');" } )
-            </td>
+            <th>@Html.DisplayNameFor(model => model.Hotels.FirstOrDefault().HotelName)</th>
+            <th>@Html.DisplayNameFor(model => model.Hotels.FirstOrDefault().Cost)</th>
+            <th>@Html.DisplayNameFor(model => model.Hotels.FirstOrDefault().StartDate)</th>
+            <th>@Html.DisplayNameFor(model => model.Hotels.FirstOrDefault().EndDate)</th>
+            <th>Maintenance Price</th>
+            <th>@Html.DisplayNameFor(model => model.Hotels.FirstOrDefault().Maintenance.StartDate)</th>
+            <th>@Html.DisplayNameFor(model => model.Hotels.FirstOrDefault().Maintenance.EndDate)</th>
+            
+            <th></th>
         </tr>
-    }
-</table>
+        @foreach (var item in Model.Hotels)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelitem => item.HotelName)</td>
+                <td>@String.Format("€{0:N}", item.Cost)</td>
+                <td>@String.Format(item.StartDate.ToShortDateString()) </td>
+                <td>@String.Format(item.EndDate.ToShortDateString()) </td>
+
+                <td>@String.Format("€{0:N}", item.Maintenance.Price)</td>
+                <td>@String.Format(item.Maintenance.StartDate.ToShortDateString()) </td>
+                <td>@String.Format(item.Maintenance.EndDate.ToShortDateString()) </td>
+
+               
+                <td>
+
+                    @Html.ActionLink("Delete application from this hotel", "DeleteHotel", new { id = item.HotelId, systId = item.ApplicationId, endDate = item.EndDate },
+               new { onclick = "return confirm('Are you sure you wish to delete this article?');" })
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>There are currently no hotels that use this application.</p>
+}
+
 

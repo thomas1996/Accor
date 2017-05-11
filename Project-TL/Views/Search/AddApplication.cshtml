@@ -31,6 +31,15 @@
             <th>
                 @Html.DisplayNameFor(model => model.Applications.FirstOrDefault().EndDate)
             </th>
+            <th>
+            @Html.DisplayNameFor(model => model.Applications.FirstOrDefault().MaintenanceCost)
+            </th>
+            <th>
+            @Html.DisplayNameFor(model => model.Applications.FirstOrDefault().MStartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Applications.FirstOrDefault().MEndDate)
+            </th>
         </tr>
 
         @for (int i = 0; i < Model.Applications.Count(); i++)
@@ -46,7 +55,7 @@
                 </td>                
                 <td>
                     <div class="col-md-10 form-group">
-                        @Html.EditorFor(item => item.Applications[i].Cost, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.EditorFor(item => item.Applications[i].Cost, new { htmlAttributes = new { @class = "form-control",@min = 0 }})
                         @Html.ValidationMessageFor(item => item.Applications[i].Cost, "", new { @class = "text-danger" })
                     </div>
                 </td>
@@ -56,6 +65,16 @@
                 </td>
                 <td>
                     @Html.EditorFor(item => item.Applications[i].EndDate, new { HtmlAttributes = new { @class = "datefield", type = "date", value = DateTime.Today.ToShortDateString() } })
+                </td>
+                <td>
+                    @Html.EditorFor(item => item.Applications[i].MaintenanceCost, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(item => item.Applications[i].MaintenanceCost, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.EditorFor(item => item.Applications[i].MStartDate, new { HtmlAttributes = new { @class = "datefield", type = "date", value ="2014-01-01" } })
+                </td>
+                <td>
+                    @Html.EditorFor(item => item.Applications[i].MEndDate, new { HtmlAttributes = new { @class = "datefield", type = "date", value = DateTime.Today.ToShortDateString() } })
                 </td>
                 <td class="hidden">
                     @Html.HiddenFor(item => item.Applications[i].ApplicationId)

@@ -194,49 +194,56 @@ namespace Project_TL.Controllers
                 status.Add(s);
             }
 
-
-
-            Hotel hotel = new Hotel();
-            EditHotelViewModel ehvm = new EditHotelViewModel(hotel)
+            try
             {
-                //select the default branch
-                SelectedBranchId = branch.FirstOrDefault().BranchId.ToString(),
-                //fill the list with all the branches
-                Branch = branch.Select(t => new SelectListItem
+                Hotel hotel = new Hotel();
+                EditHotelViewModel ehvm = new EditHotelViewModel(hotel)
                 {
-                    Value = t.BranchId.ToString(),
-                    Text = t.Name
-                }),
-                //repeat for al the other lists
+                    //select the default branch
+                    SelectedBranchId = branch.FirstOrDefault().BranchId.ToString(),
+                    //fill the list with all the branches
+                    Branch = branch.Select(t => new SelectListItem
+                    {
+                        Value = t.BranchId.ToString(),
+                        Text = t.Name
+                    }),
+                    //repeat for al the other lists
 
-                //Contactperson
-                SelectedContactPersonId = contact.FirstOrDefault().ContactPersonId.ToString(),
-                ContactPerson = contact.Select(t => new SelectListItem
-                {
-                    Value = t.ContactPersonId.ToString(),
-                    Text = t.LastName + " " + t.FirstName
-                }),
+                    //Contactperson
+                    SelectedContactPersonId = contact.FirstOrDefault().ContactPersonId.ToString(),
+                    ContactPerson = contact.Select(t => new SelectListItem
+                    {
+                        Value = t.ContactPersonId.ToString(),
+                        Text = t.LastName + " " + t.FirstName
+                    }),
 
-                //Owner
-                SelectedOwnerId = owner.FirstOrDefault().OwnerId.ToString(),
-                Owner = owner.Select(t => new SelectListItem
-                {
-                    Value = t.OwnerId.ToString(),
-                    Text = t.LastName + " " + t.FirstName
-                }),
+                    //Owner
+                    SelectedOwnerId = owner.FirstOrDefault().OwnerId.ToString(),
+                    Owner = owner.Select(t => new SelectListItem
+                    {
+                        Value = t.OwnerId.ToString(),
+                        Text = t.LastName + " " + t.FirstName
+                    }),
 
-                //status
-                SelectedStatusId = status.FirstOrDefault().ToString(),
-                Status = status.Select(t => new SelectListItem
-                {
-                    Value = t.ToString(),
-                    Text = t.ToString()
-                })
+                    //status
+                    SelectedStatusId = status.FirstOrDefault().ToString(),
+                    Status = status.Select(t => new SelectListItem
+                    {
+                        Value = t.ToString(),
+                        Text = t.ToString()
+                    })
 
-            };
+                };
+                return View(ehvm);
+            }
+            catch(Exception ex)
+            {
+                TempData["error"] = "Somethign whent wrong. Please contact the IT department";
+                return RedirectToAction("Index");
+            }
 
-            return View(ehvm);
         }
+
         [HttpPost]
         public ActionResult Create(EditHotelViewModel ehvm)
         {
@@ -309,25 +316,37 @@ namespace Project_TL.Controllers
                     return HttpNotFound();
                 }
 
-                List<Application> apps = sysRepo.FindByHotel(h.HotelId).ToList();
-                //removing the hotel from all the applications
-
-                apps.ForEach(t =>
+                //error when you try to use the sysRepo
+                List<Application> apps = new List<Application>();
+                hotelRepo.getContext().Systems.ToList().ForEach(t =>
                 {
-                    t.Hotels.Where(s => s.ApplicationId == t.ApplicationId).Where(r => r.HotelId == id).ToList().ForEach(q =>
+                    t.Hotels.ToList().ForEach(s =>
                     {
-                        t.removeHotel(q);
+                        if (s.HotelId == h.HotelId)
+                            apps.Add(t);
                     });
                 });
+                //removing the hotel from all the applications
+                foreach(Application ap in apps)
+                {
+                    ap.Hotels.ToList().RemoveAll(t => t.HotelId == id && t.ApplicationId == ap.ApplicationId);
+                }
+                //apps.ForEach(t =>
+                //{
+                //    t.Hotels.Where(s => s.ApplicationId == t.ApplicationId).Where(r => r.HotelId == id).ToList().ForEach(q =>
+                //    {
+                //        t.removeHotel(q);
+                //    });
+                //});
 
-
+                //save everything and popup message if it's all ok
                 hotelRepo.RemoveHotel(h);
                 hotelRepo.SaveChanges();
                 TempData["message"] = String.Format("Hotel {0} has been deleted", h.Branch);
             }
             catch (Exception ex)
             {
-                TempData["error"] = String.Format("There has been a problem. If this keeps happening, please contact your administrator");
+                TempData["error"] = "There was an problem when deleting the application from the hotel. Please contact the IT department.";
             }
             return RedirectToAction("Index");
         }
@@ -430,21 +449,13 @@ namespace Project_TL.Controllers
             ha.StartDate = model.StartDate;
             ha.HotelId = h.HotelId;
             ha.HotelName = h.Name;
+            Maintenance m = new Maintenance(model.MStartDate, model.MEndDate, model.MaintenanceCost);
+            ha.Maintenance = m;
 
         }
 
         private void MapToHotel(EditHotelViewModel ehvm, Hotel hotel,Context x)
         {
-            //hotel.Branch = branchRepo.FindById(Convert.ToInt32(ehvm.SelectedBranchId));
-            //hotel.ContactPerson = contactRepo.FindById(Convert.ToInt32(ehvm.SelectedContactPersonId));
-            //hotel.Email = ehvm.Email;
-            //hotel.Owner = ownerRepo.FindById(Convert.ToInt32(ehvm.SelectedOwnerId));
-            //hotel.TelephoneNumber = ehvm.TelephoneNumber;
-            //hotel.VatNumber = ehvm.VatNumber;
-            //hotel.Adres = ehvm.Adres;
-            //hotel.HotelId = ehvm.HotelId;
-            //hotel.Name = ehvm.Name;
-            //hotel.Status = getEnum(ehvm.SelectedStatusId);
 
             int br = (Convert.ToInt32(ehvm.SelectedBranchId));
             int cp = (Convert.ToInt32(ehvm.SelectedContactPersonId));

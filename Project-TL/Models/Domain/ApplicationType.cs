@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Project_TL.Models.Domain
 {
-    public enum Type
+    public enum ApplicationType
     {
 
         Leased,

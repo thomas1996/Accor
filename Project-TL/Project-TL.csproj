@@ -305,11 +305,12 @@
     <Compile Include="Models\Domain\PriceCategorie.cs" />
     <Compile Include="Models\Domain\Status.cs" />
     <Compile Include="Models\Domain\Application.cs" />
-    <Compile Include="Models\Domain\Type.cs" />
+    <Compile Include="Models\Domain\ApplicationType.cs" />
     <Compile Include="Models\Domain\User.cs" />
     <Compile Include="Models\Encryption\DataProtection.cs" />
     <Compile Include="ViewModels\Application\AddHotelToApplicationViewModel.cs" />
     <Compile Include="ViewModels\Application\ApplicationViewModel.cs" />
+    <Compile Include="ViewModels\Application\EditApplicationViewModel.cs" />
     <Compile Include="ViewModels\Hotels\AddApplicationToHotelViewModel.cs" />
     <Compile Include="ViewModels\Hotels\EditHotelViewModel.cs" />
     <Compile Include="ViewModels\IdentityModels.cs" />
@@ -545,6 +546,8 @@
     <Content Include="Views\Settings\DeleteContactPerson.cshtml" />
     <Content Include="Views\Settings\DeleteOwner.cshtml" />
     <Content Include="Views\Report\ReportPage.cshtml" />
+    <Content Include="Views\Application\Create.cshtml" />
+    <Content Include="Views\Application\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

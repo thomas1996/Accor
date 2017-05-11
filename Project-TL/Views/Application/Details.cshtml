@@ -22,14 +22,14 @@
         </dd>
 
          <dt>
-            Total price
+            @Html.DisplayNameFor(model => model.Price)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Price)
+            @String.Format("€{0:N}", Model.Price)
         </dd>        
         <dt>
-            Maintenance price
+            @Html.DisplayNameFor(model => model.Maintenance)
         </dt>
         <dd>
             @String.Format("€{0:N}",Model.Maintenance)
@@ -47,7 +47,7 @@
    
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
     @Html.ActionLink("Add hotel(s)", "AddHotel", new { id = Model.Id}) |
     @Html.ActionLink("Back to List", "Index")
 </p>

@@ -22,12 +22,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Hotels.FirstOrDefault().Name)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Hotels.FirstOrDefault().Owner)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Hotels.FirstOrDefault().Contact)
-            </th>
+         
             <th>
                 @Html.DisplayNameFor(model => model.Hotels.FirstOrDefault().Cost)
             </th>
@@ -37,6 +32,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Hotels.FirstOrDefault().EndDate)
             </th>
+            <th>@Html.DisplayNameFor(model => model.Hotels.FirstOrDefault().MaintenanceCost)</th>
+            <th>StartDate Maintenance</th>
+            <th>EndDate Maintenance</th>
         </tr>
 
         @for(int i = 0; i<Model.Hotels.Count(); i++)
@@ -50,14 +48,7 @@
                 <td>
                     @Html.DisplayFor(item => item.Hotels[i].Name)
                 </td>
-                <td>
-                    
-                    @Html.DisplayFor(item => item.Hotels[i].Owner.LastName) @Html.DisplayFor(item => item.Hotels[i].Owner.FirstName)
-                </td>
-                <td>
-                   
-                    @Html.DisplayFor(item => item.Hotels[i].Contact.LastName) @Html.DisplayFor(item => item.Hotels[i].Contact.FirstName)
-                </td>
+                
                  <td>
                         <div class="col-md-10 form-group">
                             @Html.EditorFor(item => item.Hotels[i].Cost, new { htmlAttributes = new { @class = "form-control"  } })
@@ -70,6 +61,18 @@
                     <td>
                         @Html.EditorFor(item => item.Hotels[i].EndDate, new { HtmlAttributes = new { @class = "datefield", type = "date", value = DateTime.Today.ToShortDateString() } })
                     </td>
+                <td>
+                    <div class="col-md-10 form-group">
+                        @Html.EditorFor(item => item.Hotels[i].MaintenanceCost, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(item => item.Hotels[i].MaintenanceCost, "", new { @class = "text-danger" })
+                    </div>
+                </td>
+                <td>
+                    @Html.EditorFor(item => item.Hotels[i].MStartDate, new { HtmlAttributes = new { @class = "datefield", type = "date", value = DateTime.Today.ToShortDateString() } })
+                </td>
+                <td>
+                    @Html.EditorFor(item => item.Hotels[i].MEndDate, new { HtmlAttributes = new { @class = "datefield", type = "date", value = DateTime.Today.ToShortDateString() } })
+                </td>
                
                 <td class="hidden">
                     <input type="hidden" name="hotelId" value="@Model.Hotels[i].HotelId" />

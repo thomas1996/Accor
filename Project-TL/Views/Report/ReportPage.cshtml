@@ -43,7 +43,7 @@
                     <td>@Html.DisplayFor(model => item.HotelName)</td>
                     <td>@item.HAList.Count() </td>
                     <td>@item.HAList.Sum(t => t.Cost) + @item.NewListCost.Sum()</td>
-                    <td> @item.HAList.Sum(t => t.Maintenance)</td>
+                    <td> @item.HAList.Sum(t => t.Maintenance.Price)</td>
                 </tr>
             }
             
