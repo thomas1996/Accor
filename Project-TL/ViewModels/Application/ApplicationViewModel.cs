@@ -16,7 +16,7 @@ namespace Project_TL.ViewModels.Application
             Price = syst.TotalCost;
             Name = syst.Name;
             Type = syst.Type;          
-            NumberOfHotels = syst.Hotels.Count();
+            NumberOfHotels = syst.Hotels.Where(t => DateTime.Compare(t.EndDate,DateTime.Today) >= 0).Where(t => DateTime.Compare(t.StartDate,DateTime.Today) <= 0).Count();
             Hotels = syst.Hotels;
             Maintenance = syst.TotalMaintenance;
             TotalPrice = syst.TotalPrice;

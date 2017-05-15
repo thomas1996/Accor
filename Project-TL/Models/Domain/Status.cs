@@ -5,16 +5,17 @@ using System.Web;
 
 namespace Project_TL.Models.Domain
 {
-    public enum Status
-    {
-            HQI,
-            HQS,
-            JV,
-            FR,
-            FIL,
-            MAN,
+    //public enum Status
+    //{
+    //        HQI,
+    //        HQS,
+    //        JV,
+    //        FR,
+    //        FIL,
+    //        MAN,
 
-    }
+    //}
+    public List<string> enum { get; set; }
 
     //public Status findEnum()
     //{
@@ -29,5 +30,5 @@ namespace Project_TL.Models.Domain
     //    }
     //    return Status.HQI ;
     //}
-    
+
 }

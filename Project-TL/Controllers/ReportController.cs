@@ -125,6 +125,8 @@ namespace Project_TL.Controllers
                 s.ForEach(r =>
                {
                    cost += r.Cost;
+                   if (r.Maintenance != null)
+                       cost += r.Maintenance.Price;
                });
             });
             model.BranchCost.Add(cost);
@@ -159,77 +161,159 @@ namespace Project_TL.Controllers
             //Get all the properties of SecondMakeReport for the titles
             PropertyInfo[] prop = typeof(SecondMakeReport).GetProperties(BindingFlags.Public | BindingFlags.Instance);
            
-            for(int i = 0; i < 8; i ++)
+            for(int i = 0; i < 13; i ++)
             {
                 switch(i)
                 {
                     case 0: case 1: case 2: case 3: table.Columns.Add(prop[i].Name); break;
                     case 4: table.Columns.Add("Application"); break;
-                    case 5: table.Columns.Add("Start date - End date"); break;
-                    case 6: table.Columns.Add("Cost price"); break;
-                    case 7: table.Columns.Add("Future cost price (after end date)"); break;
+                    case 5: table.Columns.Add("Start date"); break;
+                    case 6: table.Columns.Add("End date");break;
+                    case 7: table.Columns.Add("Cost price"); break;
+                    case 8: table.Columns.Add("Future cost price (after end date)"); break;
+                    case 9: table.Columns.Add("Maintenance start Date");break;
+                    case 10: table.Columns.Add("Maintenance end Date"); break;
+                    case 11: table.Columns.Add("Maintenance price"); break;
+                    case 12: table.Columns.Add("Future maintenance price");break;
                 }
             }
 
 
             foreach(SecondMakeReport item in list)
             {
-                //Make it +2 because in the begin we have a switch untill 7, we added 2 extra columns
-                var values = new object[prop.Length + 2];
-                for (int i = 0; i < prop.Length + 2 ; i++)
+                //Make it +3 because in the begin we have a switch untill 8, we added 3 extra columns
+                var values = new object[prop.Length + 6];
+                for (int i = 0; i < prop.Length + 6 ; i++)
                 {
-                   if(i == 4)
+                    if (i == 4)
                     {
                         StringBuilder sb = new StringBuilder();
                         item.HAList.ForEach(t =>
                         {
-                            String s = t.ApplicationName + "<br/>";
+                            string s = t.ApplicationName + "<br/>";
                             sb.Append(s);
 
                         });
                         values[i] = sb.ToString();
-                    } else if (i == 5)
+                    }
+                    else if (i == 5)
                     {
                         StringBuilder sb = new StringBuilder();
                         item.HAList.ForEach(t =>
                         {
-                            String s = t.StartDate.ToShortDateString() + " - " + t.EndDate.ToShortDateString() + "<br/>";
+                            string s = t.StartDate.ToShortDateString() + "<br/>";
+                            
                             sb.Append(s);
                         });
                         values[i] = sb.ToString();
-                    }else if(i == 6)
+                    }
+                    else if (i == 6)
                     {
                         StringBuilder sb = new StringBuilder();
                         item.HAList.ForEach(t =>
                         {
-                            String s = t.Cost.ToString() + "<br/>";
+                            string s = t.EndDate.ToShortDateString() + "<br/>";
                             sb.Append(s);
                         });
                         values[i] = sb.ToString();
-                    }else if (i == 7)
+                    }
+                    else if (i == 7)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        item.HAList.ForEach(t =>
+                        {
+                            string s = "";
+                            if(t.Cost > 0)
+                            {
+                              s = t.Cost.ToString() + "<br/>";
+                            }else
+                            {
+                              s = "0" + "<br/>";
+                            }
+                            
+                            sb.Append(s);
+                        });
+                        values[i] = sb.ToString();
+                    }
+                    else if (i == 8)
                     {
                         StringBuilder sb = new StringBuilder();
                         item.NewListCost.ForEach(t =>
                         {
                             if (t > 0)
                             {
-                                String s = t.ToString() + "<br/>";
+                                string s = t.ToString() + "<br/>";
                                 sb.Append(s);
                             }
                             else
                             {
-                                String s = " " + "<br/>";
+                                string s = "0" + "<br/>";
                                 sb.Append(s);
                             }
                         });
                         values[i] = sb.ToString();
                     }
+                    else if (i == 9)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        item.HAList.ForEach(t =>
+                        {
+                            
+                                string s = t.Maintenance.StartDate.ToShortDateString() + "<br/>";
+                            sb.Append(s);
+
+                        });
+                        values[i] = sb.ToString();
+                    }
+                    else if (i == 10)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        item.HAList.ForEach(t =>
+                        {
+
+                            string s = t.Maintenance.EndDate.ToShortDateString() + "<br/>";
+                            sb.Append(s);
+
+                        });
+                        values[i] = sb.ToString();
+                    }
+                    else if (i == 11)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        item.HAList.ForEach(t =>
+                        {
+
+                            string s = t.Maintenance.Price + "<br/>";
+                            sb.Append(s);
+
+                        });
+                        values[i] = sb.ToString();
+                    }
+                    else if (i == 12)
+                    {
+                        StringBuilder sb = new StringBuilder();
+                        item.NewListMaintenance.ForEach(t =>
+                        {
+                            if (t > 0)
+                            {
+                                string s = t.ToString() + "<br/>";
+                                sb.Append(s);
+                            }
+                            else
+                            {
+                                string s = "0" + "<br/>";
+                                sb.Append(s);
+                            }
+                        });
+                        values[i] = sb.ToString();
+                    }
+
                     else
                     {
                         StringBuilder sb = new StringBuilder();
                         item.HAList.ForEach(t =>
                         {
-                            String s = prop[i].GetValue(item, null).ToString() + "<br/>";
+                            string s = prop[i].GetValue(item, null).ToString() + "<br/>";
                             sb.Append(s);
                         });
                         values[i] = sb.ToString();

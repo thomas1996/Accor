@@ -269,6 +269,7 @@
     <Compile Include="Models\DAL\UserRepository.cs" />
     <Compile Include="Models\Domain\AddApplication.cs" />
     <Compile Include="Models\Domain\AddHotel.cs" />
+    <Compile Include="Models\Domain\CostumLoginService.cs" />
     <Compile Include="Models\Domain\HotelApplication.cs" />
     <Compile Include="Models\Domain\MakeReport.cs" />
     <Compile Include="Models\Domain\SecondMakeReport.cs" />
@@ -548,6 +549,7 @@
     <Content Include="Views\Report\ReportPage.cshtml" />
     <Content Include="Views\Application\Create.cshtml" />
     <Content Include="Views\Application\Edit.cshtml" />
+    <Content Include="Views\Settings\EditBranch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

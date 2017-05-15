@@ -21,6 +21,7 @@ namespace Project_TL.Models.Domain
             OwnerName = h.Owner.LastName + " " + h.Owner.FirstName;
             HAList = h.Applications.ToList();
             NewListCost = new List<double>();
+            NewListMaintenance = new List<double>();
            
             //NewListMaintenance = new List<double>();
             FillList();
@@ -32,23 +33,19 @@ namespace Project_TL.Models.Domain
             HAList.ForEach(t =>
             {
                 NewListCost.Add(0.0);
-                //NewListMaintenance.Add(0.0);
+                NewListMaintenance.Add(0.0);
             });
         }
 
         public string HotelName { get; set; }
         public string HotelId { get; set; }
         public string BranchName { get; set; }
-        public string OwnerName { get; set; }
-
-        [Display(Name ="List of applications")]
+        public string OwnerName { get; set; }        
         public List<HotelApplication> HAList { get; set; }
-
-        [Display(Name =("Future kost"))]
         public List<double> NewListCost { get; set; }
-        //public List<double> NewListMaintenance { get; set; }
+        public List<double> NewListMaintenance { get; set; }
 
-       
+
 
     }
 }

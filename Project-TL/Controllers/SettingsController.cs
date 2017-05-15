@@ -109,6 +109,34 @@ namespace Project_TL.Controllers
             }
             return View("CreateBranch", bvm);
         }
+
+        public ActionResult EditBranch(string name)
+        {
+            Branch b = branchRepo.FindByName(name);
+            if (b == null)
+                return HttpNotFound();
+            BranchViewModel bvm = new BranchViewModel(b);
+            return View(bvm);
+        }
+        
+        [HttpPost]
+        public ActionResult EditBranch(string name,BranchViewModel model)
+        {
+            try
+            {
+                Branch b = branchRepo.FindByName(name);
+                MapToBranch(model, b);
+
+                branchRepo.SaveChanges();
+                TempData["message"] = "The branch was succesfully edited.";
+                return RedirectToAction("Index");
+            }
+            catch(Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return EditBranch(name);
+            }
+        }
         public ActionResult DeleteBranch(string name)
         {
             Branch b = branchRepo.FindByName(name);

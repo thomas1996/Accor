@@ -43,7 +43,7 @@ namespace Project_TL.Models.DAL
             return branches.FirstOrDefault(t => t.Name == name);
         }
 
-        public void RemoveBranch(Branch branch)
+        public void RemoveBranch(Branch branch)                                                                                            
         {
             branches.Remove(branch);
         }

@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Project_TL;
 using Project_TL.Models;
+using Project_TL.Models.Domain;
 
 namespace Project_TL.Controllers
 {
@@ -18,9 +19,13 @@ namespace Project_TL.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private IUserRepository userRepo;
+        private ILoginService loginService;
 
-        public AccountController()
+        public AccountController( IUserRepository repo,ILoginService service)
         {
+            userRepo = repo;
+            loginService = service;
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -76,9 +81,14 @@ namespace Project_TL.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = SignInStatus.Success;                //await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            bool resp = await loginService.Login(model.Email, model.Password);
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             if(result == SignInStatus.Failure)
             {
+                if(resp == true)
+                {
+                    result = SignInStatus.Failure;
+                }
                 //dosiet
             }
             switch (result)
