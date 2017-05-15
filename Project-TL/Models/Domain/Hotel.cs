@@ -52,7 +52,7 @@ namespace Project_TL.Models.Domain
             //TotalCost = calculateTotalCost();
         }
 
-        public Hotel(string name,Adres adres, Branch branch, string vatNumber, ContactPerson contactPerson, string hotelId, string email, string telephoneNumber, Owner owner, List<HotelApplication> systems,Status status)
+        public Hotel(string name,Adres adres, Branch branch, string vatNumber, ContactPerson contactPerson, string hotelId, string email, string telephoneNumber, Owner owner, List<HotelApplication> systems,Status  status)
         {
             Name = name;
             Adres = adres;

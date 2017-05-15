@@ -20,6 +20,7 @@ namespace Project_TL.Models.DAL
         public DbSet<Application> Systems { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<ContactPerson> ContactPersons { get; set; }
+        public DbSet<Status> Statusses { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

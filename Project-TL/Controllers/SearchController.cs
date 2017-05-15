@@ -20,25 +20,21 @@ namespace Project_TL.Controllers
         private IOwnerRepository ownerRepo;
         private IContactPersonRepository contactRepo;
         private IBranchRepository branchRepo;
+        private IStatusRepository statusRepo;
 
-        private List<Hotel> hh;
-        // GET: Search
-
-        public SearchController(IHotelRepository hotelRepo, IApplicationRepository sysRepo, IOwnerRepository ownerRepo, IContactPersonRepository contactRepo, IBranchRepository branchRepo)
+        public SearchController(IHotelRepository hotelRepo, IApplicationRepository sysRepo, IOwnerRepository ownerRepo, IContactPersonRepository contactRepo, IBranchRepository branchRepo,IStatusRepository statusRepo)
         {
             this.hotelRepo = hotelRepo;
             this.sysRepo = sysRepo;
             this.ownerRepo = ownerRepo;
             this.contactRepo = contactRepo;
             this.branchRepo = branchRepo;
-
-            hh = hotelRepo.FindAll().ToList();
-            hh.OrderBy(t => t.Name);
+            this.statusRepo = statusRepo;
 
         }
         public ActionResult Index()
         {
-            IEnumerable<HotelViewModel> hvm = hh.Select(t => new HotelViewModel(t));
+            IEnumerable<HotelViewModel> hvm = hotelRepo.FindAll().OrderBy(t => t.Name).Select(t => new HotelViewModel(t));
 
             return View(hvm);
         }
@@ -49,7 +45,7 @@ namespace Project_TL.Controllers
         {
             //find the hotel in the repository
             // Hotel h = hotelRepo.FindByCode(hotelId);
-            Hotel h = hh.FirstOrDefault(t => t.HotelId.Equals(hotelId));
+            Hotel h = hotelRepo.FindAll().FirstOrDefault(t => t.HotelId.Equals(hotelId));
 
             //check if the hotel exist (normally this can never give null unless DB failure)
             if (h == null)
@@ -68,20 +64,15 @@ namespace Project_TL.Controllers
         {
             //find the hotel in the repository
             // Hotel h = hotelRepo.FindByCode(hotelId);
-            Hotel h = hh.FirstOrDefault(t => t.HotelId.Equals(hotelId));
+            Hotel h = hotelRepo.FindAll().FirstOrDefault(t => t.HotelId.Equals(hotelId));
 
             //making the lists so that you only go to the Repo's once
             List<ContactPerson> contact = contactRepo.FindAll().OrderBy(t => t.LastName).ToList();
             List<Branch> branch = branchRepo.FindAll().OrderBy(t => t.Name).ToList();
             List<Owner> owner = ownerRepo.FindAll().OrderBy(t => t.LastName).ToList();
-            List<Status> status = new List<Status>();
+            List<Status> status = statusRepo.FindAll().OrderBy(t => t.St).ToList();
 
-            foreach (Status s in Enum.GetValues(typeof(Status)))
-            {
-                status.Add(s);
-            }
-
-            //check if the hotel exist (normally this can never give null unless DB failure)
+             //check if the hotel exist (normally this can never give null unless DB failure)
             if (h == null)
             {
                 return HttpNotFound();
@@ -118,18 +109,14 @@ namespace Project_TL.Controllers
                 }),
 
                 //status
-                SelectedStatusId = status.FirstOrDefault().ToString(),
+                SelectedStatusId = status.Where(t => t.St == h.Status.St).FirstOrDefault().ToString(),
                 Status = status.Select(t => new SelectListItem
                 {
-                    Value = t.ToString(),
-                    Text = t.ToString()
+                    Value = t.St.ToString(),
+                    Text = t.St.ToString()
                 })
 
             };
-
-          
-
-
             return View(ehvm);
         }
         [HttpPost]
@@ -167,13 +154,8 @@ namespace Project_TL.Controllers
                 Value = t.OwnerId.ToString(),
                 Text = t.LastName + " " + t.FirstName
             });
-            List<Status> status = new List<Status>();
-
-            foreach (Status s in Enum.GetValues(typeof(Status)))
-            {
-                status.Add(s);
-            }
-            ehvm.Status = status.Select(t => new SelectListItem
+           
+            ehvm.Status = statusRepo.FindAll().Select(t => new SelectListItem
             {
                 Value = t.ToString(),
                 Text = t.ToString()
@@ -187,13 +169,7 @@ namespace Project_TL.Controllers
             List<ContactPerson> contact = contactRepo.FindAll().OrderBy(t => t.LastName).ToList();
             List<Branch> branch = branchRepo.FindAll().OrderBy(t => t.Name).ToList();
             List<Owner> owner = ownerRepo.FindAll().OrderBy(t => t.LastName).ToList();
-            List<Status> status = new List<Status>();
-
-            foreach (Status s in Enum.GetValues(typeof(Status)))
-            {
-                status.Add(s);
-            }
-
+            List<Status> status = statusRepo.FindAll().OrderBy(t => t.St).ToList();
             try
             {
                 Hotel hotel = new Hotel();
@@ -282,13 +258,8 @@ namespace Project_TL.Controllers
                 Value = t.OwnerId.ToString(),
                 Text = t.LastName + " " + t.FirstName
             });
-            List<Status> status = new List<Status>();
-
-            foreach (Status s in Enum.GetValues(typeof(Status)))
-            {
-                status.Add(s);
-            }
-            ehvm.Status = status.Select(t => new SelectListItem
+            
+            ehvm.Status = statusRepo.FindAll().Select(t => new SelectListItem
             {
                 Value = t.ToString(),
                 Text = t.ToString()
@@ -470,23 +441,10 @@ namespace Project_TL.Controllers
             hotel.Adres = ehvm.Adres;
             hotel.HotelId = ehvm.HotelId;
             hotel.Name = ehvm.Name;
-            hotel.Status = getEnum(ehvm.SelectedStatusId);
+            hotel.Status = x.Statusses.FirstOrDefault(t => t.St == ehvm.SelectedStatusId);
 
 
         }
-        private Status getEnum(string s)
-        {
-            switch (s.ToUpper())
-            {
-                case "HQI": return Status.HQI;
-                case "HQS": return Status.HQS;
-                case "JV": return Status.JV;
-                case "FR": return Status.FR;
-                case "FIL": return Status.FIL;
-                case "MAN": return Status.MAN;
-                default:return Status.FR;
-
-            }
-        }
+       
     }
 }

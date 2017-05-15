@@ -265,12 +265,15 @@
     <Compile Include="Models\DAL\ContactPersonRepository.cs" />
     <Compile Include="Models\DAL\FirmRepository.cs" />
     <Compile Include="Models\DAL\Mapping\HotelApplicationMapper.cs" />
+    <Compile Include="Models\DAL\Mapping\StatusMapper.cs" />
     <Compile Include="Models\DAL\OwnerRepository.cs" />
+    <Compile Include="Models\DAL\StatusRepository.cs" />
     <Compile Include="Models\DAL\UserRepository.cs" />
     <Compile Include="Models\Domain\AddApplication.cs" />
     <Compile Include="Models\Domain\AddHotel.cs" />
     <Compile Include="Models\Domain\CostumLoginService.cs" />
     <Compile Include="Models\Domain\HotelApplication.cs" />
+    <Compile Include="Models\Domain\IStatusRepository.cs" />
     <Compile Include="Models\Domain\MakeReport.cs" />
     <Compile Include="Models\Domain\SecondMakeReport.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />

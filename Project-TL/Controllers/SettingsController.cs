@@ -18,14 +18,14 @@ namespace Project_TL.Controllers
         private IApplicationRepository sysRepo;
         private IFirmRepository firmRepo;
         private IHotelRepository hotelRepo;
-        private List<Status> status;
+        private IStatusRepository statusRepo;
         private List<Models.Domain.ApplicationType> type;
 
         public SettingsController()
         {
 
         }
-        public SettingsController(IBranchRepository branchRepo, IContactPersonRepository contactRepo, IOwnerRepository ownerRepo, IApplicationRepository systRepo, IHotelRepository hotelRepo,IFirmRepository firmRepo)
+        public SettingsController(IBranchRepository branchRepo, IContactPersonRepository contactRepo, IOwnerRepository ownerRepo, IApplicationRepository systRepo, IHotelRepository hotelRepo,IFirmRepository firmRepo,IStatusRepository statusRepo)
         {
             this.branchRepo = branchRepo;
             this.hotelRepo = hotelRepo;
@@ -33,9 +33,8 @@ namespace Project_TL.Controllers
             this.ownerRepo = ownerRepo;
             this.firmRepo = firmRepo;
             this.sysRepo = systRepo;
-            status = new List<Status>();
-            type = new List<Models.Domain.ApplicationType>();
-            MakeList("Status");
+            this.statusRepo = statusRepo;
+            type = new List<Models.Domain.ApplicationType>();           
             MakeList("Type");
         }
 
@@ -44,14 +43,7 @@ namespace Project_TL.Controllers
         {
             switch (enums.ToLower())
             {
-                case "status":
-                    {
-                        foreach (Status s in Enum.GetValues(typeof(Status)))
-                        {
-                            status.Add(s);
-                        }
-                    }
-                    break;
+                
                 case "type":
                     {
                         foreach (Models.Domain.ApplicationType t in Enum.GetValues(typeof(Models.Domain.ApplicationType)))
@@ -66,7 +58,7 @@ namespace Project_TL.Controllers
         // GET: Settings
         public ActionResult Index()
         {
-            SettingsViewModel svm = new SettingsViewModel(branchRepo.FindAll().ToList(), contactRepo.FindAll().ToList(), ownerRepo.FindAll().ToList());
+            SettingsViewModel svm = new SettingsViewModel(branchRepo.FindAll().ToList(), contactRepo.FindAll().ToList(), ownerRepo.FindAll().ToList(),statusRepo.FindAll().ToList());
             return View(svm);
         }
 

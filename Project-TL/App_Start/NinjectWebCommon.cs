@@ -72,6 +72,7 @@ namespace Project_TL.App_Start
             kernel.Bind<IBranchRepository>().To<BranchRepository>().InRequestScope();
             kernel.Bind<IFirmRepository>().To<FirmRepository>().InRequestScope();
             kernel.Bind<ILoginService>().To<CostumLoginService>().InRequestScope();
+            kernel.Bind<IStatusRepository>().To<StatusRepository>().InRequestScope();
 
             
         }        

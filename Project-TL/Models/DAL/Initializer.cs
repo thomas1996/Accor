@@ -40,7 +40,9 @@ namespace Project_TL.Models.DAL
                 Application s1 = new Application(10000.00, "Boekhouding", Domain.ApplicationType.Rented);
                 Application s2 = new Application(1500.00, "Reservaties", Domain.ApplicationType.Rented);
                 Application s3 = new Application(1500.00, "Personeelsprogramma", Domain.ApplicationType.Rented);
- 
+
+                Status st1 = new Status("HQI");
+                Status st2 = new Status("MAN");
                 List<Application> sys = new List<Application>();
                 sys.Add(s1);
                 sys.Add(s2);
@@ -50,9 +52,9 @@ namespace Project_TL.Models.DAL
                 sys2.Add(s2);
                 sys2.Add(s3);
 
-                Hotel h1 = new Hotel("Adagio Brussel",a1, b1, "BE 0817.220.446 ", p1, "8602", "H8602@Adagio-city.com", "+32 227 41 780", o1,Status.FR);
-                Hotel h2 = new Hotel("Ibis Schiphol",a2, b2, "BE 0635.611.207 ", p2, "0649", "h0649-GM@Accor.com", "+31 20 50 25 100", o3,Status.MAN);
-                Hotel h3 = new Hotel("Ibis At",a3, b2, "BE 0635.611.207 ", p3, "0650", "HA3P2@accor.com", "+31 20 34 83 533", o2,Status.FR);
+                Hotel h1 = new Hotel("Adagio Brussel",a1, b1, "BE 0817.220.446 ", p1, "8602", "H8602@Adagio-city.com", "+32 227 41 780", o1,st1);
+                Hotel h2 = new Hotel("Ibis Schiphol",a2, b2, "BE 0635.611.207 ", p2, "0649", "h0649-GM@Accor.com", "+31 20 50 25 100", o3,st2);
+                Hotel h3 = new Hotel("Ibis At",a3, b2, "BE 0635.611.207 ", p3, "0650", "HA3P2@accor.com", "+31 20 34 83 533", o2,st1);
 
                 HotelApplication ha1 = new HotelApplication("8602",1, 15000,m, DateTime.Today, new DateTime(2018, 12, 31), "Adagio Brussel", "PersoneelsProgramma");
                 HotelApplication ha2 = new HotelApplication("8602", 2, 20000,m, DateTime.Today, new DateTime(2017, 12, 31), "Adagio Brussel", "Reservatie");
@@ -100,6 +102,9 @@ namespace Project_TL.Models.DAL
                 context.Owner.Add(o2);
                 context.Owner.Add(o3);
                 context.Systems.AddRange(sys2);
+
+                context.Statusses.Add(st1);
+                context.Statusses.Add(st2);
 
 
              

@@ -18,7 +18,7 @@ namespace Project_TL.Models.DAL.Mapping
             Property(t => t.TelephoneNumber).IsRequired();
             Property(t => t.VatNumber).IsRequired();
             Ignore(t => t.TotalCost);
-            Property(t => t.Status).IsRequired();
+            
             Property(t => t.Name).IsRequired().HasMaxLength(100);
 
             //associations
@@ -27,6 +27,7 @@ namespace Project_TL.Models.DAL.Mapping
             HasRequired(t => t.Branch).WithMany(t => t.Hotels).Map(m => m.MapKey("branch")).WillCascadeOnDelete(false);
             HasRequired(t => t.ContactPerson).WithMany(t => t.Hotels).Map(m => m.MapKey("ContactPerson")).WillCascadeOnDelete(false);         
             HasRequired(t => t.Adres).WithOptional().Map(m => m.MapKey("Adres"));
+            //HasRequired(t => t.Status).WithOptional().Map(m => m.MapKey("Status"));
         
            
 
