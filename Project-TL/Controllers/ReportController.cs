@@ -118,6 +118,7 @@ namespace Project_TL.Controllers
 
             model.BranchList = model.List.GroupBy(t => t.BranchName, t => t.HAList).ToList();
             double cost = 0.0;
+            double maintenance = 0.0;
             model.BranchList.ForEach(t =>
         {
             t.ToList().ForEach(s =>
@@ -125,13 +126,19 @@ namespace Project_TL.Controllers
                 s.ForEach(r =>
                {
                    cost += r.Cost;
-                   if (r.Maintenance != null)
-                       cost += r.Maintenance.Price;
+                   if(r.Maintenance != null)
+                   {
+                       maintenance += r.Maintenance.Price;
+                   }
+                   
                });
             });
-            model.BranchCost.Add(cost);
+            model.BranchCost.Add(cost);          
+            model.BranchMaintenance.Add(maintenance);
             cost = 0.0;
+            maintenance = 0.0;
         });
+          
             
             return View(model); 
         }

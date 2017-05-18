@@ -75,13 +75,11 @@
                        
                     </td>
                     <td>
-                        @String.Format(Model.BranchCost[i].ToString())
+                        @Model.BranchCost[i].ToString() + @Model.List.Where(t => t.BranchName == Model.BranchList[i].Key).Sum(t => t.NewListCost.Sum() )
                       
-                  
-                   
                     </td>
                     <td>
-                        @*@String.Format(Model.List.Where(t => t.BranchName == Model.BranchList[i].Key).Select(t => t.HAList).ToList().ForEach(t => t.Sum(s => s.Cost))*@
+                        @String.Format(Model.BranchMaintenance[i].ToString())
                     </td>
                 </tr>
                 
