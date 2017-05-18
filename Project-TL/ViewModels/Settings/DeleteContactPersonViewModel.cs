@@ -16,6 +16,7 @@ namespace Project_TL.ViewModels.Settings
             Id = cp.ContactPersonId;
             LastName = cp.LastName;
             FirstName = cp.FirstName;
+            NumberOfHotels =cp.Hotels.Count();
         }
         public DeleteContactPersonViewModel()
         {
@@ -24,6 +25,7 @@ namespace Project_TL.ViewModels.Settings
         public int Id { get; set; }
         public string LastName { get; set; }
         public string FirstName { get; set; }
+        public int NumberOfHotels { get; }
 
         [Display(Name ="Select the contact person")]
         [Required()]

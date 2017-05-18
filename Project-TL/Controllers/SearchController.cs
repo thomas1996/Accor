@@ -32,9 +32,13 @@ namespace Project_TL.Controllers
             this.statusRepo = statusRepo;
 
         }
+        public SearchController()
+        {
+
+        }
         public ActionResult Index()
         {
-            IEnumerable<HotelViewModel> hvm = hotelRepo.FindAll().OrderBy(t => t.Name).Select(t => new HotelViewModel(t));
+            IEnumerable<HotelViewModel> hvm = hotelRepo.FindAll().ToList().OrderBy(t => t.Name).Select(t => new HotelViewModel(t));
 
             return View(hvm);
         }

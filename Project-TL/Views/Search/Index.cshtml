@@ -78,7 +78,7 @@
             <tbody>
                 @foreach (var item in Model)
             {
-                    <tr>
+                    <tr>                       
                         <td class="select-filter">
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
@@ -103,9 +103,9 @@
                         @if (ViewBag.admin == true)
                         {
                             <td>
-                            <a href="@Url.Action("Edit", "Search", new {  id=item.HotelId  })" |
-                            <a href="@Url.Action("Details", "Search", new {  id=item.HotelId  })" |
-                            <a href="@Url.Action("Delete", "Search", new {  id=item.HotelId  })"
+                            <a href="@Url.Action("Edit", "Search", new {  id=item.HotelId  })"/> |
+                            <a href="@Url.Action("Details", "Search", new {  id=item.HotelId  })"/> |
+                            <a href="@Url.Action("Delete", "Search", new {  id=item.HotelId  })"/>
                             </td>
                         }
                         else

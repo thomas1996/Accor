@@ -331,8 +331,10 @@
     <Compile Include="ViewModels\Settings\DeleteBranchViewModel.cs" />
     <Compile Include="ViewModels\Settings\DeleteContactPersonViewModel.cs" />
     <Compile Include="ViewModels\Settings\DeleteOwnerViewModel.cs" />
+    <Compile Include="ViewModels\Settings\DeleteStatusViewModel.cs" />
     <Compile Include="ViewModels\Settings\OwnerViewModel.cs" />
     <Compile Include="ViewModels\Settings\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\Settings\StatusViewModel.cs" />
     <Compile Include="ViewModels\UserViewModel.cs" />
     <Compile Include="ViewModels\Report\ReportViewModel.cs" />
   </ItemGroup>
@@ -553,6 +555,10 @@
     <Content Include="Views\Application\Create.cshtml" />
     <Content Include="Views\Application\Edit.cshtml" />
     <Content Include="Views\Settings\EditBranch.cshtml" />
+    <Content Include="Views\Settings\EditContactPerson.cshtml" />
+    <Content Include="Views\Settings\EditOwner.cshtml" />
+    <Content Include="Views\Settings\DeleteStatus.cshtml" />
+    <Content Include="Views\Settings\CreateStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

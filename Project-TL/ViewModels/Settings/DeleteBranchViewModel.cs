@@ -11,9 +11,10 @@ namespace Project_TL.ViewModels.Settings
     public class DeleteBranchViewModel
     {
 
-        public DeleteBranchViewModel(string name)
+        public DeleteBranchViewModel(string name,int numberOfHotels)
         {
             Name = name;
+            NumberOfHotels = numberOfHotels;
            
         }
         public DeleteBranchViewModel()
@@ -22,6 +23,7 @@ namespace Project_TL.ViewModels.Settings
         }
 
         public string Name { get; set; }
+        public int NumberOfHotels { get;  }
 
         [Display(Name ="Select the branch")]
         public string SelectedListItem { get; set; }

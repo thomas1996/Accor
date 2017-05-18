@@ -39,7 +39,16 @@
                     <td>
                         @Html.ActionLink("Edit", "EditBranch", new {name = item.Name  }) |
                         @Html.ActionLink("Details", "DetailBranch", new {name = item.Name  }) |
-                        @Html.ActionLink("Delete", "DeleteBranch", new {  name = item.Name  })
+                        @if (item.Hotels.Count() > 0)
+                        {
+                            @Html.ActionLink("Delete", "DeleteBranch", new { name = item.Name })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Delete", "DeleteLastBranch", new { name = item.Name },
+               new { onclick = "return confirm('Are you sure you wish to delete this Branch?');" })
+                        }
+                       
                     </td>
                 </tr>
             }
@@ -80,7 +89,15 @@
                     <td>
                         @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                         @Html.ActionLink("Details", "DetailsOwner", new {  id=item.OwnerId }) |
-                        @Html.ActionLink("Delete", "DeleteOwner", new { id=item.OwnerId })
+                        @if (item.Hotels.Count() > 0)
+                        {
+                            @Html.ActionLink("Delete", "DeleteOwner", new { id = item.OwnerId })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Delete", "DeleteLastOwner", new { id = item.OwnerId },
+                        new { onclick = "return confirm('Are you sure you wish to delete this Owner?');" })
+                        }                     
                     </td>
                 </tr>
             }
@@ -119,9 +136,17 @@
                         @Html.DisplayFor(model => item.Email)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Edit", "EditContactPerson", new { id=item.ContactPersonId }) |
                         @Html.ActionLink("Details", "DetailsContactPerson", new { id=item.ContactPersonId }) |
-                        @Html.ActionLink("Delete", "DeleteContactPerson", new {  id=item.ContactPersonId})
+                        @if (item.Hotels.Count() > 0)
+                        {
+                            @Html.ActionLink("Delete", "DeleteContactPerson", new { id = item.ContactPersonId })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Delete", "DeleteLastContactPerson", new { id = item.ContactPersonId },
+                        new { onclick = "return confirm('Are you sure you wish to delete this Owner?');" })
+                        }                 
                     </td>
                 </tr>
             }
@@ -130,7 +155,7 @@
     <br />
     <h2>Statusses</h2>
     <p>
-        @Html.ActionLink("Create New Status", "Create")
+        @Html.ActionLink("Create New Status", "CreateStatus")
     </p>
     <table class="table table-hover table-bordered table-responsive display" id="">
         <thead>
@@ -148,8 +173,18 @@
                         @Html.DisplayFor(model => item.St)
                     
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |                     
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        @Html.ActionLink("Edit", "EditStatus", new { status = item.St }) |         
+                        @*@if (true)
+                        {
+                            @Html.ActionLink("Delete", "DeleteBranch", new { id = item.ContactPersonId })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Delete", "DeleteBranch", new { id = item.ContactPersonId },
+                        new { onclick = "return confirm('Are you sure you wish to delete this Owner?');" })
+                        }*@
+                                    
+                        @Html.ActionLink("Delete", "DeleteStatus", new { status = item.St })
                     </td>
                 </tr>
             }

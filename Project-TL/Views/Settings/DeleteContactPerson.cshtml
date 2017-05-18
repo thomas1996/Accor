@@ -7,33 +7,42 @@
 <h2>Delete @Model.LastName @Model.FirstName</h2>
 
 <h3>Are you sure you want to delete @Model.LastName @Model.FirstName?</h3>
-<div>
-
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
 
         <div class="centering">
-
-            <p>Please select an other contact person. All the hotels of this contact person will be transfered to that contact person</p>
-
-            <hr />
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="form-group">
-                @Html.LabelFor(m => m.SelectedContactId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownListFor(m => m.SelectedContactId, new SelectList(Model.List, "Value", "Text"), new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(m => m.SelectedContactId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-            <input type="hidden" name="id" value=@Model.Id />
-            <br />
-            <br />
-                 </div>
-            <div class="form-actions no-color">
-                <input type="submit" value="Delete" class="btn btn-default" /> |
+            @if (Model.List.Count() == 0 && Model.NumberOfHotels > 0)
+            {
+                <b>Please first delete all the remaining hotels off this contactperson. After that you will be able to delete this contact person. </b>
+                <br />
                 @Html.ActionLink("Back to List", "Index")
-            </div>
-       
+            }
+            else
+            {
+
+                <p>Please select an other contact person. All the hotels of this contact person will be transfered to that contact person</p>
+
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.LabelFor(m => m.SelectedContactId, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.DropDownListFor(m => m.SelectedContactId, new SelectList(Model.List, "Value", "Text"), new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(m => m.SelectedContactId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <input type="hidden" name="id" value=@Model.Id />
+                <br />
+                <br />
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Delete" class="btn btn-default" /> |
+                    @Html.ActionLink("Back to List", "Index")
+                </div>
+            }
+        </div>
+
+
     }
-</div>
+

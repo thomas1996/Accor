@@ -17,7 +17,7 @@ namespace Project_TL.Models.Domain
         public CostumLoginService(IUserRepository repo)
         {
             UR = repo;
-            DataProtection dp = new DataProtection();
+           dp = new DataProtection();
         }
 
 

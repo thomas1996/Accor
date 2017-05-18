@@ -27,7 +27,7 @@ namespace Project_TL.ViewModels
             TelephoneNumber = h.TelephoneNumber;
             Systems = h.Applications.ToList();
             TotalCost = h.TotalCost;
-            Status = h.Status;
+            //Status = h.Status;
 
         }
         [Required(ErrorMessage ="{0} is required")]

@@ -138,18 +138,33 @@ namespace Project_TL.Controllers
                 return RedirectToAction("Index");
             }
             List<Branch> list = branchRepo.FindAll().Where(t => t.Name != name).OrderBy(t => t.Name).ToList();
-            DeleteBranchViewModel dbvm = new DeleteBranchViewModel(name)
+            if (list.Count() > 0)
             {
-                //select the default branch
-                SelectedListItem = list.FirstOrDefault().BranchId.ToString(),
-                //fill the list with all the branches
-                List = list.Select(t => new SelectListItem
+                DeleteBranchViewModel dbvm = new DeleteBranchViewModel(name, b.Hotels.Count())
                 {
-                    Value = t.Name,
-                    Text = t.Name
-                })
-            };
-            return View(dbvm);
+                    //select the default branch
+                    SelectedListItem = list.FirstOrDefault().BranchId.ToString(),
+                    //fill the list with all the branches
+                    List = list.Select(t => new SelectListItem
+                    {
+                        Value = t.Name,
+                        Text = t.Name
+                    })
+                };
+                return View(dbvm);
+            }
+            else
+            {
+                DeleteBranchViewModel dbvm = new DeleteBranchViewModel(name, b.Hotels.Count())
+                {
+                    //select the default branch
+                    SelectedListItem = "",
+                    //fill the list with all the branches
+                    List = new List<SelectListItem>()
+                };
+                return View(dbvm);
+            }
+                     
         }
 
         [HttpPost,ActionName("DeleteBranch")]
@@ -171,12 +186,30 @@ namespace Project_TL.Controllers
 
                 branchRepo.RemoveBranch(b);
                 branchRepo.SaveChanges();
-                TempData["message"] = String.Format("The branch {0} had succesfully been removed", b.Name);
+                TempData["message"] = String.Format("The branch {0} has succesfully been removed", b.Name);
                 return RedirectToAction("Index");
 
             }catch(Exception ex)
             {
                 TempData["error"] = "There has been a problem. Please contact the IT department";
+            }
+            return RedirectToAction("Index");
+        }
+
+        //this delete action is only used if there are no hotels in the branch
+        public ActionResult DeleteLastBranch(string name)
+        {
+            try
+            {
+                Branch br = branchRepo.FindByName(name);
+                branchRepo.RemoveBranch(br);
+                branchRepo.SaveChanges();
+
+                TempData["message"] = "The branch has succesfully been removed";
+               
+            }catch(Exception ex)
+            {
+                TempData["error"] = "There was a problem deleting the branch. Please contact the IT department.";
             }
             return RedirectToAction("Index");
         }
@@ -222,6 +255,40 @@ namespace Project_TL.Controllers
             return View("CreateContactPerson", model);
         }
 
+        public ActionResult EditContactPerson(int id)
+        {
+            ContactPerson cp = contactRepo.FindById(id);
+            if (cp == null)
+                return HttpNotFound();
+            ContactViewModel cvm = new ContactViewModel(cp);
+            return View(cvm);
+        }
+
+        [HttpPost]
+        public ActionResult EditContactPerson(int id,ContactViewModel model)
+        {
+           
+                try
+                {
+                    ContactPerson cp = contactRepo.FindById(id);
+                    if (cp == null)
+                    {
+                        TempData["error"] = "There has been a problem. Please contact IT department.";
+                        return RedirectToAction("Index");
+                    }
+                        
+                    MapToContact(cp, model);
+                    contactRepo.SaveChanges();
+                    TempData["message"] = "the contactperson has succesfully been edited.";
+                    return RedirectToAction("Index");
+
+                }catch(Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                    return EditContactPerson(id);
+                }                     
+        }
+
         public ActionResult DeleteContactPerson (int id)
         {
             ContactPerson cp = contactRepo.FindById(id);
@@ -231,18 +298,32 @@ namespace Project_TL.Controllers
                 return RedirectToAction("Index");
             }
             List<ContactPerson> list = contactRepo.FindAll().Where(t => t.Email != cp.Email).OrderBy(t => t.LastName).ToList();
-            DeleteContactPersonViewModel dcpvm = new DeleteContactPersonViewModel(cp)
+            if(list.Count() > 0 )
             {
-                SelectedContactId = list.FirstOrDefault().ContactPersonId,
-                List = list.Select(t => new SelectListItem
+                DeleteContactPersonViewModel dcpvm = new DeleteContactPersonViewModel(cp)
                 {
-                    Value = t.ContactPersonId.ToString(),
-                    Text = t.LastName +" " +  t.FirstName
+                    SelectedContactId = list.FirstOrDefault().ContactPersonId,
+                    List = list.Select(t => new SelectListItem
+                    {
+                        Value = t.ContactPersonId.ToString(),
+                        Text = t.LastName + " " + t.FirstName
 
-                })
-            };
+                    })
+                };
 
-            return View(dcpvm);
+                return View(dcpvm);
+            }
+            else
+            {
+                DeleteContactPersonViewModel dcpvm = new DeleteContactPersonViewModel(cp)
+                {
+                    SelectedContactId = 0,
+                    List = new List<SelectListItem>()
+                };
+
+                return View(dcpvm);
+            }
+            
         }
 
         [HttpPost,ActionName("DeleteContactPerson")]
@@ -274,6 +355,26 @@ namespace Project_TL.Controllers
             }
 
             return RedirectToAction("Index");  
+        }
+
+        //this method will only be used if the contact person has no hotels
+        public ActionResult DeleteLastContactPerson(int id)
+        {
+            try
+            {
+                ContactPerson cp = contactRepo.FindById(id);
+                contactRepo.RemoveContactPerson(cp);
+                contactRepo.SaveChanges();
+
+                TempData["message"] = "The contact person has succesfully been deleted.";
+
+            }catch(Exception ex)
+            {
+                TempData["error"] = "There was a problem deleting the contact person. Please contact the IT department.";
+            }
+            return RedirectToAction("Index");
+            
+
         }
 
         //Owner
@@ -314,6 +415,40 @@ namespace Project_TL.Controllers
             
         }
 
+        public ActionResult EditOwner(int id)
+        {
+            Owner o = ownerRepo.FindById(id);
+            if (o == null)
+                return HttpNotFound();
+            OwnerViewModel ovm = new OwnerViewModel(o);
+            return View(ovm);
+        }
+
+        [HttpPost]
+        public ActionResult EditOwner(int id,OwnerViewModel model)
+        {
+            try
+            {
+                Owner o = ownerRepo.FindById(id);
+                if(o==null)
+                {
+                    TempData["error"] = "There has been a problem. Please contact the IT department.";
+                    RedirectToAction("Index");
+                }
+                
+                MapToOwner(o, model);
+
+                ownerRepo.SaveChanges();
+                TempData["message"] = "The owner has been edited succesfully.";
+                RedirectToAction("Index");
+            }catch(Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return EditOwner(id);
+            }
+            return RedirectToAction("Index");
+        }
+
         public ActionResult DeleteOwner(int id)
         {
             Owner o = ownerRepo.FindById(id);
@@ -323,18 +458,33 @@ namespace Project_TL.Controllers
                 return RedirectToAction("Index");
             }
             List<Owner> listOwner = ownerRepo.FindAll().Where(t => t.OwnerId != id).OrderBy(t => t.LastName).ToList();
-            List<Firm> listFirm = firmRepo.FindAll().Where(t => t.Owner.OwnerId != id).OrderBy(t => t.name).ToList();
-            DeleteOwnerViewModel dovm = new DeleteOwnerViewModel(o)
+            //List<Firm> listFirm = firmRepo.FindAll().Where(t => t.Owner.OwnerId != id).OrderBy(t => t.name).ToList();
+            if(listOwner.Count() > 0)
             {
-                SelectedOwner = listOwner.FirstOrDefault().OwnerId,
-                ListOwner = listOwner.Select(t => new SelectListItem
+                DeleteOwnerViewModel dovm = new DeleteOwnerViewModel(o)
                 {
-                    Value = t.OwnerId.ToString(),
-                    Text = t.LastName + " " + t.FirstName
-                })
-            };
+                    SelectedOwner = listOwner.FirstOrDefault().OwnerId,
+                    ListOwner = listOwner.Select(t => new SelectListItem
+                    {
+                        Value = t.OwnerId.ToString(),
+                        Text = t.LastName + " " + t.FirstName
+                    })
+                };
 
-            return View(dovm);
+                return View(dovm);
+            }
+            else
+            {
+                DeleteOwnerViewModel dovm = new DeleteOwnerViewModel(o)
+                {
+                    SelectedOwner = 0,
+                    ListOwner = new List<SelectListItem>()
+                    
+                };
+
+                return View(dovm);
+            }
+           
         }
 
         [HttpPost,ActionName("DeleteOwner")]
@@ -373,6 +523,98 @@ namespace Project_TL.Controllers
 
         }
 
+        //this method will only been used when the owner has no more hotels
+        public ActionResult DeleteLastOwner(int id)
+        {
+            try
+            {
+                Owner o = ownerRepo.FindById(id);
+                ownerRepo.RemoveOwner(o);
+                ownerRepo.SaveChanges();
+
+                TempData["message"] = "The owner has succesfully been removed.";
+            }catch(Exception ex)
+            {
+                TempData["error"] = "There was a problem removing the owner. Please contact the IT department.";
+            }
+            return RedirectToAction("Index");
+            
+        }
+
+        //status
+        public ActionResult CreateStatus()
+        {
+            Status s = new Status();
+            StatusViewModel svm = new StatusViewModel(s);
+            return View(svm);
+        }
+
+        [HttpPost]
+        public ActionResult CreateStatus(StatusViewModel model)
+        {
+            try
+            {
+                Status s = new Status();
+                statusRepo.AddStatus(s);
+                s.St = model.Name;
+
+                statusRepo.SaveChanges();
+                TempData["message"] = "The status was succesfully created.";
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return RedirectToAction("CreateStatus");
+            }
+            return RedirectToAction("Index");
+        }
+        public ActionResult DeleteStatus(string status)
+        {
+            Status s = statusRepo.FindStatus(status);
+            if(s ==  null)
+            {
+                TempData["error"] = "Something whent wrong. Please contact the IT department.";
+                    return RedirectToAction("Index");
+            }
+            int count = hotelRepo.FindAll().Where(t => t.Status.St == s.St).Count();
+            DeleteStatusViewModel dsvm = new DeleteStatusViewModel(s,count)
+            {
+                SelectedStatusId = statusRepo.FindAll().Where(t => t.St != s.St).OrderBy(t => t.St).FirstOrDefault().St,
+                Statusses = statusRepo.FindAll().Where(t => t.St != s.St).OrderBy(t => t.St).Select(t => new SelectListItem
+                {
+                    Text = t.St,
+                    Value = t.St
+                })
+            };
+
+            return View(dsvm);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteStatus(string status,DeleteStatusViewModel model)
+        {
+            try
+            {
+                Status s = statusRepo.FindStatus(status);
+                Status snew = statusRepo.FindStatus(model.SelectedStatusId);
+                hotelRepo.FindAll().Where(t => t.Status.St == s.St).ToList().ForEach(t =>
+                {
+                    t.Status = snew;
+                });
+
+                statusRepo.RemoveStatus(s);
+                statusRepo.SaveChanges();
+                TempData["message"] = "The status has succesfully been deleted";
+                
+            }catch(Exception ex)
+            {
+                TempData["error"] = "There was a problem deleting the status. Please contact the IT department.";
+            }
+            return RedirectToAction("Index");
+        }
+ 
+       
+
         private void MapToOwner(Owner o, OwnerViewModel model)
         {
             o.FirstName = model.FirstName;
@@ -387,7 +629,7 @@ namespace Project_TL.Controllers
             cp.LastName = model.LastName;
             cp.Email = model.Email;
             cp.CellphoneNr = model.CellphoneNr;
-            cp.Hotels = model.Hotels;
+            
         }
 
         private void MapToBranch(BranchViewModel bvm, Branch b)
