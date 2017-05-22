@@ -22,8 +22,8 @@
         <thead>
             <tr class="alert-info">
              <th>
-            </th>
-           
+                 Select all <input type="checkbox" id="select_all" name="select-invoke" />
+            </th>           
              <th>
                 @Html.NameFor(model => model.List.FirstOrDefault().HotelName)
              </th>
@@ -90,8 +90,8 @@
         <br />
 <br />
         <p>
-        @Html.EditorFor(item => item.StartDate, new { HtmlAttributes = new { @class = "datefield", type = "date", value = DateTime.Today.ToShortDateString() } })
-        @Html.EditorFor(item => item.EndDate, new { HtmlAttributes = new { @class = "datefield", type = "date", value = DateTime.Today.ToShortDateString() } })
+        @Html.EditorFor(item => item.StartDate, new { HtmlAttributes = new { @class = "datefield", type = "date" } })
+        @Html.EditorFor(item => item.EndDate, new { HtmlAttributes = new { @class = "datefield", type = "date" } })
     </p>
             </div>
     <br />

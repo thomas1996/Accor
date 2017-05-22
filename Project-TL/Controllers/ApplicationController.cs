@@ -249,7 +249,7 @@ namespace Project_TL.Controllers
 
         }
         [HttpPost, ActionName("addHotel")]
-        public ActionResult addHotelConfirmed(int id, AddHotelToApplicationViewModel model, string hotelId)
+        public ActionResult addHotelConfirmed(int id, AddHotelToApplicationViewModel model)
         {
             Application s = systRepo.FindById(id);
             if (s == null)
@@ -261,7 +261,7 @@ namespace Project_TL.Controllers
                     if (model.Hotels[i].Checked == true)
                     {
 
-                        Hotel h = hotelRepo.FindByCode(hotelId);
+                        Hotel h = hotelRepo.FindByCode(model.Hotels[i].HotelId);
                         HotelApplication ha = new HotelApplication();
 
                         //fill up the object HA from the model etc
@@ -279,7 +279,7 @@ namespace Project_TL.Controllers
             {
                 TempData["error"] = "There was a problem when trying to add the hotel. Try again later. If this keeps happening, please contact the IT administrator";
                 //if the hotel was added but the error came from the DB
-                s.removeHotel(hotelRepo.FindByCode(hotelId).Applications.Where(t => t.ApplicationId == id).First());
+                //s.removeHotel(hotelRepo.FindByCode(hotelId).Applications.Where(t => t.ApplicationId == id).First());
                 
                 return AddHotel(id);
 

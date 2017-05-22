@@ -3,8 +3,12 @@
 @{
     ViewBag.Title = "AddHotel";
 }
-<script src="../../Scripts/jquery-1.3.2.min.js" language="javascript" type="text/javascript"></script>
-<script src="../../Scripts/jquery-ui-1.7.1.custom.min.js" type="text/javascript"></script>
+<link href="~/Content/Hotels.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/theme.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+<link href="~/Content/Other.css" rel="stylesheet" type="text/css" />
+<script src="~/Scripts/Own Scripts/DataTable.js"></script>
+<script src="~/Scripts/Own Scripts/BasicTable.js"> </script>
 @using (Html.BeginForm("addHotel", "Application", FormMethod.Post, new { model = Model, hotelId = Model.Hotels.Select(t => t.HotelId).ToList() }))
 {
     @Html.AntiForgeryToken()
@@ -14,73 +18,81 @@
     <h2>Add hotel to Application</h2>
 
 
-    <table class="table">
-        <tr>
-            <th>
-               
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Hotels.FirstOrDefault().Name)
-            </th>
-         
-            <th>
-                @Html.DisplayNameFor(model => model.Hotels.FirstOrDefault().Cost)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Hotels.FirstOrDefault().StartDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Hotels.FirstOrDefault().EndDate)
-            </th>
-            <th>@Html.DisplayNameFor(model => model.Hotels.FirstOrDefault().MaintenanceCost)</th>
-            <th>StartDate Maintenance</th>
-            <th>EndDate Maintenance</th>
-        </tr>
+    <table class="table table-hover table-bordered table-responsive display" id="">
+        <thead>
+            <tr class="alert-info">
+                <th>
+                    Select all <input type="checkbox" id="select_all" name="select-invoke" />
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Hotels.FirstOrDefault().Name)
+                </th>
 
-        @for(int i = 0; i<Model.Hotels.Count(); i++)
-        {
-           
-            <tr>
-                
-                <td>
-                    @Html.EditorFor(item => item.Hotels[i].Checked, new {@class="form-control",required="required" })
-                </td>
-                <td>
-                    @Html.DisplayFor(item => item.Hotels[i].Name)
-                </td>
-                
-                 <td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Hotels.FirstOrDefault().Cost)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Hotels.FirstOrDefault().StartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Hotels.FirstOrDefault().EndDate)
+                </th>
+                <th>@Html.DisplayNameFor(model => model.Hotels.FirstOrDefault().MaintenanceCost)</th>
+                <th>@Html.DisplayNameFor(model => model.Hotels.FirstOrDefault().MStartDate)</th>
+                <th>@Html.DisplayNameFor(model => model.Hotels.FirstOrDefault().MEndDate)</th>
+
+                @* The amount of <th> has to be equal to the amount of <td> for that this last <th> *@
+                <th class="hidden"></th>
+            </tr>
+            </thead>
+        <tbody>
+
+            @for (int i = 0; i < Model.Hotels.Count(); i++)
+            {
+
+                <tr>
+
+                    <td>
+                        @Html.EditorFor(item => item.Hotels[i].Checked, new { @class = "form-control", required = "required" })
+                    </td>
+                    <td>
+                        @Html.DisplayFor(item => item.Hotels[i].Name)
+                    </td>
+
+                    <td>
                         <div class="col-md-10 form-group">
-                            @Html.EditorFor(item => item.Hotels[i].Cost, new { htmlAttributes = new { @class = "form-control"  } })
+                            @Html.EditorFor(item => item.Hotels[i].Cost, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(item => item.Hotels[i].Cost, "", new { @class = "text-danger" })
                         </div>
                     </td>
                     <td>
-                        @Html.EditorFor(item => item.Hotels[i].StartDate, new { HtmlAttributes = new { @class = "datefield", type = "date",value = DateTime.Today.ToShortDateString()  } })
+                        @Html.EditorFor(item => item.Hotels[i].StartDate, new { HtmlAttributes = new { @class = "datefield", type = "date", value = DateTime.Today.ToShortDateString() } })
                     </td>
                     <td>
                         @Html.EditorFor(item => item.Hotels[i].EndDate, new { HtmlAttributes = new { @class = "datefield", type = "date", value = DateTime.Today.ToShortDateString() } })
                     </td>
-                <td>
-                    <div class="col-md-10 form-group">
-                        @Html.EditorFor(item => item.Hotels[i].MaintenanceCost, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(item => item.Hotels[i].MaintenanceCost, "", new { @class = "text-danger" })
-                    </div>
-                </td>
-                <td>
-                    @Html.EditorFor(item => item.Hotels[i].MStartDate, new { HtmlAttributes = new { @class = "datefield", type = "date", value = DateTime.Today.ToShortDateString() } })
-                </td>
-                <td>
-                    @Html.EditorFor(item => item.Hotels[i].MEndDate, new { HtmlAttributes = new { @class = "datefield", type = "date", value = DateTime.Today.ToShortDateString() } })
-                </td>
-               
-                <td class="hidden">
-                    <input type="hidden" name="hotelId" value="@Model.Hotels[i].HotelId" />
-                    
-                </td>
-            </tr>
-     
-        }
+                    <td>
+                        <div class="col-md-10 form-group">
+                            @Html.EditorFor(item => item.Hotels[i].MaintenanceCost, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(item => item.Hotels[i].MaintenanceCost, "", new { @class = "text-danger" })
+                        </div>
+                    </td>
+                    <td>
+                        @Html.EditorFor(item => item.Hotels[i].MStartDate, new { HtmlAttributes = new { @class = "datefield", type = "date", value = DateTime.Today.ToShortDateString() } })
+                    </td>
+                    <td>
+                        @Html.EditorFor(item => item.Hotels[i].MEndDate, new { HtmlAttributes = new { @class = "datefield", type = "date", value = DateTime.Today.ToShortDateString() } })
+                    </td>
+
+                    <td class="hidden">
+                        @Html.HiddenFor(item => item.Hotels[i].HotelId)
+
+                    </td>
+                </tr>
+
+            }
+
+        </tbody>
 
     </table>
 
@@ -90,9 +102,9 @@
                 @Html.ActionLink("back", "Index", "Application", new { Style = "color:white" })
             </div>
             <input type="submit" value="Add" class="btn btn-success" />
-            
+
         </div>
-       
+
     </div>
 }
 

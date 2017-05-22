@@ -471,14 +471,11 @@
     <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
     <Content Include="obj\Debug\Project-TL.csprojResolveAssemblyReference.cache" />
     <Content Include="Scripts\Own Scripts\BasicTable.js" />
-    <Content Include="Scripts\Own Scripts\Button.js" />
     <Content Include="Scripts\Own Scripts\DataTable.js" />
     <Content Include="Scripts\Own Scripts\download.js" />
     <Content Include="Scripts\Own Scripts\Grouping.js" />
     <Content Include="Scripts\Own Scripts\Popup.js" />
     <Content Include="Scripts\Own Scripts\Search.js" />
-    <Content Include="Scripts\Own Scripts\Select.js" />
-    <Content Include="Scripts\Own Scripts\SelectAll.js" />
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\Search\Details.cshtml" />
     <Content Include="Views\Search\Edit.cshtml" />

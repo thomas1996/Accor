@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Project_TL.Models.DAL
 {
-    public class Initializer : DropCreateDatabaseIfModelChanges<Context>
+    public class Initializer : DropCreateDatabaseAlways<Context>
     {
         protected override void Seed(Context context)
         {
@@ -34,8 +34,8 @@ namespace Project_TL.Models.DAL
                 Owner o2 = new Owner("Their","Bommens","Their.bommes@accor.com","/");
                 Owner o3 = new Owner("Rullems", "Dennis","rullems.dennis@accor.com","/");
 
-                Maintenance m = new Maintenance(new DateTime(2017, 03, 15), new DateTime(2018, 10, 10), 5000);
-                Maintenance m2 = new Maintenance(new DateTime(2017, 8, 1), new DateTime(2019, 8, 31), 8500);
+                Maintenance m = new Maintenance(DateTime.Today, DateTime.Today, 0);
+               // Maintenance m2 = new Maintenance(new DateTime(2017, 8, 1), new DateTime(2019, 8, 31), 8500);
 
                 Application s1 = new Application(10000.00, "Boekhouding", Domain.ApplicationType.Rented);
                 Application s2 = new Application(1500.00, "Reservaties", Domain.ApplicationType.Rented);
@@ -56,28 +56,29 @@ namespace Project_TL.Models.DAL
                 Hotel h2 = new Hotel("Ibis Schiphol",a2, b2, "BE 0635.611.207 ", p2, "0649", "h0649-GM@Accor.com", "+31 20 50 25 100", o3,st2);
                 Hotel h3 = new Hotel("Ibis At",a3, b2, "BE 0635.611.207 ", p3, "0650", "HA3P2@accor.com", "+31 20 34 83 533", o2,st1);
 
-                HotelApplication ha1 = new HotelApplication("8602",1, 15000,m, DateTime.Today, new DateTime(2018, 12, 31), "Adagio Brussel", "PersoneelsProgramma");
-                HotelApplication ha2 = new HotelApplication("8602", 2, 20000,m, DateTime.Today, new DateTime(2017, 12, 31), "Adagio Brussel", "Reservatie");
+                //HotelApplication ha1 = new HotelApplication("8602",1, 15000,m, DateTime.Today, new DateTime(2018, 12, 31), "Adagio Brussel", "PersoneelsProgramma");
+                //HotelApplication ha2 = new HotelApplication("8602", 2, 20000,m, DateTime.Today, new DateTime(2017, 12, 31), "Adagio Brussel", "Reservatie");
                 HotelApplication ha3 = new HotelApplication("8602", 3, 5000,m, DateTime.Today, new DateTime(2018, 12, 31), "Adagio Brussel", "Boekhouden");
 
                 HotelApplication ha4 = new HotelApplication("0649", 1, 15000,m, DateTime.Today, new DateTime(2018, 12, 31), "Ibis Schiphol", "Personeelsprogramma");
-                HotelApplication ha5 = new HotelApplication("0649", 3, 1500,m2, DateTime.Today, new DateTime(2018, 12, 31), "Ibis Schiphol", "Boekhouden");
+                HotelApplication ha5 = new HotelApplication("0649", 3, 1500,m, DateTime.Today, new DateTime(2018, 12, 31), "Ibis Schiphol", "Boekhouden");
 
-                HotelApplication ha6 = new HotelApplication("0950", 2, 20000,m2, DateTime.Today, new DateTime(2019, 12, 31), "Ibis At", "Reservaties");
+                HotelApplication ha6 = new HotelApplication("0950", 2, 20000,m, DateTime.Today, new DateTime(2019, 12, 31), "Ibis At", "Reservaties");
 
-                h1.addApplication(ha1);
-                h1.addApplication(ha2);
+                //h1.addApplication(ha1);
+                //h1.addApplication(ha2);
                 h1.addApplication(ha3);
                 h2.addApplication(ha4);
                 h2.addApplication(ha5);
                 h3.addApplication(ha6);
 
-                s1.addHotel(ha1);
-                s1.addHotel(ha2);
-                s2.addHotel(ha1);
+                //s1.addHotel(ha1);
+                //s1.addHotel(ha2);
+                //s2.addHotel(ha1);
                 s2.addHotel(ha3);
-                s3.addHotel(ha1);
-                s3.addHotel(ha2);
+                
+                //s3.addHotel(ha1);
+                //s3.addHotel(ha2);
 
                 p1.addHotel(h1);
                 p2.addHotel(h2);

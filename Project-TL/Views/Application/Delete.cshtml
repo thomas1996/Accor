@@ -16,7 +16,7 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.TotalPrice)
+            @String.Format("€{0:N}",Model.TotalPrice)
         </dd>
 
         <dt>
@@ -32,7 +32,7 @@
         </dt>
 
         <dd>
-            @String.Format("", Model.Hotels.Count())
+            @Model.Hotels.Count()
         </dd>
 
     </dl>

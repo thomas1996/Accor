@@ -32,15 +32,27 @@ namespace Project_TL.Models.Domain
         public String Name { get; set; }
         public ContactPerson Contact { get; set; }
         public bool Checked { get; set; }
+
+        [Range(0, int.MaxValue, ErrorMessage = "Has to be positive")]
+        [Display(Name = "Application Cost")]
         public double Cost { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime StartDate { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime EndDate { get; set; }
+
+        [Range(0, int.MaxValue, ErrorMessage = "Has to be positive")]
+        [Display(Name = "maintenance Cost")]
         public double MaintenanceCost { get; set; }
 
-        [Display(Name = "StartDate Maintenance")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "StartDate")]
         public DateTime MStartDate { get; set; }
 
-        [Display(Name = "EndDate Maintenance")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Display(Name = "EndDate")]
         public DateTime MEndDate { get; set; }
 
     }

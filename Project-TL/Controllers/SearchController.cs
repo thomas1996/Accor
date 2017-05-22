@@ -116,8 +116,8 @@ namespace Project_TL.Controllers
                 SelectedStatusId = status.Where(t => t.St == h.Status.St).FirstOrDefault().ToString(),
                 Status = status.Select(t => new SelectListItem
                 {
-                    Value = t.St.ToString(),
-                    Text = t.St.ToString()
+                    Value = t.St,
+                    Text = t.St
                 })
 
             };
@@ -161,8 +161,8 @@ namespace Project_TL.Controllers
            
             ehvm.Status = statusRepo.FindAll().Select(t => new SelectListItem
             {
-                Value = t.ToString(),
-                Text = t.ToString()
+                Value = t.St,
+                Text = t.St
             });
             return View(ehvm);
         }
@@ -209,8 +209,8 @@ namespace Project_TL.Controllers
                     SelectedStatusId = status.FirstOrDefault().ToString(),
                     Status = status.Select(t => new SelectListItem
                     {
-                        Value = t.ToString(),
-                        Text = t.ToString()
+                        Value = t.St,
+                        Text = t.St
                     })
 
                 };
@@ -265,8 +265,8 @@ namespace Project_TL.Controllers
             
             ehvm.Status = statusRepo.FindAll().Select(t => new SelectListItem
             {
-                Value = t.ToString(),
-                Text = t.ToString()
+                Value = t.St,
+                Text = t.St
             });
 
             return View("Create", ehvm);
