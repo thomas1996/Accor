@@ -562,6 +562,7 @@
     <Content Include="Views\Settings\EditOwner.cshtml" />
     <Content Include="Views\Settings\DeleteStatus.cshtml" />
     <Content Include="Views\Settings\CreateStatus.cshtml" />
+    <Content Include="Views\Settings\EditStatus.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

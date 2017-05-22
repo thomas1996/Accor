@@ -17,6 +17,7 @@ namespace Project_TL.Models.Domain
         }
        
         public string St { get; set; }
-       
+        public int Id { get; set; }
+
     }
 }

@@ -568,6 +568,37 @@ namespace Project_TL.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        public ActionResult EditStatus(string status)
+        {
+            Status s = statusRepo.FindStatus(status);
+            if(s == null)
+            {
+                TempData["error"] = "Something whent wrong. Please contact the IT department.";
+                return RedirectToAction("Index");
+            }
+            StatusViewModel svm = new StatusViewModel(s);
+            return View(svm);
+        }
+
+        [HttpPost]
+        public ActionResult EditStatus(string status, StatusViewModel model)
+        {
+            try
+            {
+                Status s = statusRepo.FindStatus(status);
+                
+
+                s.St = model.Name;
+                statusRepo.SaveChanges();
+                TempData["message"] = "The status was successfully edited.";
+                return RedirectToAction("Index");
+            }catch(Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                    return EditStatus(status);
+            }
+        }
         public ActionResult DeleteStatus(string status)
         {
             Status s = statusRepo.FindStatus(status);

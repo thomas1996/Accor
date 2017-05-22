@@ -11,7 +11,9 @@ namespace Project_TL.Models.DAL.Mapping
     {
         public StatusMapper()
         {
-            HasKey(t => t.St);
+            HasKey(t => t.Id);
+
+            Property(t => t.Id).HasDatabaseGeneratedOption(System.ComponentModel.DataAnnotations.Schema.DatabaseGeneratedOption.Identity);
         }
     }
 }
